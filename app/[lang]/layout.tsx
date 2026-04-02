@@ -14,6 +14,22 @@ export const metadata: Metadata = {
   description: "Agencia digital que construye soluciones modernas y efectivas para impulsar el crecimiento de tu negocio.",
   keywords: ["Desarrollo Web", "Software", "WhatsApp Automatización", "Nexura", "Agencia Digital"],
   authors: [{ name: "Nexura" }],
+  openGraph: {
+    title: "Nexura | Soluciones Digitales",
+    description: "Agencia digital que construye soluciones modernas y efectivas.",
+    url: "https://nexura-cr.vercel.app",
+    siteName: "Nexura",
+    images: [
+      {
+        url: "https://nexura-cr.vercel.app/logo-definitivo.png",
+        width: 800,
+        height: 600,
+        alt: "Nexura Logo",
+      },
+    ],
+    locale: "es",
+    type: "website",
+  },
 };
 
 export default async function RootLayout({
