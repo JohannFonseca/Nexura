@@ -1,0 +1,49 @@
+{
+  "navbar": {
+    "home": "Home",
+    "projects": "Projects",
+    "services": "Services",
+    "about": "About",
+    "cta": "Let's Talk"
+  },
+  "hero": {
+    "title": "We build digital solutions that",
+    "titleHighlight": "generate results",
+    "subtitle": "We drive your business growth through custom technology, automation, and conversion-focused design.",
+    "ctaPrimary": "Contact via WhatsApp",
+    "ctaSecondary": "View Projects",
+    "whatsappMessage": "Hello, I want a digital solution for my business"
+  },
+  "projects": {
+    "title": "Recent Work",
+    "subtitle": "Explore some of our latest projects where we have implemented effective digital solutions."
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "We offer a complete ecosystem to ensure your digital presence generates tangible results.",
+    "s1Title": "Web Development",
+    "s1Desc": "Modern, fast, and SEO-optimized websites designed to convert visitors into customers for your business.",
+    "s2Title": "WhatsApp Automation",
+    "s2Desc": "Automated response systems and intelligent agents integrated with WhatsApp so you never miss a sale.",
+    "s3Title": "Custom Systems",
+    "s3Desc": "Custom software to manage inventory, sales, appointments, and all key operational processes.",
+    "s4Title": "Mobile Applications",
+    "s4Desc": "Take your business to the next level with an iOS and Android app featuring a professional and seamless experience."
+  },
+  "about": {
+    "label": "About Us",
+    "titleStart": "More than a digital agency, we are your",
+    "titleHighlight": "technology partner",
+    "p1": "At Nexura, we understand that local businesses need modern tools to compete and stand out. We were born with the mission to democratize technology and bring effective solutions to growing businesses.",
+    "p2": "We don’t just build websites or systems; we design digital strategies. We help automate processes, improve communication with your clients, and build a solid professional presence. If you want to scale, we provide the technology."
+  },
+  "contact": {
+    "title": "Start growing your business today",
+    "subtitle": "Speak directly with our team. Tell us what you need and we will design the perfect digital solution.",
+    "cta": "Message us on WhatsApp",
+    "whatsappMessage": "Hello, I want a digital solution for my business"
+  },
+  "footer": {
+    "rights": "Nexura Digital Agency. All rights reserved."
+  }
+}

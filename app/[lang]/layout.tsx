@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -14,13 +14,16 @@ export const metadata: Metadata = {
   authors: [{ name: "Nexura" }],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ lang: string }>;
 }>) {
+  const { lang } = await params;
   return (
-    <html lang="es" className={`${inter.variable} antialiased scroll-smooth`}>
+    <html lang={lang} className={`${inter.variable} antialiased scroll-smooth`}>
       <body className="min-h-screen flex flex-col font-sans bg-background text-foreground">
         {children}
       </body>

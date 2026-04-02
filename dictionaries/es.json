@@ -1,0 +1,49 @@
+{
+  "navbar": {
+    "home": "Inicio",
+    "projects": "Proyectos",
+    "services": "Servicios",
+    "about": "Nosotros",
+    "cta": "Hablemos"
+  },
+  "hero": {
+    "title": "We build digital solutions that",
+    "titleHighlight": "generate results",
+    "subtitle": "Impulsamos el crecimiento de tu negocio mediante tecnología a la medida, automatización y diseño enfocado en la conversión de clientes.",
+    "ctaPrimary": "Contact via WhatsApp",
+    "ctaSecondary": "Ver Proyectos",
+    "whatsappMessage": "Hola, quiero una solución digital para mi negocio"
+  },
+  "projects": {
+    "title": "Trabajos Recientes",
+    "subtitle": "Explora algunos de los proyectos más recientes donde hemos implementado soluciones digitales efectivas."
+  },
+  "services": {
+    "title": "Nuestros Servicios",
+    "subtitle": "Ofrecemos un ecosistema completo para asegurar que tu presencia digital genere resultados tangibles.",
+    "s1Title": "Desarrollo Web",
+    "s1Desc": "Páginas web modernas, rápidas y optimizadas para SEO. Diseñadas para convertir visitantes en clientes de tu negocio.",
+    "s2Title": "Automatización con WhatsApp",
+    "s2Desc": "Sistemas de respuesta automática y agentes inteligentes integrados con WhatsApp para que nunca pierdas una venta.",
+    "s3Title": "Sistemas a la Medida",
+    "s3Desc": "Software personalizado para gestionar inventarios, ventas, citas y todos los procesos clave operacionales.",
+    "s4Title": "Aplicaciones Móviles",
+    "s4Desc": "Lleva tu negocio al siguiente nivel con una app para iOS y Android con una experiencia fluida y profesional."
+  },
+  "about": {
+    "label": "Sobre Nosotros",
+    "titleStart": "Más que una agencia digital, somos tu",
+    "titleHighlight": "socio tecnológico",
+    "p1": "En Nexura entendemos que las empresas locales necesitan herramientas modernas para competir y destacar. Nacimos con la misión de democratizar la tecnología y llevar soluciones efectivas a negocios en crecimiento.",
+    "p2": "No solo creamos páginas web o sistemas; diseñamos estrategias digitales. Ayudamos a automatizar procesos, mejorar la comunicación con tus clientes y construir una presencia profesional sólida. Si quieres escalar, nosotros ponemos la tecnología."
+  },
+  "contact": {
+    "title": "Empieza a crecer tu negocio hoy",
+    "subtitle": "Habla directamente con nuestro equipo. Cuéntanos qué necesitas y diseñaremos la solución digital perfecta.",
+    "cta": "Escríbenos por WhatsApp",
+    "whatsappMessage": "Hola, quiero una solución digital para mi negocio"
+  },
+  "footer": {
+    "rights": "Nexura Digital Agency. Todos los derechos reservados."
+  }
+}

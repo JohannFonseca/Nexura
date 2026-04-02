@@ -1,26 +1,26 @@
 import { Code2, MessageSquare, Database, Smartphone } from "lucide-react";
 
-export default function ServicesSection() {
+export default function ServicesSection({ dict }: { dict: any }) {
   const services = [
     {
       icon: <Code2 className="w-8 h-8" />,
-      title: "Desarrollo Web",
-      description: "Páginas web modernas, rápidas y optimizadas para SEO. Diseñadas para convertir visitantes en clientes de tu negocio."
+      title: dict.services.s1Title,
+      description: dict.services.s1Desc
     },
     {
       icon: <MessageSquare className="w-8 h-8" />,
-      title: "Automatización con WhatsApp",
-      description: "Sistemas de respuesta automática y agentes inteligentes integrados con WhatsApp para que nunca pierdas una venta."
+      title: dict.services.s2Title,
+      description: dict.services.s2Desc
     },
     {
       icon: <Database className="w-8 h-8" />,
-      title: "Sistemas a la Medida",
-      description: "Software personalizado para gestionar inventarios, ventas, citas y todos los procesos clave operacionales."
+      title: dict.services.s3Title,
+      description: dict.services.s3Desc
     },
     {
       icon: <Smartphone className="w-8 h-8" />,
-      title: "Aplicaciones Móviles",
-      description: "Lleva tu negocio al siguiente nivel con una app para iOS y Android con una experiencia fluida y profesional."
+      title: dict.services.s4Title,
+      description: dict.services.s4Desc
     }
   ];
 
@@ -28,9 +28,9 @@ export default function ServicesSection() {
     <section id="servicios" className="py-24 bg-white">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Nuestros Servicios</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">{dict.services.title}</h2>
           <p className="text-lg text-slate-600">
-            Ofrecemos un ecosistema completo para asegurar que tu presencia digital genere resultados tangibles.
+            {dict.services.subtitle}
           </p>
         </div>
         

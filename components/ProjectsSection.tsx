@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 
-export default function ProjectsSection() {
+export default function ProjectsSection({ dict }: { dict: any }) {
   const projects = [
     {
       id: 1,
@@ -17,9 +17,9 @@ export default function ProjectsSection() {
     <section id="proyectos" className="py-24 bg-slate-50">
       <div className="container mx-auto px-4">
         <div className="max-w-2xl mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Trabajos Recientes</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">{dict.projects.title}</h2>
           <p className="text-lg text-slate-600">
-            Explora algunos de los proyectos más recientes donde hemos implementado soluciones digitales efectivas.
+            {dict.projects.subtitle}
           </p>
         </div>
         
