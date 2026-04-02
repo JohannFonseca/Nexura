@@ -10,27 +10,6 @@ export default function ProjectsSection() {
       tags: ["Website", "Juego Interactivo"],
       image: "/pura-vida-quiz.png",
       url: "https://pura-vida-quiz.vercel.app/",
-    },
-    {
-      id: 2,
-      title: "E-Commerce App",
-      tags: ["Mobile", "E-commerce"],
-      image: "https://images.unsplash.com/photo-1512428559087-560fa5ceab42?q=80&w=800&auto=format&fit=crop",
-      url: "#",
-    },
-    {
-      id: 3,
-      title: "Real Estate Platform",
-      tags: ["Website", "Software"],
-      image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=800&auto=format&fit=crop",
-      url: "#",
-    },
-    {
-      id: 4,
-      title: "Logistics System",
-      tags: ["Software", "Automation"],
-      image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=800&auto=format&fit=crop",
-      url: "#",
     }
   ];
 
@@ -53,7 +32,7 @@ export default function ProjectsSection() {
                     src={project.image} 
                     alt={project.title} 
                     fill 
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
                   />
                   {/* Overlay on hover */}
                   <div className="absolute inset-0 bg-brand-900/0 transition-colors duration-500 group-hover:bg-brand-900/10" />
