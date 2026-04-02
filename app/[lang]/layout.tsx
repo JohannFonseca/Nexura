@@ -9,6 +9,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://nexura-cr.vercel.app"),
   title: "Nexura | Soluciones Digitales",
   description: "Agencia digital que construye soluciones modernas y efectivas para impulsar el crecimiento de tu negocio.",
   keywords: ["Desarrollo Web", "Software", "WhatsApp Automatización", "Nexura", "Agencia Digital"],
