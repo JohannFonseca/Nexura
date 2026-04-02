@@ -18,16 +18,16 @@ export default function Navbar({ dict }: { dict: any }) {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-md">
+    <header className="sticky top-0 z-50 w-full border-b bg-white/90 backdrop-blur-md">
       <div className="container mx-auto px-4 h-20 flex items-center justify-between">
-        <Link href={`/${currentLang.toLowerCase()}`} className="flex items-center gap-2">
-          {/* We use the logo-alt.png we renamed */}
-          <div className="relative h-12 w-40">
+        <Link href={`/${currentLang.toLowerCase()}`} className="flex items-center gap-2 outline-none">
+          {/* New Logo Container */}
+          <div className="relative h-14 w-44">
             <Image 
-              src="/logo-alt.png" 
+              src="/logo-new.jpg" 
               alt="Nexura Logo" 
               fill
-              className="object-contain object-left"
+              className="object-cover object-center mix-blend-multiply"
               priority
             />
           </div>
