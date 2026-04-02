@@ -24,7 +24,7 @@ export default function Navbar({ dict }: { dict: any }) {
           {/* New Logo Container */}
           <div className="relative h-14 w-44">
             <Image 
-              src="/logo-new.jpg" 
+              src="/logo-definitivo.png" 
               alt="Nexura Logo" 
               fill
               className="object-cover object-center mix-blend-multiply"
