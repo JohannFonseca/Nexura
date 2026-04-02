@@ -6,10 +6,10 @@ export default function ProjectsSection() {
   const projects = [
     {
       id: 1,
-      title: "FinTech Dashboard",
-      tags: ["Software", "Website"],
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop",
-      url: "#",
+      title: "Pura Vida Quiz",
+      tags: ["Website", "Juego Interactivo"],
+      image: "/pura-vida-quiz.png",
+      url: "https://pura-vida-quiz.vercel.app/",
     },
     {
       id: 2,

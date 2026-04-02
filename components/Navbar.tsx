@@ -7,10 +7,10 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-md">
       <div className="container mx-auto px-4 h-20 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
-          {/* We use the logo.png we renamed */}
+          {/* We use the logo-alt.png we renamed */}
           <div className="relative h-12 w-40">
             <Image 
-              src="/logo.png" 
+              src="/logo-alt.png" 
               alt="Nexura Logo" 
               fill
               className="object-contain object-left"
