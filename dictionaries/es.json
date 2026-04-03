@@ -16,7 +16,19 @@
   },
   "projects": {
     "title": "Trabajos Recientes",
-    "subtitle": "Explora algunos de los proyectos más recientes donde hemos implementado soluciones digitales efectivas."
+    "subtitle": "Explora algunos de los proyectos más recientes donde hemos implementado soluciones digitales efectivas.",
+    "items": [
+      {
+        "id": 1,
+        "title": "Pura Vida Quiz",
+        "tags": ["Sitio Web", "Juego Interactivo"]
+      },
+      {
+        "id": 2,
+        "title": "Nexura CRM Lite",
+        "tags": ["SaaS", "Sistema a la Medida", "WhatsApp Integration"]
+      }
+    ]
   },
   "services": {
     "title": "Nuestros Servicios",
