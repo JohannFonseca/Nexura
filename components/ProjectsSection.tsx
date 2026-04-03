@@ -11,7 +11,7 @@ export default function ProjectsSection({ dict }: { dict: any }) {
     },
     {
       id: 2,
-      image: "/nexuracrm_lite.png",
+      image: "/Nexura_CRM_Lite.png",
       url: "https://nexuracrm-lite.vercel.app/",
     }
   ];
