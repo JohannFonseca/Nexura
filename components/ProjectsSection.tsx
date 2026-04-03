@@ -40,6 +40,8 @@ export default function ProjectsSection({ dict }: { dict: any }) {
                     src={project.image} 
                     alt={project.title} 
                     fill 
+                    quality={100}
+                    unoptimized={true}
                     className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
                   />
                   {/* Overlay on hover */}
