@@ -41,8 +41,8 @@ export default async function RootLayout({
 }>) {
   const { lang } = await params;
   return (
-    <html lang={lang} className={`${inter.variable} antialiased scroll-smooth`}>
-      <body className="min-h-screen flex flex-col font-sans bg-background text-foreground">
+    <html lang={lang} className={`${inter.variable} antialiased scroll-smooth`} suppressHydrationWarning>
+      <body className="min-h-screen flex flex-col font-sans bg-background text-foreground" suppressHydrationWarning>
         {children}
         <Analytics />
       </body>
