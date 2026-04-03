@@ -8,13 +8,11 @@ export default function ProjectsSection({ dict }: { dict: any }) {
       id: 1,
       image: "/pura-vida-quiz.png",
       url: "https://pura-vida-quiz.vercel.app/",
-      contain: true,
     },
     {
       id: 2,
-      image: "/nexura-crm-lite.png",
-      url: "https://nexuracrm-lite.vercel.app/",
-      contain: true,
+      image: "/nexuracrm_lite.png",
+      url: "https://nexura-crm-lite.vercel.app/",
     }
   ];
 
@@ -36,13 +34,13 @@ export default function ProjectsSection({ dict }: { dict: any }) {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {projects.map((project: any) => (
             <Link href={project.url} key={project.id} className="group block outline-none">
-              <div className="relative rounded-3xl overflow-hidden bg-white shadow-sm border border-slate-100 transition-all duration-500 hover:shadow-xl hover:-translate-y-2">
-                <div className="aspect-[4/3] relative overflow-hidden bg-white">
+              <div className="relative rounded-3xl overflow-hidden bg-slate-100 shadow-sm border border-slate-100 transition-all duration-500 hover:shadow-xl hover:-translate-y-2">
+                <div className="aspect-[4/3] relative overflow-hidden">
                   <Image 
                     src={project.image} 
                     alt={project.title} 
                     fill 
-                    className={`${project.contain ? "object-contain" : "object-cover"} object-top transition-transform duration-700 group-hover:scale-105`}
+                    className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
                   />
                   {/* Overlay on hover */}
                   <div className="absolute inset-0 bg-brand-900/0 transition-colors duration-500 group-hover:bg-brand-900/10" />
@@ -69,6 +67,8 @@ export default function ProjectsSection({ dict }: { dict: any }) {
         </div>
       </div>
     </section>
+
+
 
   );
 }
