@@ -13,6 +13,11 @@ export default function ProjectsSection({ dict }: { dict: any }) {
       id: 2,
       image: "/Nexura_CRM_Lite.png",
       url: "https://nexuracrm-lite.vercel.app/",
+    },
+    {
+      id: 3,
+      image: "/libreria-crayola.png",
+      url: "https://libreria-crayola-cr.vercel.app/",
     }
   ];
 

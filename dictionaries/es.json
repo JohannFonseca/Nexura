@@ -27,6 +27,11 @@
         "id": 2,
         "title": "Nexura CRM Lite",
         "tags": ["SaaS", "Sistema a la Medida", "WhatsApp Integration"]
+      },
+      {
+        "id": 3,
+        "title": "Librería Crayola",
+        "tags": ["E-commerce", "Tienda Online"]
       }
     ]
   },
