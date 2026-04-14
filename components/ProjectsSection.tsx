@@ -16,7 +16,7 @@ export default function ProjectsSection({ dict }: { dict: any }) {
     },
     {
       id: 3,
-      image: "/libreria-crayola.png",
+      image: "/LibreriaCrayola.png",
       url: "https://libreria-crayola-cr.vercel.app/",
     }
   ];
