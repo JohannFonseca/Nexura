@@ -64,7 +64,7 @@ export default function ContactSection({ dict }: { dict: any }) {
   };
 
   return (
-    <section ref={sectionRef} id="contacto" className="py-32 relative overflow-hidden">
+    <section ref={sectionRef} id="contacto" className="py-16 md:py-32 relative overflow-hidden">
       <div className="glow-blue absolute left-1/2 -translate-x-1/2 bottom-0 w-[700px] h-[400px] opacity-50" />
 
       <div className="container mx-auto px-6 relative z-10">
@@ -113,12 +113,12 @@ export default function ContactSection({ dict }: { dict: any }) {
 
             <h2
               ref={titleRef}
-              className="text-5xl md:text-7xl font-black text-white leading-[0.95] tracking-tight mb-8"
+              className="text-4xl md:text-7xl font-black text-white leading-[0.95] tracking-tight mb-6 md:mb-8"
             >
               {dict.contact.title}
             </h2>
 
-            <p className="text-white/50 text-lg md:text-xl mb-12 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-white/50 text-base md:text-xl mb-10 md:mb-12 max-w-2xl mx-auto leading-relaxed">
               {dict.contact.subtitle}
             </p>
 

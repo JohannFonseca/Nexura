@@ -35,6 +35,15 @@ export default function ProjectsSection({ dict }: { dict: any }) {
       const mm = gsap.matchMedia();
 
       mm.add("(min-width: 768px)", () => {
+        // Restore desktop paddingRight for the track
+        track.style.paddingRight = "10vw";
+        // Set clamp width on each project card
+        track.querySelectorAll<HTMLElement>(".proj-card").forEach((card) => {
+          card.style.width = "clamp(320px, 62vw, 780px)";
+          card.style.paddingRight = "3vw";
+          card.style.height = "100vh";
+        });
+
         const totalScroll = track.scrollWidth - window.innerWidth;
 
         const hsAnim = gsap.to(track, {
@@ -73,6 +82,13 @@ export default function ProjectsSection({ dict }: { dict: any }) {
 
         return () => {
           ScrollTrigger.getAll().forEach((t) => t.kill());
+          // Reset styles
+          track.style.paddingRight = "";
+          track.querySelectorAll<HTMLElement>(".proj-card").forEach((card) => {
+            card.style.width = "";
+            card.style.paddingRight = "";
+            card.style.height = "";
+          });
         };
       });
 
@@ -104,22 +120,21 @@ export default function ProjectsSection({ dict }: { dict: any }) {
       {/* ── Track (horizontal scroll container) ────────── */}
       <div
         ref={trackRef}
-        className="flex items-stretch will-change-transform"
-        // Extra padding ensures cards end cleanly
-        style={{ paddingRight: "10vw" }}
+        className="flex flex-col md:flex-row md:items-stretch will-change-transform"
+        style={{ paddingRight: "0" }}
       >
         {/* ── Title panel ─────────────────────────────── */}
-        <div className="flex-shrink-0 w-[50vw] md:w-[38vw] flex flex-col justify-center pl-[6vw] pr-10 h-screen">
+        <div className="flex-shrink-0 w-screen md:w-[50vw] lg:w-[38vw] flex flex-col justify-center pl-[6vw] pr-8 md:pr-10 h-auto md:h-screen py-20 md:py-0">
           <p className="eyebrow mb-5">Trabajos recientes</p>
-          <h2 className="text-4xl md:text-5xl xl:text-6xl font-black text-white leading-tight mb-6">
+          <h2 className="text-3xl md:text-5xl xl:text-6xl font-black text-white leading-tight mb-6">
             {dict.projects.title}
           </h2>
           <p className="text-white/40 text-sm leading-relaxed max-w-[260px]">
             {dict.projects.subtitle}
           </p>
 
-          {/* Scroll cue */}
-          <div className="mt-14 flex items-center gap-3 text-white/25 text-xs uppercase tracking-widest">
+          {/* Scroll cue — only on desktop */}
+          <div className="hidden md:flex mt-14 items-center gap-3 text-white/25 text-xs uppercase tracking-widest">
             <span>Desliza</span>
             <svg width="40" height="12" viewBox="0 0 40 12" fill="none">
               <path d="M0 6h36M30 1l6 5-6 5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -131,9 +146,11 @@ export default function ProjectsSection({ dict }: { dict: any }) {
         {projects.map((p: any, i: number) => (
           <div
             key={p.id}
-            className="proj-card flex-shrink-0 h-screen flex items-center"
-            style={{ width: "clamp(320px, 62vw, 780px)", paddingRight: "3vw" }}
+            className="proj-card flex-shrink-0 md:h-screen flex items-center w-full md:w-auto"
+            style={{ width: undefined }}
           >
+            {/* On desktop, restore the clamp width via inline style only for md+ */}
+            <div className="w-full" style={{ maxWidth: "780px" }}>
             <Link
               href={p.url}
               target="_blank"
@@ -167,14 +184,14 @@ export default function ProjectsSection({ dict }: { dict: any }) {
               </div>
 
               {/* Footer */}
-              <div className="p-8" style={{ background: "rgba(11,22,64,0.95)" }}>
+              <div className="p-5 md:p-8" style={{ background: "rgba(11,22,64,0.95)" }}>
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <div className="flex items-center gap-3 mb-3">
                       <span className="badge">{p.type}</span>
                       <span className="eyebrow text-white/30">{p.year}</span>
                     </div>
-                    <h3 className="text-2xl font-black text-white mb-3 group-hover:text-gradient transition-all duration-300">
+                    <h3 className="text-xl md:text-2xl font-black text-white mb-3 group-hover:text-gradient transition-all duration-300">
                       {p.title}
                     </h3>
                     <div className="flex gap-2 flex-wrap">
@@ -189,6 +206,7 @@ export default function ProjectsSection({ dict }: { dict: any }) {
                 </div>
               </div>
             </Link>
+            </div>
           </div>
         ))}
       </div>

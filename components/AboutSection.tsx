@@ -88,14 +88,14 @@ export default function AboutSection({ dict }: { dict: any }) {
   }, []);
 
   return (
-    <section ref={sectionRef} id="nosotros" className="py-32 relative overflow-hidden">
+    <section ref={sectionRef} id="nosotros" className="py-16 md:py-32 relative overflow-hidden">
       <div className="glow-blue absolute left-0 bottom-0 w-[500px] h-[400px] opacity-35" />
       <div className="rule mb-0" />
 
       <div className="container mx-auto px-6 pt-20 relative z-10">
         <p className="eyebrow mb-16">{dict.about.label}</p>
 
-        <div className="grid lg:grid-cols-2 gap-16 xl:gap-24 items-start">
+        <div className="grid lg:grid-cols-2 gap-10 md:gap-16 xl:gap-24 items-start">
 
           {/* LEFT */}
           <div ref={leftRef}>

@@ -163,19 +163,19 @@ export default function HeroSection({ dict }: { dict: any }) {
         {/* Heading with SSR-safe word split */}
         <h1
           ref={headingRef}
-          className="text-6xl md:text-7xl xl:text-[88px] font-black leading-[1.0] tracking-tight mb-8"
+          className="text-[clamp(2.6rem,10vw,5.5rem)] md:text-7xl xl:text-[88px] font-black leading-[1.0] tracking-tight mb-6 md:mb-8"
         >
           <WordReveal text={dict.hero.title} className="text-white" />
           <WordReveal text={dict.hero.titleHighlight} className="text-gradient" />
         </h1>
 
         {/* Subtitle */}
-        <p ref={subtitleRef} className="text-base md:text-lg text-white/45 leading-relaxed max-w-xl mb-10">
+        <p ref={subtitleRef} className="text-sm md:text-lg text-white/45 leading-relaxed max-w-xl mb-8 md:mb-10">
           {dict.hero.subtitle}
         </p>
 
         {/* CTAs */}
-        <div ref={ctaRef} className="flex flex-wrap gap-4 items-center mb-16">
+        <div ref={ctaRef} className="flex flex-wrap gap-3 md:gap-4 items-center mb-10 md:mb-16">
           <Link
             href={`https://wa.me/50685803868?text=${encodeURIComponent(dict.hero.whatsappMessage)}`}
             target="_blank" rel="noopener noreferrer"
@@ -194,7 +194,7 @@ export default function HeroSection({ dict }: { dict: any }) {
         </div>
 
         {/* Stats */}
-        <div ref={statsRef} className="flex gap-12 border-t border-white/[0.06] pt-8 mb-16">
+        <div ref={statsRef} className="grid grid-cols-3 gap-4 md:flex md:gap-12 border-t border-white/[0.06] pt-6 md:pt-8 mb-10 md:mb-16">
           {[
             { n: 3,   suffix: "+", label: "Proyectos" },
             { n: 100, suffix: "%", label: "Satisfacción" },
@@ -214,7 +214,7 @@ export default function HeroSection({ dict }: { dict: any }) {
         </div>
 
         {/* Project thumbnails row */}
-        <div ref={projectsRowRef} className="grid grid-cols-3 gap-4">
+        <div ref={projectsRowRef} className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
           {projects.map((p, i) => (
             <Link
               key={i}
@@ -250,7 +250,7 @@ export default function HeroSection({ dict }: { dict: any }) {
 
       <div className="absolute bottom-0 left-0 right-0 rule" />
       <div ref={scrollHintRef}
-        className="absolute bottom-8 right-8 flex items-center gap-2 text-white/20 text-[11px] tracking-widest uppercase"
+        className="hidden md:flex absolute bottom-8 right-8 items-center gap-2 text-white/20 text-[11px] tracking-widest uppercase"
       >
         <span>Scroll</span>
         <ArrowDown className="w-3.5 h-3.5 bounce-slow" />

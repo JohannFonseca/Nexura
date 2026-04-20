@@ -36,6 +36,11 @@ export default function ServicesSection({ dict }: { dict: any }) {
           pinSpacing: false,
         });
 
+        // Set initial clipPath so items appear hidden until revealed
+        itemsRef.current.forEach((item) => {
+          item.style.clipPath = "inset(0% 100% 0% 0%)";
+        });
+
         // ── Each item: clip-path reveal from left ─────
         itemsRef.current.forEach((item, i) => {
           gsap.fromTo(item,
@@ -61,6 +66,11 @@ export default function ServicesSection({ dict }: { dict: any }) {
             onEnterBack: () => highlightStep(i),
           });
         });
+
+        return () => {
+          // Remove inline style on cleanup (mobile won't have it)
+          itemsRef.current.forEach((item) => { item.style.clipPath = ""; });
+        };
       });
 
       mm.add("(max-width: 1023px)", () => {
@@ -126,7 +136,7 @@ export default function ServicesSection({ dict }: { dict: any }) {
           {/* ── LEFT – Pinned heading ─────────────────── */}
           <div
             ref={leftRef}
-            className="py-24 lg:py-32 lg:h-screen flex flex-col justify-center"
+            className="py-12 lg:py-32 lg:h-screen flex flex-col justify-center"
           >
             <p className="eyebrow mb-6">{dict.services.title}</p>
             <h2 className="text-4xl xl:text-5xl font-black text-white leading-tight mb-8">
@@ -165,9 +175,8 @@ export default function ServicesSection({ dict }: { dict: any }) {
               return (
                 <div
                   key={i}
-                  ref={(el) => { if (el) itemsRef.current[i] = el; }}
-                  className="py-16 lg:py-20 border-b border-white/[0.06]"
-                  style={{ clipPath: "inset(0% 100% 0% 0%)" }}
+              ref={(el) => { if (el) itemsRef.current[i] = el; }}
+                  className="py-12 lg:py-20 border-b border-white/[0.06]"
                 >
                   <div className="flex gap-7">
                     {/* Icon */}
