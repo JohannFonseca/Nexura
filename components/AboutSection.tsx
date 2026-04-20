@@ -42,8 +42,9 @@ export default function AboutSection({ dict }: { dict: any }) {
       );
 
       // ── Image parallax (inner img moves up slower) ────
-      gsap.to(imageRef.current?.querySelector(".about-inner-img"),
-        {
+      const innerImg = imageRef.current?.querySelector(".about-inner-img") ?? null;
+      if (innerImg) {
+        gsap.to(innerImg, {
           y: -60,
           ease: "none",
           scrollTrigger: {
@@ -52,8 +53,8 @@ export default function AboutSection({ dict }: { dict: any }) {
             end: "bottom top",
             scrub: 1.5,
           },
-        }
-      );
+        });
+      }
 
       // ── Quote sliding in ─────────────────────────────
       gsap.fromTo(quoteRef.current,
