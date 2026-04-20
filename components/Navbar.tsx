@@ -1,84 +1,160 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Menu, Globe, X } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
+import gsap from "gsap";
 
 export default function Navbar({ dict }: { dict: any }) {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled]     = useState(false);
+  const navRef = useRef<HTMLElement>(null);
   const pathname = usePathname();
-  const router = useRouter();
-  const currentLang = pathname.startsWith("/en") ? "EN" : "ES";
+  const router   = useRouter();
+  const lang = pathname.startsWith("/en") ? "EN" : "ES";
 
-  const toggleLanguage = () => {
-    const newLang = currentLang === "ES" ? "en" : "es";
-    // Replace the first path segment
-    const newPathname = pathname.replace(/^\/(en|es)/, `/${newLang}`);
-    router.push(newPathname || `/${newLang}`);
+  const toggleLang = () => {
+    const nl = lang === "ES" ? "en" : "es";
+    router.push(pathname.replace(/^\/(en|es)/, `/${nl}`) || `/${nl}`);
   };
 
+  useEffect(() => {
+    gsap.fromTo(navRef.current,
+      { y: -70, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1, ease: "expo.out", delay: 0.1 }
+    );
+    const onScroll = () => setScrolled(window.scrollY > 30);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const links = [
+    { href: "#inicio",    label: dict.navbar.home },
+    { href: "#proyectos", label: dict.navbar.projects },
+    { href: "#servicios", label: dict.navbar.services },
+    { href: "#nosotros",  label: dict.navbar.about },
+  ];
+
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-white/90 backdrop-blur-md">
-      <div className="container mx-auto px-4 h-20 flex items-center justify-between">
-        <Link href={`/${currentLang.toLowerCase()}`} className="flex items-center gap-2 outline-none">
-          {/* New Logo Container */}
-          <div className="relative h-14 w-44">
-            <Image 
-              src="/logo-definitivo.png" 
-              alt="Nexura Logo" 
-              fill
-              className="object-cover object-center mix-blend-multiply"
-              priority
-            />
+    <header
+      ref={navRef}
+      className="sticky top-0 z-50 w-full transition-all duration-500"
+      style={{
+        /* White frosted glass — shows logo in its natural colors */
+        background: scrolled
+          ? "rgba(255, 255, 255, 0.97)"
+          : "rgba(255, 255, 255, 0.92)",
+        backdropFilter: "blur(20px) saturate(160%)",
+        WebkitBackdropFilter: "blur(20px) saturate(160%)",
+        borderBottom: "1px solid rgba(0, 0, 0, 0.06)",
+        boxShadow: "0 1px 30px rgba(0,0,0,0.08)",
+      }}
+    >
+      <div className="container mx-auto px-6 h-20 flex items-center justify-between">
+
+        {/* ── Logo ─────────────────────────────────────── */}
+        <Link href={`/${lang.toLowerCase()}`} className="flex items-center gap-2.5 outline-none group">
+          {/* Icon mark */}
+          <div
+            className="flex items-center justify-center rounded-lg shrink-0"
+            style={{
+              width: 36,
+              height: 36,
+              background: "linear-gradient(135deg, #2d5be3 0%, #4f8cff 100%)",
+              boxShadow: "0 4px 14px rgba(45,91,227,0.4)",
+            }}
+          >
+            {/* N lettermark */}
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path
+                d="M4 15V5l8 10V5"
+                stroke="white"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
           </div>
+
+          {/* Wordmark */}
+          <span
+            className="font-black tracking-tight text-[22px] leading-none select-none"
+            style={{ color: "#0b1640", letterSpacing: "-0.03em" }}
+          >
+            nexura
+          </span>
         </Link>
-        <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
-          <Link href="#inicio" className="hover:text-brand-800 transition-colors">{dict.navbar.home}</Link>
-          <Link href="#proyectos" className="hover:text-brand-800 transition-colors">{dict.navbar.projects}</Link>
-          <Link href="#servicios" className="hover:text-brand-800 transition-colors">{dict.navbar.services}</Link>
-          <Link href="#nosotros" className="hover:text-brand-800 transition-colors">{dict.navbar.about}</Link>
-          
-          <div className="flex items-center gap-4 ml-2">
-            <button 
-              onClick={toggleLanguage}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-slate-200 hover:bg-slate-50 transition-colors text-slate-700 font-semibold text-xs"
+
+        {/* ── Desktop nav ──────────────────────────────── */}
+        <nav className="hidden md:flex items-center gap-7 text-[13px] font-medium text-slate-500">
+          {links.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              className="relative hover:text-slate-900 transition-colors duration-300 group"
             >
-              <Globe className="w-4 h-4 text-brand-800" />
-              {currentLang}
+              {l.label}
+              <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-nx-mid group-hover:w-full transition-all duration-300" />
+            </Link>
+          ))}
+
+          <div className="flex items-center gap-3 ml-2">
+            <button
+              onClick={toggleLang}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-slate-200 hover:border-nx-mid/40 text-slate-500 hover:text-slate-800 transition-all duration-300 text-xs font-semibold"
+            >
+              <Globe className="w-3.5 h-3.5 text-nx-mid" />
+              {lang}
             </button>
-            <Link href="#contacto" className="bg-brand-800 text-white px-5 py-2.5 rounded-full hover:bg-brand-700 transition shadow-sm">
+            <Link
+              href="#contacto"
+              className="bg-nx-mid hover:bg-nx-bright text-white px-5 py-2.5 rounded-full text-[13px] font-semibold transition-all duration-300"
+              style={{ boxShadow: "0 0 20px rgba(45,91,227,0.35)" }}
+            >
               {dict.navbar.cta}
             </Link>
           </div>
         </nav>
-        <button 
-          className="md:hidden p-2 text-slate-600"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label="Toggle menu"
+
+        {/* ── Mobile toggle ────────────────────────────── */}
+        <button
+          className="md:hidden p-2 text-slate-500 hover:text-slate-800"
+          onClick={() => setMobileOpen(!mobileOpen)}
+          aria-label="menu"
         >
-          {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
       </div>
 
-      {/* Mobile Menu Dropdown */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-20 left-0 w-full bg-white/95 backdrop-blur-md border-b shadow-lg pb-6 px-4 flex flex-col gap-4">
-          <Link href="#inicio" onClick={() => setIsMobileMenuOpen(false)} className="text-slate-600 font-medium py-2 hover:text-brand-800 transition-colors">{dict.navbar.home}</Link>
-          <Link href="#proyectos" onClick={() => setIsMobileMenuOpen(false)} className="text-slate-600 font-medium py-2 hover:text-brand-800 transition-colors">{dict.navbar.projects}</Link>
-          <Link href="#servicios" onClick={() => setIsMobileMenuOpen(false)} className="text-slate-600 font-medium py-2 hover:text-brand-800 transition-colors">{dict.navbar.services}</Link>
-          <Link href="#nosotros" onClick={() => setIsMobileMenuOpen(false)} className="text-slate-600 font-medium py-2 hover:text-brand-800 transition-colors">{dict.navbar.about}</Link>
-          
-          <div className="flex flex-col gap-4 mt-2 pt-4 border-t border-slate-100">
-            <button 
-              onClick={() => { toggleLanguage(); setIsMobileMenuOpen(false); }}
-              className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-full border border-slate-200 hover:bg-slate-50 transition-colors text-slate-700 font-semibold text-sm w-full"
+      {/* ── Mobile drawer ────────────────────────────────── */}
+      {mobileOpen && (
+        <div className="md:hidden absolute top-20 left-0 w-full border-b border-slate-100 px-6 pb-6 flex flex-col gap-3 bg-white/97"
+          style={{ backdropFilter: "blur(20px)" }}
+        >
+          {links.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              onClick={() => setMobileOpen(false)}
+              className="text-slate-600 font-medium py-2.5 border-b border-slate-50 hover:text-slate-900 transition-colors"
             >
-              <Globe className="w-4 h-4 text-brand-800" />
-              {currentLang === "ES" ? "English" : "Español"}
+              {l.label}
+            </Link>
+          ))}
+          <div className="flex flex-col gap-3 mt-2">
+            <button
+              onClick={() => { toggleLang(); setMobileOpen(false); }}
+              className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-full border border-slate-200 text-slate-600 text-sm font-semibold"
+            >
+              <Globe className="w-3.5 h-3.5 text-nx-mid" />{lang === "ES" ? "English" : "Español"}
             </button>
-            <Link href="#contacto" onClick={() => setIsMobileMenuOpen(false)} className="bg-brand-800 text-white px-5 py-3 rounded-full hover:bg-brand-700 transition shadow-sm text-center font-medium w-full text-sm">
+            <Link
+              href="#contacto"
+              onClick={() => setMobileOpen(false)}
+              className="bg-nx-mid text-white px-5 py-3 rounded-full text-center font-semibold text-sm"
+            >
               {dict.navbar.cta}
             </Link>
           </div>

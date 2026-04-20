@@ -1,22 +1,44 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Bebas_Neue, Playfair_Display } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import "../globals.css";
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+  display: "swap",
+});
+
+const bebasNeue = Bebas_Neue({
+  variable: "--font-display",
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const playfairDisplay = Playfair_Display({
+  variable: "--font-editorial",
+  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://nexura-cr.vercel.app"),
   title: "Nexura | Soluciones Digitales",
-  description: "Agencia digital que construye soluciones modernas y efectivas para impulsar el crecimiento de tu negocio.",
-  keywords: ["Desarrollo Web", "Software", "WhatsApp Automatización", "Nexura", "Agencia Digital"],
+  description:
+    "Agencia digital que construye soluciones modernas y efectivas para impulsar el crecimiento de tu negocio.",
+  keywords: [
+    "Desarrollo Web",
+    "Software",
+    "WhatsApp Automatización",
+    "Nexura",
+    "Agencia Digital",
+  ],
   authors: [{ name: "Nexura" }],
   openGraph: {
     title: "Nexura | Soluciones Digitales",
-    description: "Agencia digital que construye soluciones modernas y efectivas.",
+    description:
+      "Agencia digital que construye soluciones modernas y efectivas.",
     url: "https://nexura-cr.vercel.app",
     siteName: "Nexura",
     images: [
@@ -41,8 +63,15 @@ export default async function RootLayout({
 }>) {
   const { lang } = await params;
   return (
-    <html lang={lang} className={`${inter.variable} antialiased scroll-smooth`} suppressHydrationWarning>
-      <body className="min-h-screen flex flex-col font-sans bg-background text-foreground" suppressHydrationWarning>
+    <html
+      lang={lang}
+      className={`${inter.variable} ${bebasNeue.variable} ${playfairDisplay.variable} antialiased scroll-smooth`}
+      suppressHydrationWarning
+    >
+      <body
+        className="min-h-screen flex flex-col font-sans bg-background text-foreground"
+        suppressHydrationWarning
+      >
         {children}
         <Analytics />
       </body>

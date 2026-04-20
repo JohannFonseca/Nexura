@@ -1,28 +1,171 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-50: #eff6ff;
-  --color-brand-100: #dbeafe;
-  --color-brand-500: #3b82f6;
-  --color-brand-600: #2563eb;
-  --color-brand-700: #1d4ed8;
-  --color-brand-800: #1e3a8a; /* Deep blue primary */
-  --color-brand-900: #1e3a8a;
-  
+  --color-nx-ink:    #05091a;
+  --color-nx-navy:   #0b1640;
+  --color-nx-blue:   #1e3a8a;
+  --color-nx-mid:    #2d5be3;
+  --color-nx-bright: #4f8cff;
+  --color-nx-pale:   #e8efff;
+  --color-nx-white:  #ffffff;
+
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  
-  --color-background: #ffffff;
-  --color-foreground: #0f172a;
+
+  --color-background: #05091a;
+  --color-foreground: #ffffff;
 }
 
+/* Variables fuera de @theme (next/font las inyecta en :root automáticamente) */
+:root {
+  --font-display:   var(--font-bebas-neue, 'Impact', sans-serif);
+  --font-serif:     var(--font-playfair-display, 'Georgia', serif);
+}
+
+/* ─── Base ──────────────────────────────────────────── */
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
+  html { scroll-behavior: smooth; }
+
   body {
-    background-color: var(--color-background);
-    color: var(--color-foreground);
+    background: var(--color-nx-ink);
+    color: var(--color-nx-white);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
   }
+
+  ::selection { background: #2d5be340; color: #fff; }
+
+  ::-webkit-scrollbar       { width: 3px; }
+  ::-webkit-scrollbar-track { background: var(--color-nx-ink); }
+  ::-webkit-scrollbar-thumb { background: var(--color-nx-mid); border-radius: 2px; }
+
+  /* Hide native cursor on desktop – replaced by SmoothCursor */
+  @media (min-width: 768px) {
+    *, *::before, *::after { cursor: none !important; }
+  }
+}
+
+/* ─── Noise film grain ───────────────────────────────── */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ─── Typography helpers ─────────────────────────────── */
+.font-display  { font-family: var(--font-display); }
+.font-serif    { font-family: var(--font-serif); }
+
+.display-xl {
+  font-family: var(--font-display);
+  font-size: clamp(72px, 12vw, 180px);
+  line-height: 0.9;
+  letter-spacing: -0.01em;
+}
+
+/* ─── Gradient text ──────────────────────────────────── */
+.text-gradient {
+  background: linear-gradient(135deg, #ffffff 0%, #a3bdff 55%, #4f8cff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-blue {
+  background: linear-gradient(135deg, #4f8cff 0%, #2d5be3 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Used by word-split hero */
+.word-outer { display: inline-block; overflow: hidden; vertical-align: bottom; }
+.word-inner { display: inline-block; }
+
+/* ─── Glass card ─────────────────────────────────────── */
+.glass {
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid rgba(255,255,255,0.07);
+}
+
+/* ─── Fine line rule (magazine divider) ──────────────── */
+.rule {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(79,140,255,0.3), transparent);
+}
+
+/* ─── Section label ──────────────────────────────────── */
+.eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-nx-bright);
+}
+
+/* ─── Badge ──────────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: rgba(79,140,255,0.1);
+  border: 1px solid rgba(79,140,255,0.25);
+  color: #7fb3ff;
+}
+
+/* ─── Dot bullet ─────────────────────────────────────── */
+.dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--color-nx-bright);
+  display: inline-block;
+}
+
+/* ─── Perspective ────────────────────────────────────── */
+.perspective { perspective: 1200px; }
+.preserve-3d { transform-style: preserve-3d; }
+
+/* ─── Scroll hint ────────────────────────────────────── */
+@keyframes bounce-slow {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(7px); }
+}
+.bounce-slow { animation: bounce-slow 2.2s ease-in-out infinite; }
+
+/* ─── Marquee ────────────────────────────────────────── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-track { animation: marquee 24s linear infinite; }
+
+/* ─── Image tilt card ────────────────────────────────── */
+.img-card {
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ─── Glow blob ──────────────────────────────────────── */
+.glow-blue {
+  background: radial-gradient(ellipse, rgba(45,91,227,0.5) 0%, transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+}
+.glow-bright {
+  background: radial-gradient(ellipse, rgba(79,140,255,0.35) 0%, transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
 }
