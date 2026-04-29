@@ -14,9 +14,10 @@ if (typeof window !== "undefined") {
 // Word component: renders each word with its own overflow-hidden wrapper
 // This is SSR-safe since it renders the same HTML on server and client
 function WordReveal({ text, className = "" }: { text: string; className?: string }) {
+  const words = text.split(" ");
   return (
-    <span className={`inline-block ${className}`} style={{ perspective: "800px" }}>
-      {text.split(" ").map((word, i) => (
+    <span className={className} style={{ perspective: "800px" }}>
+      {words.map((word, i) => (
         <span
           key={i}
           className="word-outer"
@@ -24,8 +25,6 @@ function WordReveal({ text, className = "" }: { text: string; className?: string
             display: "inline-block",
             overflow: "hidden",
             verticalAlign: "bottom",
-            // Extra room below each word-wrapper so descenders (g, q, y, p)
-            // are not clipped by overflow:hidden
             paddingBottom: "0.18em",
             marginBottom: "-0.18em",
           }}
@@ -36,7 +35,7 @@ function WordReveal({ text, className = "" }: { text: string; className?: string
           >
             {word}
           </span>
-          {i < text.split(" ").length - 1 && <>&nbsp;</>}
+          {i < words.length - 1 && <>&nbsp;</>}
         </span>
       ))}
     </span>
