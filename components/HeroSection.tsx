@@ -16,7 +16,7 @@ if (typeof window !== "undefined") {
 function WordReveal({ text, className = "" }: { text: string; className?: string }) {
   const words = text.split(" ");
   return (
-    <span className={className} style={{ perspective: "800px" }}>
+    <span style={{ perspective: "800px" }}>
       {words.map((word, i) => (
         <span
           key={i}
@@ -30,7 +30,7 @@ function WordReveal({ text, className = "" }: { text: string; className?: string
           }}
         >
           <span
-            className="word-inner"
+            className={`word-inner ${className}`}
             style={{ display: "inline-block" }}
           >
             {word}
