@@ -15,7 +15,7 @@ if (typeof window !== "undefined") {
 // This is SSR-safe since it renders the same HTML on server and client
 function WordReveal({ text, className = "" }: { text: string; className?: string }) {
   return (
-    <span className={`block ${className}`} style={{ perspective: "800px" }}>
+    <span className={`inline-block ${className}`} style={{ perspective: "800px" }}>
       {text.split(" ").map((word, i) => (
         <span
           key={i}
@@ -125,9 +125,10 @@ export default function HeroSection({ dict }: { dict: any }) {
   }, []);
 
   const projects = [
-    { img: "/Nexura_CRM_Lite.png", label: "CRM Lite",   url: "https://nexuracrm-lite.vercel.app/",      eager: true },
-    { img: "/pura-vida-quiz.png",   label: "Quiz",       url: "https://pura-vida-quiz.vercel.app/",      eager: false },
-    { img: "/LibreriaCrayola.png",  label: "E-commerce", url: "https://libreria-crayola-cr.vercel.app/", eager: false },
+    { img: "/CRM_Lite.jpg",         label: "CRM Lite",      url: "https://nexuracrm-lite.vercel.app/",      eager: true },
+    { img: "/PuraVida_Quiz.jpg",    label: "Quiz",          url: "https://pura-vida-quiz.vercel.app/",      eager: false },
+    { img: "/Libreria_Crayola.jpg", label: "E-commerce",    url: "https://libreria-crayola-cr.vercel.app/", eager: false },
+    { img: "/CF_Trainer.jpg",       label: "CF Trainer",    url: "https://cf-personal-trainer.vercel.app/", eager: false },
   ];
 
   return (
@@ -165,7 +166,7 @@ export default function HeroSection({ dict }: { dict: any }) {
           ref={headingRef}
           className="text-[clamp(2.6rem,10vw,5.5rem)] md:text-7xl xl:text-[88px] font-black leading-[1.0] tracking-tight mb-6 md:mb-8"
         >
-          <WordReveal text={dict.hero.title} className="text-white" />
+          <WordReveal text={dict.hero.title} className="text-white" />{" "}
           <WordReveal text={dict.hero.titleHighlight} className="text-gradient" />
         </h1>
 
@@ -214,7 +215,7 @@ export default function HeroSection({ dict }: { dict: any }) {
         </div>
 
         {/* Project thumbnails row */}
-        <div ref={projectsRowRef} className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
+        <div ref={projectsRowRef} className="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4">
           {projects.map((p, i) => (
             <Link
               key={i}

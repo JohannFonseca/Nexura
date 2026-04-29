@@ -32,6 +32,11 @@
         "id": 3,
         "title": "Librería Crayola",
         "tags": ["E-commerce", "Online Store"]
+      },
+      {
+        "id": 4,
+        "title": "CF Trainer",
+        "tags": ["Landing Page", "Fitness", "Personal Branding"]
       }
     ]
   },
