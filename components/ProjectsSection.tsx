@@ -16,10 +16,10 @@ export default function ProjectsSection({ dict }: { dict: any }) {
   const trackRef    = useRef<HTMLDivElement>(null);
 
   const projectsMetadata = [
-    { id: 1, image: "/PuraVida_Quiz.jpg",    url: "https://pura-vida-quiz.vercel.app/",      year: "2024", type: "Interactive" },
-    { id: 2, image: "/CRM_Lite.jpg",         url: "https://nexuracrm-lite.vercel.app/",      year: "2025", type: "SaaS / CRM" },
-    { id: 3, image: "/Libreria_Crayola.jpg", url: "https://libreria-crayola-cr.vercel.app/", year: "2025", type: "E-commerce" },
-    { id: 4, image: "/CF_Trainer.jpg",       url: "https://cf-personal-trainer.vercel.app/", year: "2025", type: "Personal Branding" },
+    { id: 1, image: "/PuraVida_Quiz.jpg",    url: "https://pura-vida-quiz.vercel.app/",      year: "2026", type: "Interactive" },
+    { id: 2, image: "/CRM_Lite.jpg",         url: "https://nexuracrm-lite.vercel.app/",      year: "2026", type: "SaaS / CRM" },
+    { id: 3, image: "/Libreria_Crayola.jpg", url: "https://libreriacrayolacr.com", year: "2026", type: "E-commerce" },
+    { id: 4, image: "/CF_Trainer.jpg",       url: "https://cf-personal-trainer.vercel.app/", year: "2026", type: "Personal Branding" },
   ];
 
   const projects = dict.projects.items.map((item: any) => ({
