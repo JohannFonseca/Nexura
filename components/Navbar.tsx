@@ -56,19 +56,19 @@ export default function Navbar({ dict }: { dict: any }) {
 
         {/* ── Logo ─────────────────────────────────────── */}
         <Link href={`/${lang.toLowerCase()}`} className="flex items-center gap-2.5 outline-none group">
-          <div className="relative w-32 h-10">
+          <div className="relative w-40 h-12">
             <Image 
-              src="/LogoNexura_Blanco.png" 
+              src="/logo-definitivo.png" 
               alt="Nexura Logo" 
               fill
               priority
-              className="object-contain brightness-0 contrast-100" // Make it dark if it's white, or remove filters if it has color
+              className="object-contain" 
             />
           </div>
         </Link>
 
         {/* ── Desktop nav ──────────────────────────────── */}
-        <nav className="hidden lg:flex items-center gap-7 text-[13px] font-medium text-slate-500">
+        <nav className="hidden xl:flex items-center gap-7 text-[13px] font-medium text-slate-500">
           {links.map((l) => (
             <Link
               key={l.href}

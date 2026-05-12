@@ -2,7 +2,7 @@
 
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
-import { Check } from "lucide-react";
+import { Check, Sparkles } from "lucide-react";
 
 export default function PricingSection({ dict }: { dict: any }) {
   const sectionRef = useRef<HTMLElement>(null);
@@ -10,15 +10,15 @@ export default function PricingSection({ dict }: { dict: any }) {
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.from(".pricing-card", {
-        scale: 0.95,
+        scale: 0.9,
         opacity: 0,
-        y: 40,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: "power3.out",
+        y: 60,
+        duration: 1,
+        stagger: 0.2,
+        ease: "expo.out",
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 75%",
+          start: "top 70%",
         },
       });
     }, sectionRef);
@@ -31,14 +31,15 @@ export default function PricingSection({ dict }: { dict: any }) {
     <section 
       ref={sectionRef}
       id="planes" 
-      className="py-24 bg-white"
+      className="py-32 bg-[#05091a] relative"
     >
-      <div className="container mx-auto px-6">
-        <div className="text-center max-w-3xl mx-auto mb-20">
-          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tight">
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="text-center max-w-3xl mx-auto mb-24">
+          <p className="eyebrow mb-4">Inversión Inteligente</p>
+          <h2 className="text-4xl md:text-6xl font-black text-white mb-8 tracking-tight">
             {dict.pricing.title}
           </h2>
-          <p className="text-xl text-slate-600">
+          <p className="text-xl text-white/45 leading-relaxed">
             {dict.pricing.subtitle}
           </p>
         </div>
@@ -47,31 +48,37 @@ export default function PricingSection({ dict }: { dict: any }) {
           {plans.map((plan: any, idx: number) => (
             <div 
               key={idx}
-              className={`pricing-card flex flex-col p-8 md:p-10 rounded-[2.5rem] border transition-all duration-500 ${
+              className={`pricing-card flex flex-col p-10 rounded-[2.5rem] border transition-all duration-700 relative overflow-hidden ${
                 idx === 1 
-                  ? "bg-slate-900 text-white border-slate-900 shadow-2xl shadow-slate-900/20 scale-105 z-10" 
-                  : "bg-white text-slate-900 border-slate-100 hover:border-nx-mid/30"
+                  ? "bg-nx-mid/10 border-nx-mid/50 shadow-2xl shadow-nx-mid/10 scale-105 z-10" 
+                  : "bg-white/[0.02] border-white/[0.06] hover:border-nx-mid/30"
               }`}
             >
-              <div className="mb-8">
-                <h3 className={`text-xl font-bold mb-4 ${idx === 1 ? "text-nx-bright" : "text-nx-mid"}`}>
+              {idx === 1 && (
+                <div className="absolute top-0 right-0 p-4">
+                  <Sparkles className="w-6 h-6 text-nx-bright opacity-50" />
+                </div>
+              )}
+              
+              <div className="mb-10">
+                <h3 className={`text-xl font-bold mb-6 ${idx === 1 ? "text-nx-bright" : "text-white"}`}>
                   {plan.name}
                 </h3>
-                <div className="flex items-baseline gap-1">
-                  <span className="text-4xl md:text-5xl font-black">{plan.price}</span>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-4xl md:text-5xl font-black text-white">{plan.price}</span>
                 </div>
-                <p className={`text-sm mt-2 font-medium ${idx === 1 ? "text-slate-400" : "text-slate-500"}`}>
+                <p className="text-sm mt-3 font-medium text-white/40">
                   {plan.period}
                 </p>
               </div>
 
-              <div className="flex-1 space-y-4 mb-10">
+              <div className="flex-1 space-y-5 mb-12">
                 {plan.features.map((feature: string, fIdx: number) => (
-                  <div key={fIdx} className="flex items-start gap-3">
+                  <div key={fIdx} className="flex items-start gap-4">
                     <div className={`mt-1 shrink-0 ${idx === 1 ? "text-nx-bright" : "text-nx-mid"}`}>
                       <Check className="w-5 h-5" />
                     </div>
-                    <span className={`text-sm leading-relaxed ${idx === 1 ? "text-slate-300" : "text-slate-600"}`}>
+                    <span className="text-[15px] leading-relaxed text-white/60">
                       {feature}
                     </span>
                   </div>
@@ -82,18 +89,20 @@ export default function PricingSection({ dict }: { dict: any }) {
                 href={`https://wa.me/50672018610?text=Hola,%20me%20interesa%20el%20${encodeURIComponent(plan.name)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`w-full py-4 rounded-2xl font-bold text-center transition-all duration-300 ${
+                className={`w-full py-5 rounded-2xl font-bold text-center transition-all duration-300 ${
                   idx === 1
-                    ? "bg-nx-mid hover:bg-nx-bright text-white"
-                    : "bg-slate-50 hover:bg-slate-100 text-slate-900"
+                    ? "bg-nx-mid hover:bg-nx-bright text-white shadow-lg shadow-nx-mid/20"
+                    : "bg-white/5 hover:bg-white/10 text-white"
                 }`}
               >
-                Empezar Ahora
+                Empezar Proyecto
               </a>
             </div>
           ))}
         </div>
       </div>
+      
+      <div className="rule mt-32" />
     </section>
   );
 }
