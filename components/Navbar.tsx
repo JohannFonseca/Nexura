@@ -56,7 +56,7 @@ export default function Navbar({ dict }: { dict: any }) {
 
         {/* ── Logo ─────────────────────────────────────── */}
         <Link href={`/${lang.toLowerCase()}`} className="flex items-center gap-2.5 outline-none group">
-          <div className="relative w-48 h-14 md:w-56 md:h-16">
+          <div className="relative w-36 h-10 md:w-56 md:h-16">
             <Image 
               src="/LogoNexura.png" 
               alt="Nexura Logo" 

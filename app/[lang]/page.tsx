@@ -9,6 +9,8 @@ import AboutSection from "@/components/AboutSection";
 import ContactSection from "@/components/ContactSection";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import SmoothCursor from "@/components/SmoothCursor";
+import Image from "next/image";
+import Link from "next/link";
 import { getDictionary, Locale } from "@/lib/dictionaries";
 
 export default async function Home({ params }: { params: Promise<{ lang: string }> }) {

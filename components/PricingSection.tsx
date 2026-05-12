@@ -51,7 +51,7 @@ export default function PricingSection({ dict }: { dict: any }) {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {plans.map((plan: any, idx: number) => (
             <div 
               key={idx}
