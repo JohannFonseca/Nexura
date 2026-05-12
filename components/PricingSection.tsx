@@ -93,7 +93,7 @@ export default function PricingSection({ dict }: { dict: any }) {
               </div>
 
               <a 
-                href={`https://wa.me/50672018610?text=Hola,%20me%20interesa%20el%20${encodeURIComponent(plan.name)}`}
+                href={`https://wa.me/50685803868?text=Hola%20Nexura!%20Me%20gustaría%20obtener%20más%20información%20sobre%20el%20*${encodeURIComponent(plan.name)}*.%20¿Cómo%20podemos%20empezar?`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`w-full py-5 rounded-2xl font-bold text-center transition-all duration-300 ${

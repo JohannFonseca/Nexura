@@ -39,8 +39,8 @@ export default function BookingSection({ dict }: { dict: any }) {
     // Prepare WhatsApp message
     const message = `Hola Nexura! Me gustaría agendar una cita.%0A%0A*Detalles:*%0A- Nombre: ${formState.name}%0A- Email: ${formState.email}%0A- Fecha: ${formState.date}%0A- Hora: ${formState.time}%0A%0A_Enviado desde el sitio web._`;
     
-    // WhatsApp Number (using the one from other links)
-    const whatsappUrl = `https://wa.me/50672018610?text=${message}`;
+    // WhatsApp Number
+    const whatsappUrl = `https://wa.me/50685803868?text=${message}`;
     
     window.open(whatsappUrl, "_blank");
     setIsSubmitted(true);

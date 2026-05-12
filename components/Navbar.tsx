@@ -42,7 +42,7 @@ export default function Navbar({ dict }: { dict: any }) {
   return (
     <header
       ref={navRef}
-      className="sticky top-0 z-50 w-full transition-all duration-500"
+      className="fixed top-0 left-0 right-0 z-[100] w-full transition-all duration-500"
       style={{
         background: scrolled
           ? "rgba(255, 255, 255, 0.98)"
@@ -52,11 +52,11 @@ export default function Navbar({ dict }: { dict: any }) {
         borderBottom: "1px solid rgba(0, 0, 0, 0.05)",
       }}
     >
-      <div className="container mx-auto px-6 h-20 flex items-center justify-between">
+      <div className="container mx-auto px-6 h-20 md:h-28 flex items-center justify-between">
 
         {/* ── Logo ─────────────────────────────────────── */}
         <Link href={`/${lang.toLowerCase()}`} className="flex items-center gap-2.5 outline-none group">
-          <div className="relative w-36 h-10 md:w-56 md:h-16">
+          <div className="relative w-44 h-12 md:w-64 md:h-20 lg:w-72 lg:h-24">
             <Image 
               src="/LogoNexura.png" 
               alt="Nexura Logo" 
