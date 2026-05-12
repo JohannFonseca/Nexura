@@ -42,17 +42,17 @@ export default function Navbar({ dict }: { dict: any }) {
   return (
     <header
       ref={navRef}
-      className="fixed top-0 left-0 right-0 z-[100] w-full transition-all duration-500"
+      className="fixed top-0 left-0 w-full z-[100] transition-all duration-500"
       style={{
         background: scrolled
-          ? "rgba(5, 9, 26, 0.85)"
-          : "rgba(5, 9, 26, 0.6)",
-        backdropFilter: "blur(20px) saturate(180%)",
-        WebkitBackdropFilter: "blur(20px) saturate(180%)",
-        borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+          ? "rgba(255, 255, 255, 0.98)"
+          : "rgba(255, 255, 255, 0.95)",
+        backdropFilter: "blur(20px) saturate(160%)",
+        WebkitBackdropFilter: "blur(20px) saturate(160%)",
+        borderBottom: "1px solid rgba(0, 0, 0, 0.05)",
       }}
     >
-      <div className="container mx-auto px-6 h-16 md:h-20 flex items-center justify-between">
+      <div className="w-full px-6 h-16 md:h-20 flex items-center justify-between">
 
         {/* ── Logo ─────────────────────────────────────── */}
         <Link href={`/${lang.toLowerCase()}`} className="flex items-center gap-2.5 outline-none group">
@@ -68,7 +68,7 @@ export default function Navbar({ dict }: { dict: any }) {
         </Link>
 
         {/* ── Desktop nav ──────────────────────────────── */}
-        <nav className="hidden xl:flex items-center gap-7 text-[13px] font-medium text-white/50">
+        <nav className="hidden xl:flex items-center gap-7 text-[13px] font-medium text-slate-500">
           {links.map((l) => (
             <Link
               key={l.href}
@@ -83,7 +83,7 @@ export default function Navbar({ dict }: { dict: any }) {
           <div className="flex items-center gap-3 ml-2">
             <button
               onClick={toggleLang}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/10 hover:border-nx-mid/40 text-white/50 hover:text-white transition-all duration-300 text-xs font-semibold bg-white/5"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-slate-200 hover:border-nx-mid/40 text-slate-500 hover:text-slate-800 transition-all duration-300 text-xs font-semibold bg-white"
             >
               <Globe className="w-3.5 h-3.5 text-nx-mid" />
               {lang}
@@ -101,7 +101,7 @@ export default function Navbar({ dict }: { dict: any }) {
         {/* ── Mobile toggle ────────────────────────────── */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="xl:hidden p-2 text-white/70 hover:text-white transition-colors"
+          className="xl:hidden p-2 text-slate-500 hover:text-slate-900 transition-colors"
         >
           {mobileOpen ? <X /> : <Menu />}
         </button>
@@ -109,14 +109,14 @@ export default function Navbar({ dict }: { dict: any }) {
 
       {/* ── Mobile drawer ────────────────────────────────── */}
       {mobileOpen && (
-        <div className="xl:hidden absolute top-16 left-0 w-full border-b border-white/10 px-6 pb-6 flex flex-col gap-3 bg-[#05091a]/95 backdrop-blur-2xl"
+        <div className="xl:hidden absolute top-16 left-0 w-full border-b border-slate-100 px-6 pb-6 flex flex-col gap-3 bg-white/98 backdrop-blur-2xl"
         >
           {links.map((l) => (
             <Link
               key={l.href}
               href={l.href}
               onClick={() => setMobileOpen(false)}
-              className="py-3 text-lg font-bold text-white border-b border-white/5 last:border-0"
+              className="py-3 text-lg font-bold text-slate-800 border-b border-slate-50 last:border-0"
             >
               {l.label}
             </Link>
@@ -124,9 +124,9 @@ export default function Navbar({ dict }: { dict: any }) {
           <div className="flex flex-col gap-4 mt-4">
             <button
               onClick={toggleLang}
-              className="flex items-center gap-2 text-white/60 font-medium"
+              className="flex items-center gap-2 text-slate-500 font-medium"
             >
-              <Globe className="w-4 h-4" />
+              <Globe className="w-4 h-4 text-nx-mid" />
               {lang === "ES" ? "Switch to English" : "Cambiar a Español"}
             </button>
             <Link
