@@ -9,7 +9,7 @@
   "hero": {
     "title": "We build digital solutions that",
     "titleHighlight": "generate results",
-    "subtitle": "We drive your business growth through custom technology, automation, and conversion-focused design.",
+    "subtitle": "We drive your business growth with advanced Artificial Intelligence, strategic automation, and high-impact design focused on conversion.",
     "ctaPrimary": "Contact via WhatsApp",
     "ctaSecondary": "View Projects",
     "whatsappMessage": "Hello, I want a digital solution for my business"
@@ -64,6 +64,85 @@
     "subtitle": "Speak directly with our team. Tell us what you need and we will design the perfect digital solution.",
     "cta": "Message us on WhatsApp",
     "whatsappMessage": "Hello, I want a digital solution for my business"
+  },
+  "benefits": {
+    "title": "Why Choose Nexura",
+    "subtitle": "We combine advanced artificial intelligence with human development to give you an unfair advantage over your competition.",
+    "items": [
+      {
+        "title": "AI Optimization",
+        "desc": "Our sites are not just beautiful, they are AI-optimized to maximize retention and conversion."
+      },
+      {
+        "title": "24/7 Support",
+        "desc": "Robust systems that work for you while you sleep, with constant stability monitoring."
+      },
+      {
+        "title": "Fast Delivery",
+        "desc": "Agile workflow that allows us to deliver professional solutions in record time."
+      },
+      {
+        "title": "Total Scalability",
+        "desc": "From a landing page to a complex CRM, your system grows at your business's pace."
+      }
+    ]
+  },
+  "pricing": {
+    "title": "Tailored Plans",
+    "subtitle": "Scalable solutions designed for every stage of your business.",
+    "plan1": {
+      "name": "Basic Web Plan",
+      "price": "₡90,000",
+      "period": "one-time payment",
+      "features": [
+        "Professional and modern design",
+        "Up to 5 sections",
+        "Direct WhatsApp button",
+        "Integrated Google Maps",
+        "Google-optimized",
+        "Delivery in 5 business days"
+      ]
+    },
+    "plan2": {
+      "name": "Professional Web Plan",
+      "price": "₡250,000",
+      "period": "one-time payment",
+      "features": [
+        "Everything in the Basic Plan",
+        "Full product catalog",
+        "Own administration panel",
+        "Database included",
+        "Secure admin login",
+        "Image upload and management",
+        "Domain included for 1 year",
+        "Delivery in 7–10 business days"
+      ]
+    },
+    "plan3": {
+      "name": "CRM / Custom System Plan",
+      "price": "Quotation required",
+      "period": "Maintenance: ₡35,000/month",
+      "features": [
+        "Client management and database",
+        "Real-time reports and statistics",
+        "Multi-user with roles and permissions",
+        "Internal process automation",
+        "WhatsApp integration",
+        "Mobile app (optional)",
+        "Support and updates included",
+        "24/7 operation guarantee"
+      ]
+    }
+  },
+  "booking": {
+    "title": "Schedule a Free Consultation",
+    "subtitle": "Discover how AI and technology can transform your business in a 15-minute session.",
+    "nameLabel": "Full Name",
+    "emailLabel": "Email Address",
+    "dateLabel": "Date",
+    "timeLabel": "Time",
+    "cta": "Confirm Appointment",
+    "success": "Appointment scheduled! We will contact you soon."
   },
   "footer": {
     "rights": "Nexura Digital Agency. All rights reserved."

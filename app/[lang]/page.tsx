@@ -1,7 +1,10 @@
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
+import BenefitsSection from "@/components/BenefitsSection";
 import ProjectsSection from "@/components/ProjectsSection";
 import ServicesSection from "@/components/ServicesSection";
+import PricingSection from "@/components/PricingSection";
+import BookingSection from "@/components/BookingSection";
 import AboutSection from "@/components/AboutSection";
 import ContactSection from "@/components/ContactSection";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
@@ -20,8 +23,11 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
       <Navbar dict={dict} />
       <main className="flex-1">
         <HeroSection dict={dict} />
+        <BenefitsSection dict={dict} />
         <ProjectsSection dict={dict} />
         <ServicesSection dict={dict} />
+        <PricingSection dict={dict} />
+        <BookingSection dict={dict} />
         <AboutSection dict={dict} />
         <ContactSection dict={dict} />
       </main>

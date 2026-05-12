@@ -32,8 +32,10 @@ export default function Navbar({ dict }: { dict: any }) {
 
   const links = [
     { href: "#inicio",    label: dict.navbar.home },
+    { href: "#beneficios", label: "Beneficios" },
     { href: "#proyectos", label: dict.navbar.projects },
     { href: "#servicios", label: dict.navbar.services },
+    { href: "#planes",    label: "Planes" },
     { href: "#nosotros",  label: dict.navbar.about },
   ];
 
@@ -42,58 +44,36 @@ export default function Navbar({ dict }: { dict: any }) {
       ref={navRef}
       className="sticky top-0 z-50 w-full transition-all duration-500"
       style={{
-        /* White frosted glass — shows logo in its natural colors */
         background: scrolled
-          ? "rgba(255, 255, 255, 0.97)"
+          ? "rgba(255, 255, 255, 0.98)"
           : "rgba(255, 255, 255, 0.92)",
         backdropFilter: "blur(20px) saturate(160%)",
         WebkitBackdropFilter: "blur(20px) saturate(160%)",
-        borderBottom: "1px solid rgba(0, 0, 0, 0.06)",
-        boxShadow: "0 1px 30px rgba(0,0,0,0.08)",
+        borderBottom: "1px solid rgba(0, 0, 0, 0.05)",
       }}
     >
       <div className="container mx-auto px-6 h-20 flex items-center justify-between">
 
         {/* ── Logo ─────────────────────────────────────── */}
         <Link href={`/${lang.toLowerCase()}`} className="flex items-center gap-2.5 outline-none group">
-          {/* Icon mark */}
-          <div
-            className="flex items-center justify-center rounded-lg shrink-0"
-            style={{
-              width: 36,
-              height: 36,
-              background: "linear-gradient(135deg, #2d5be3 0%, #4f8cff 100%)",
-              boxShadow: "0 4px 14px rgba(45,91,227,0.4)",
-            }}
-          >
-            {/* N lettermark */}
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <path
-                d="M4 15V5l8 10V5"
-                stroke="white"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+          <div className="relative w-32 h-10">
+            <Image 
+              src="/LogoNexura_Blanco.png" 
+              alt="Nexura Logo" 
+              fill
+              priority
+              className="object-contain brightness-0 contrast-100" // Make it dark if it's white, or remove filters if it has color
+            />
           </div>
-
-          {/* Wordmark */}
-          <span
-            className="font-black tracking-tight text-[22px] leading-none select-none"
-            style={{ color: "#0b1640", letterSpacing: "-0.03em" }}
-          >
-            nexura
-          </span>
         </Link>
 
         {/* ── Desktop nav ──────────────────────────────── */}
-        <nav className="hidden md:flex items-center gap-7 text-[13px] font-medium text-slate-500">
+        <nav className="hidden lg:flex items-center gap-7 text-[13px] font-medium text-slate-500">
           {links.map((l) => (
             <Link
               key={l.href}
               href={l.href}
-              className="relative hover:text-slate-900 transition-colors duration-300 group"
+              className="relative hover:text-nx-mid transition-colors duration-300 group"
             >
               {l.label}
               <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-nx-mid group-hover:w-full transition-all duration-300" />
@@ -109,11 +89,11 @@ export default function Navbar({ dict }: { dict: any }) {
               {lang}
             </button>
             <Link
-              href="#contacto"
+              href="#citas"
               className="bg-nx-mid hover:bg-nx-bright text-white px-5 py-2.5 rounded-full text-[13px] font-semibold transition-all duration-300"
               style={{ boxShadow: "0 0 20px rgba(45,91,227,0.35)" }}
             >
-              {dict.navbar.cta}
+              Agendar Cita
             </Link>
           </div>
         </nav>
