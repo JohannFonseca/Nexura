@@ -45,20 +45,20 @@ export default function Navbar({ dict }: { dict: any }) {
       className="fixed top-0 left-0 right-0 z-[100] w-full transition-all duration-500"
       style={{
         background: scrolled
-          ? "rgba(255, 255, 255, 0.98)"
-          : "rgba(255, 255, 255, 0.92)",
-        backdropFilter: "blur(20px) saturate(160%)",
-        WebkitBackdropFilter: "blur(20px) saturate(160%)",
-        borderBottom: "1px solid rgba(0, 0, 0, 0.05)",
+          ? "rgba(5, 9, 26, 0.85)"
+          : "rgba(5, 9, 26, 0.6)",
+        backdropFilter: "blur(20px) saturate(180%)",
+        WebkitBackdropFilter: "blur(20px) saturate(180%)",
+        borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
       }}
     >
-      <div className="container mx-auto px-6 h-20 md:h-28 flex items-center justify-between">
+      <div className="container mx-auto px-6 h-16 md:h-20 flex items-center justify-between">
 
         {/* ── Logo ─────────────────────────────────────── */}
         <Link href={`/${lang.toLowerCase()}`} className="flex items-center gap-2.5 outline-none group">
-          <div className="relative w-44 h-12 md:w-64 md:h-20 lg:w-72 lg:h-24">
+          <div className="relative w-36 h-10 md:w-52 md:h-14 lg:w-60 lg:h-16">
             <Image 
-              src="/LogoNexura.png" 
+              src="/LogoNexura.jpg" 
               alt="Nexura Logo" 
               fill
               priority
@@ -68,7 +68,7 @@ export default function Navbar({ dict }: { dict: any }) {
         </Link>
 
         {/* ── Desktop nav ──────────────────────────────── */}
-        <nav className="hidden xl:flex items-center gap-7 text-[13px] font-medium text-slate-500">
+        <nav className="hidden xl:flex items-center gap-7 text-[13px] font-medium text-white/50">
           {links.map((l) => (
             <Link
               key={l.href}
@@ -83,7 +83,7 @@ export default function Navbar({ dict }: { dict: any }) {
           <div className="flex items-center gap-3 ml-2">
             <button
               onClick={toggleLang}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-slate-200 hover:border-nx-mid/40 text-slate-500 hover:text-slate-800 transition-all duration-300 text-xs font-semibold"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/10 hover:border-nx-mid/40 text-white/50 hover:text-white transition-all duration-300 text-xs font-semibold bg-white/5"
             >
               <Globe className="w-3.5 h-3.5 text-nx-mid" />
               {lang}
@@ -100,42 +100,41 @@ export default function Navbar({ dict }: { dict: any }) {
 
         {/* ── Mobile toggle ────────────────────────────── */}
         <button
-          className="md:hidden p-2 text-slate-500 hover:text-slate-800"
           onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="menu"
+          className="xl:hidden p-2 text-white/70 hover:text-white transition-colors"
         >
-          {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          {mobileOpen ? <X /> : <Menu />}
         </button>
       </div>
 
       {/* ── Mobile drawer ────────────────────────────────── */}
       {mobileOpen && (
-        <div className="md:hidden absolute top-20 left-0 w-full border-b border-slate-100 px-6 pb-6 flex flex-col gap-3 bg-white/97"
-          style={{ backdropFilter: "blur(20px)" }}
+        <div className="xl:hidden absolute top-16 left-0 w-full border-b border-white/10 px-6 pb-6 flex flex-col gap-3 bg-[#05091a]/95 backdrop-blur-2xl"
         >
           {links.map((l) => (
             <Link
               key={l.href}
               href={l.href}
               onClick={() => setMobileOpen(false)}
-              className="text-slate-600 font-medium py-2.5 border-b border-slate-50 hover:text-slate-900 transition-colors"
+              className="py-3 text-lg font-bold text-white border-b border-white/5 last:border-0"
             >
               {l.label}
             </Link>
           ))}
-          <div className="flex flex-col gap-3 mt-2">
+          <div className="flex flex-col gap-4 mt-4">
             <button
-              onClick={() => { toggleLang(); setMobileOpen(false); }}
-              className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-full border border-slate-200 text-slate-600 text-sm font-semibold"
+              onClick={toggleLang}
+              className="flex items-center gap-2 text-white/60 font-medium"
             >
-              <Globe className="w-3.5 h-3.5 text-nx-mid" />{lang === "ES" ? "English" : "Español"}
+              <Globe className="w-4 h-4" />
+              {lang === "ES" ? "Switch to English" : "Cambiar a Español"}
             </button>
             <Link
-              href="#contacto"
+              href="#citas"
               onClick={() => setMobileOpen(false)}
-              className="bg-nx-mid text-white px-5 py-3 rounded-full text-center font-semibold text-sm"
+              className="bg-nx-mid text-white px-6 py-4 rounded-2xl text-center font-bold"
             >
-              {dict.navbar.cta}
+              Agendar Cita
             </Link>
           </div>
         </div>

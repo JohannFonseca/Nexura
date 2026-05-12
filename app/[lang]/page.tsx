@@ -23,7 +23,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
       <SmoothCursor />
 
       <Navbar dict={dict} />
-      <main className="flex-1">
+      <main className="flex-1 pt-16 md:pt-20">
         <HeroSection dict={dict} />
         <BenefitsSection dict={dict} />
         <ProjectsSection dict={dict} />
@@ -41,7 +41,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
             <div className="flex flex-col items-center md:items-start gap-6">
               <div className="relative w-40 h-12">
                 <Image 
-                  src="/LogoNexura.png" 
+                  src="/LogoNexura.jpg" 
                   alt="Nexura Logo" 
                   fill
                   className="object-contain" 
