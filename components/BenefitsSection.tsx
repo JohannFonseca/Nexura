@@ -15,21 +15,25 @@ export default function BenefitsSection({ dict }: { dict: any }) {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      // Force visibility
+      gsap.set(".benefit-card", { opacity: 1, visibility: "visible" });
+      
       gsap.from(".benefit-card", {
-        y: 60,
+        y: 30,
         opacity: 0,
-        duration: 1,
-        stagger: 0.2,
-        ease: "power4.out",
+        duration: 0.6,
+        stagger: 0.1,
+        ease: "power2.out",
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 80%",
+          start: "top 90%",
         },
       });
     }, sectionRef);
     return () => ctx.revert();
   }, []);
 
+  const benefitsItems = dict?.benefits?.items?.filter(Boolean) || [];
   const icons = [<Brain key="0" />, <Clock key="1" />, <Zap key="2" />, <TrendingUp key="3" />];
 
   return (
@@ -56,7 +60,7 @@ export default function BenefitsSection({ dict }: { dict: any }) {
           ref={cardsRef}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
         >
-          {dict.benefits.items.map((item: any, idx: number) => (
+          {benefitsItems.map((item: any, idx: number) => (
             <div 
               key={idx}
               className="benefit-card group p-8 rounded-[2rem] bg-white/[0.02] border border-white/[0.05] hover:bg-white/[0.05] hover:border-nx-mid/30 transition-all duration-500"

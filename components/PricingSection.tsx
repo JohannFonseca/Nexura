@@ -9,23 +9,30 @@ export default function PricingSection({ dict }: { dict: any }) {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      // Ensure visibility before animating
+      gsap.set(".pricing-card", { opacity: 1, visibility: "visible" });
+      
       gsap.from(".pricing-card", {
         scale: 0.9,
         opacity: 0,
-        y: 60,
-        duration: 1,
-        stagger: 0.2,
-        ease: "expo.out",
+        y: 40,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power3.out",
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 70%",
+          start: "top 80%",
         },
       });
     }, sectionRef);
     return () => ctx.revert();
   }, []);
 
-  const plans = [dict.pricing.plan1, dict.pricing.plan2, dict.pricing.plan3];
+  const plans = [
+    dict?.pricing?.plan1,
+    dict?.pricing?.plan2,
+    dict?.pricing?.plan3
+  ].filter(Boolean);
 
   return (
     <section 
@@ -50,8 +57,8 @@ export default function PricingSection({ dict }: { dict: any }) {
               key={idx}
               className={`pricing-card flex flex-col p-10 rounded-[2.5rem] border transition-all duration-700 relative overflow-hidden ${
                 idx === 1 
-                  ? "bg-nx-mid/10 border-nx-mid/50 shadow-2xl shadow-nx-mid/10 scale-105 z-10" 
-                  : "bg-white/[0.02] border-white/[0.06] hover:border-nx-mid/30"
+                  ? "bg-nx-mid/20 border-nx-mid/50 shadow-2xl shadow-nx-mid/20 scale-105 z-10" 
+                  : "bg-slate-900/40 border-white/10 hover:border-nx-mid/30"
               }`}
             >
               {idx === 1 && (

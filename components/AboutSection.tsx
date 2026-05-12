@@ -137,7 +137,7 @@ export default function AboutSection({ dict }: { dict: any }) {
             >
               <div className="relative aspect-[4/3] overflow-hidden">
                 <Image
-                  src="/Nexura_CRM_Lite.png"
+                  src="/CRM_Lite.jpg"
                   alt="Nexura en acción"
                   fill
                   unoptimized
