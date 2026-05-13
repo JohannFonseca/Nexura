@@ -90,7 +90,7 @@ export default function BookingSection({ dict }: { dict: any }) {
           </div>
 
           <div className="booking-form lg:w-1/2 w-full">
-            <div className="bg-white/[0.02] backdrop-blur-2xl p-6 sm:p-10 md:p-14 rounded-[2rem] sm:rounded-[3rem] border border-white/[0.06] shadow-2xl relative">
+            <div className="bg-white/[0.02] backdrop-blur-2xl p-5 sm:p-10 md:p-14 rounded-[2rem] sm:rounded-[3rem] border border-white/[0.06] shadow-2xl relative">
               <div className="absolute -top-6 -left-6 w-20 h-20 bg-nx-mid/20 blur-[60px] rounded-full" />
               
               {isSubmitted ? (
@@ -118,7 +118,7 @@ export default function BookingSection({ dict }: { dict: any }) {
                         type="text" 
                         value={formState.name}
                         onChange={(e) => setFormState({...formState, name: e.target.value})}
-                        className="w-full bg-white/[0.03] border border-white/10 rounded-2xl py-5 pl-14 pr-5 text-white focus:outline-none focus:border-nx-mid/50 focus:bg-white/[0.06] transition-all"
+                        className="w-full bg-white/[0.03] border border-white/10 rounded-2xl py-4 sm:py-5 pl-12 sm:pl-14 pr-4 sm:pr-5 text-white focus:outline-none focus:border-nx-mid/50 focus:bg-white/[0.06] transition-all text-sm sm:text-base"
                         placeholder="Tu nombre"
                       />
                     </div>
@@ -133,31 +133,31 @@ export default function BookingSection({ dict }: { dict: any }) {
                         type="email" 
                         value={formState.email}
                         onChange={(e) => setFormState({...formState, email: e.target.value})}
-                        className="w-full bg-white/[0.03] border border-white/10 rounded-2xl py-5 pl-14 pr-5 text-white focus:outline-none focus:border-nx-mid/50 focus:bg-white/[0.06] transition-all"
+                        className="w-full bg-white/[0.03] border border-white/10 rounded-2xl py-4 sm:py-5 pl-12 sm:pl-14 pr-4 sm:pr-5 text-white focus:outline-none focus:border-nx-mid/50 focus:bg-white/[0.06] transition-all text-sm sm:text-base"
                         placeholder="tu@email.com"
                       />
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-3">
-                      <label className="text-[13px] font-bold text-white/40 uppercase tracking-widest ml-1">{dict.booking.dateLabel}</label>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                    <div className="space-y-3 min-w-0">
+                      <label className="text-[11px] sm:text-[13px] font-bold text-white/40 uppercase tracking-widest ml-1">{dict.booking.dateLabel}</label>
                       <input 
                         required
                         type="date" 
                         value={formState.date}
                         onChange={(e) => setFormState({...formState, date: e.target.value})}
-                        className="w-full bg-white/[0.03] border border-white/10 rounded-2xl py-5 px-6 text-white focus:outline-none focus:border-nx-mid/50 focus:bg-white/[0.06] transition-all [color-scheme:dark]"
+                        className="w-full bg-white/[0.03] border border-white/10 rounded-2xl py-4 sm:py-5 px-4 sm:px-6 text-white focus:outline-none focus:border-nx-mid/50 focus:bg-white/[0.06] transition-all [color-scheme:dark] text-sm sm:text-base"
                       />
                     </div>
-                    <div className="space-y-3">
-                      <label className="text-[13px] font-bold text-white/40 uppercase tracking-widest ml-1">{dict.booking.timeLabel}</label>
+                    <div className="space-y-3 min-w-0">
+                      <label className="text-[11px] sm:text-[13px] font-bold text-white/40 uppercase tracking-widest ml-1">{dict.booking.timeLabel}</label>
                       <input 
                         required
                         type="time" 
                         value={formState.time}
                         onChange={(e) => setFormState({...formState, time: e.target.value})}
-                        className="w-full bg-white/[0.03] border border-white/10 rounded-2xl py-5 px-6 text-white focus:outline-none focus:border-nx-mid/50 focus:bg-white/[0.06] transition-all [color-scheme:dark]"
+                        className="w-full bg-white/[0.03] border border-white/10 rounded-2xl py-4 sm:py-5 px-4 sm:px-6 text-white focus:outline-none focus:border-nx-mid/50 focus:bg-white/[0.06] transition-all [color-scheme:dark] text-sm sm:text-base"
                       />
                     </div>
                   </div>
