@@ -90,7 +90,7 @@ export default function BookingSection({ dict }: { dict: any }) {
           </div>
 
           <div className="booking-form lg:w-1/2 w-full">
-            <div className="bg-white/[0.02] backdrop-blur-2xl p-10 md:p-14 rounded-[3rem] border border-white/[0.06] shadow-2xl relative">
+            <div className="bg-white/[0.02] backdrop-blur-2xl p-6 sm:p-10 md:p-14 rounded-[2rem] sm:rounded-[3rem] border border-white/[0.06] shadow-2xl relative">
               <div className="absolute -top-6 -left-6 w-20 h-20 bg-nx-mid/20 blur-[60px] rounded-full" />
               
               {isSubmitted ? (
@@ -139,7 +139,7 @@ export default function BookingSection({ dict }: { dict: any }) {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-3">
                       <label className="text-[13px] font-bold text-white/40 uppercase tracking-widest ml-1">{dict.booking.dateLabel}</label>
                       <input 
