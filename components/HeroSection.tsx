@@ -125,7 +125,7 @@ export default function HeroSection({ dict }: { dict: any }) {
 
   const projects = [
     { img: "/CRM_Lite.jpg",         label: "CRM Lite",      url: "https://nexuracrm-lite.vercel.app/",      eager: true },
-    { img: "/PuraVida_Quiz.jpg",    label: "Quiz",          url: "https://pura-vida-quiz.vercel.app/",      eager: false },
+    { img: "/Pura-Vida_Quiz.png",    label: "Quiz",          url: "https://pura-vida-quiz.vercel.app/",      eager: false },
     { img: "/Libreria_Crayola.jpg", label: "E-commerce",    url: "https://libreriacrayolacr.com", eager: false },
     { img: "/CF_Trainer.jpg",       label: "CF Trainer",    url: "https://cf-personal-trainer.vercel.app/", eager: false },
   ];
