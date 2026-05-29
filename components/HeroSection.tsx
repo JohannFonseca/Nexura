@@ -1,260 +1,347 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { ArrowRight, ArrowDown } from "lucide-react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLanguage } from "@/lib/LanguageContext";
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
+export default function HeroSection() {
+  const { lang, t } = useLanguage();
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(true);
 
-// Word component: renders each word with its own overflow-hidden wrapper
-// This is SSR-safe since it renders the same HTML on server and client
-function WordReveal({ text, className = "" }: { text: string; className?: string }) {
-  const words = text.split(" ");
-  return (
-    <span style={{ perspective: "800px" }}>
-      {words.map((word, i) => (
-        <span
-          key={i}
-          className="word-outer"
-          style={{
-            display: "inline-block",
-            overflow: "hidden",
-            verticalAlign: "bottom",
-            paddingBottom: "0.18em",
-            marginBottom: "-0.18em",
-          }}
-        >
-          <span
-            className={`word-inner ${className}`}
-            style={{ display: "inline-block" }}
-          >
-            {word}
-          </span>
-          {i < words.length - 1 && <>&nbsp;</>}
-        </span>
-      ))}
-    </span>
-  );
-}
+  // Mouse coords for particle parallax
+  const mouseRef = useRef({ x: 0, y: 0, targetX: 0, targetY: 0 });
 
-export default function HeroSection({ dict }: { dict: any }) {
-  const sectionRef     = useRef<HTMLElement>(null);
-  const eyebrowRef     = useRef<HTMLDivElement>(null);
-  const headingRef     = useRef<HTMLHeadingElement>(null);
-  const subtitleRef    = useRef<HTMLParagraphElement>(null);
-  const ctaRef         = useRef<HTMLDivElement>(null);
-  const statsRef       = useRef<HTMLDivElement>(null);
-  const projectsRowRef = useRef<HTMLDivElement>(null);
-  const scrollHintRef  = useRef<HTMLDivElement>(null);
-
+  // Detect layout scale & touch pointer on mount
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
+    const handleResize = () => {
+      const mobile = window.innerWidth < 768 || window.matchMedia("(pointer: coarse)").matches;
+      setIsMobile(mobile);
+    };
 
-      // 1. Eyebrow
-      tl.fromTo(eyebrowRef.current,
-        { y: 18, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8 }
-      );
-
-      // 2. Words – all .word-inner inside the heading animate together
-      const words = headingRef.current?.querySelectorAll(".word-inner");
-      if (words?.length) {
-        tl.fromTo(Array.from(words),
-          { y: "108%", rotateX: 10 },
-          { y: "0%", rotateX: 0, stagger: 0.055, duration: 0.9, transformOrigin: "bottom center" },
-          "-=0.4"
-        );
-      }
-
-      // 3. Rest of content
-      tl.fromTo(subtitleRef.current,
-        { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 }, "-=0.4"
-      )
-      .fromTo(ctaRef.current,
-        { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7 }, "-=0.5"
-      )
-      .fromTo(statsRef.current,
-        { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7 }, "-=0.4"
-      );
-
-      // 4. Project thumbnails – clip from left, staggered
-      const thumbs = projectsRowRef.current?.querySelectorAll<HTMLElement>(".thumb-inner");
-      if (thumbs?.length) {
-        tl.fromTo(Array.from(thumbs),
-          { clipPath: "inset(0% 100% 0% 0%)" },
-          { clipPath: "inset(0% 0% 0% 0%)", stagger: 0.13, duration: 1.1, ease: "expo.inOut" },
-          "-=0.5"
-        );
-      }
-
-      tl.fromTo(scrollHintRef.current,
-        { opacity: 0 }, { opacity: 1, duration: 0.5 }, "-=0.3"
-      );
-
-      // 5. Counters (after entrance finishes)
-      const statEls = statsRef.current?.querySelectorAll<HTMLElement>("[data-count]");
-      statEls?.forEach((el) => {
-        const target = parseFloat(el.dataset.count || "0");
-        const suffix = el.dataset.suffix || "";
-        const obj = { val: 0 };
-        gsap.to(obj, {
-          val: target, duration: 2, ease: "power2.out", delay: 1.5,
-          onUpdate() { el.textContent = Math.round(obj.val) + suffix; },
-        });
-      });
-
-      // 6. Scroll parallax
-      gsap.to(headingRef.current, {
-        y: 80, opacity: 0.1, ease: "none",
-        scrollTrigger: { trigger: sectionRef.current, start: "top top", end: "60% top", scrub: 1 },
-      });
-      gsap.to(projectsRowRef.current, {
-        y: -50, ease: "none",
-        scrollTrigger: { trigger: sectionRef.current, start: "top top", end: "bottom top", scrub: 1.5 },
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const projects = [
-    { img: "/CRM_Lite.jpg",         label: "CRM Lite",      url: "https://nexuracrm-lite.vercel.app/",      eager: true },
-    { img: "/Pura-Vida_Quiz.png",    label: "Quiz",          url: "https://pura-vida-quiz.vercel.app/",      eager: false },
-    { img: "/Libreria_Crayola.jpg", label: "E-commerce",    url: "https://libreriacrayolacr.com", eager: false },
-    { img: "/CF_Trainer.jpg",       label: "CF Trainer",    url: "https://cf-personal-trainer.vercel.app/", eager: false },
-  ];
+  // Canvas Particles Animation (Desktop Only)
+  useEffect(() => {
+    if (isMobile) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let animationFrameId: number;
+    let width = (canvas.width = canvas.offsetWidth);
+    let height = (canvas.height = canvas.offsetHeight);
+
+    const handleCanvasResize = () => {
+      if (!canvas) return;
+      width = canvas.width = canvas.offsetWidth;
+      height = canvas.height = canvas.offsetHeight;
+    };
+    window.addEventListener("resize", handleCanvasResize);
+
+    // Track mouse coordinates
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!canvas) return;
+      const rect = canvas.getBoundingClientRect();
+      // Normalize coordinate offsets (-1 to 1)
+      mouseRef.current.targetX = ((e.clientX - rect.left) / width) * 2 - 1;
+      mouseRef.current.targetY = ((e.clientY - rect.top) / height) * 2 - 1;
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+
+    // Initialize 35 particles
+    const particleCount = 35;
+    const particles: Array<{
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      radius: number;
+      baseX: number;
+      baseY: number;
+    }> = [];
+
+    for (let i = 0; i < particleCount; i++) {
+      const rx = Math.random() * width;
+      const ry = Math.random() * height;
+      particles.push({
+        x: rx,
+        y: ry,
+        vx: (Math.random() - 0.5) * 0.35,
+        vy: (Math.random() - 0.5) * 0.35,
+        radius: 1.5 + Math.random() * 1.5,
+        baseX: rx,
+        baseY: ry,
+      });
+    }
+
+    const animate = () => {
+      ctx.clearRect(0, 0, width, height);
+
+      // Smooth mouse coordinate interpolation (lag effect)
+      mouseRef.current.x += (mouseRef.current.targetX - mouseRef.current.x) * 0.08;
+      mouseRef.current.y += (mouseRef.current.targetY - mouseRef.current.y) * 0.08;
+
+      // Update and draw particles
+      particles.forEach((p) => {
+        // Dynamic speed drift
+        p.baseX += p.vx;
+        p.baseY += p.vy;
+
+        // Bounce/wrap borders
+        if (p.baseX < 0) p.baseX = width;
+        if (p.baseX > width) p.baseX = 0;
+        if (p.baseY < 0) p.baseY = height;
+        if (p.baseY > height) p.baseY = 0;
+
+        // Apply mouse parallax translation: max ±25px shift
+        p.x = p.baseX + mouseRef.current.x * 25;
+        p.y = p.baseY + mouseRef.current.y * 25;
+
+        // Draw particle dot
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(0, 232, 198, 0.45)";
+        ctx.fill();
+      });
+
+      // Draw connection lines
+      for (let i = 0; i < particleCount; i++) {
+        for (let j = i + 1; j < particleCount; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          // Connect dots within 120px limit
+          if (dist < 120) {
+            const alpha = (1 - dist / 120) * 0.18;
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(0, 232, 198, ${alpha})`;
+            ctx.lineWidth = 0.8;
+            ctx.stroke();
+          }
+        }
+      }
+
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      window.removeEventListener("resize", handleCanvasResize);
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, [isMobile]);
+
+  // Magnetic Button Effect helper
+  const primaryCtaRef = useRef<HTMLAnchorElement>(null);
+  const secondaryCtaRef = useRef<HTMLAnchorElement>(null);
+
+  useEffect(() => {
+    if (isMobile) return;
+
+    const setupMagnetic = (ref: React.RefObject<HTMLAnchorElement | null>) => {
+      const el = ref.current;
+      if (!el) return;
+
+      const handleMouseMove = (e: MouseEvent) => {
+        const bounds = el.getBoundingClientRect();
+        const elX = bounds.left + bounds.width / 2;
+        const elY = bounds.top + bounds.height / 2;
+        const dist = Math.hypot(e.clientX - elX, e.clientY - elY);
+
+        // Within 80px hover, snap button slightly towards cursor (max 7px)
+        if (dist < 80) {
+          const deltaX = (e.clientX - elX) * 0.25;
+          const deltaY = (e.clientY - elY) * 0.25;
+          gsap.to(el, {
+            x: deltaX,
+            y: deltaY,
+            duration: 0.3,
+            ease: "power2.out",
+          });
+        } else {
+          gsap.to(el, { x: 0, y: 0, duration: 0.4, ease: "power2.out" });
+        }
+      };
+
+      const handleMouseLeave = () => {
+        gsap.to(el, { x: 0, y: 0, duration: 0.4, ease: "power2.out" });
+      };
+
+      window.addEventListener("mousemove", handleMouseMove);
+      el.addEventListener("mouseleave", handleMouseLeave);
+
+      return () => {
+        window.removeEventListener("mousemove", handleMouseMove);
+        el.removeEventListener("mouseleave", handleMouseLeave);
+      };
+    };
+
+    const cleanup1 = setupMagnetic(primaryCtaRef);
+    const cleanup2 = setupMagnetic(secondaryCtaRef);
+
+    return () => {
+      if (cleanup1) cleanup1();
+      if (cleanup2) cleanup2();
+    };
+  }, [isMobile]);
+
+  // Split words helper for Hero Text Reveal
+  // TranslateY(70px) to 0, Opacity 0 to 1, Stagger 80ms, cubic-bezier(0.22, 1, 0.36, 1)
+  // Animate on mount, triggers after loading gate starts slideouts (2.1s delay)
+  const renderHeadlineWords = (text: string) => {
+    return text.split(" ").map((word, i) => (
+      <span key={i} className="inline-block overflow-hidden mr-3 pb-1">
+        <span
+          className="inline-block transform translate-y-[70px] opacity-0 animate-[heroReveal_0.9s_cubic-bezier(0.22,1,0.36,1)_forwards]"
+          style={{
+            animationDelay: `${2050 + i * 80}ms`,
+          }}
+        >
+          {word}
+        </span>
+      </span>
+    ));
+  };
 
   return (
     <section
-      ref={sectionRef}
+      ref={containerRef}
       id="inicio"
-      className="relative min-h-screen flex flex-col justify-center overflow-hidden"
+      className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-bg-base"
     >
-      {/* Background */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0"
-          style={{ background: "radial-gradient(ellipse 100% 90% at 50% 55%, #0b1640 0%, #05091a 100%)" }}
-        />
-        <div className="glow-blue  absolute left-[-5%]  top-[10%]  w-[600px] h-[600px]" />
-        <div className="glow-bright absolute right-[5%] bottom-[15%] w-[400px] h-[400px] opacity-60" />
-        <div className="absolute inset-0 opacity-[0.02]"
-          style={{
-            backgroundImage: "linear-gradient(rgba(79,140,255,1) 1px, transparent 1px),linear-gradient(90deg,rgba(79,140,255,1) 1px,transparent 1px)",
-            backgroundSize: "80px 80px",
-          }}
-        />
+      {/* Drifting blurred background Orbs */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        
+        {/* Orb 1: Electric Teal */}
+        <div className="absolute top-[10%] left-[-10%] w-[38vw] h-[38vw] min-w-[300px] rounded-full bg-accent-teal/15 blur-[120px] drift-1" />
+        
+        {/* Orb 2: Dark Teal */}
+        <div className="absolute bottom-[15%] right-[-5%] w-[42vw] h-[42vw] min-w-[350px] rounded-full bg-accent-teal/5 blur-[130px] drift-2" />
+        
+        {/* Orb 3: Near Black / Matte Gold Shadow */}
+        <div className="absolute top-[40%] right-[30%] w-[32vw] h-[32vw] min-w-[280px] rounded-full bg-accent-gold/5 blur-[100px] drift-3" />
       </div>
 
-      <div className="container mx-auto px-6 pt-32 pb-10 relative z-10 max-w-5xl">
+      {/* Connection Lines & Particles Canvas */}
+      {!isMobile && (
+        <canvas
+          ref={canvasRef}
+          className="absolute inset-0 w-full h-full z-10 pointer-events-none opacity-80"
+        />
+      )}
 
-        {/* Eyebrow */}
-        <div ref={eyebrowRef} className="flex items-center gap-3 mb-8">
-          <span className="eyebrow">Nexura Digital Agency</span>
-          <span className="rule flex-1 max-w-[50px]" />
-          <span className="badge"><span className="dot" />CR · 2025</span>
+      {/* Main Content Area */}
+      <div className="container mx-auto px-6 pt-32 pb-16 relative z-20 flex flex-col items-center text-center">
+        
+        {/* Small top label (JetBrains Mono, gold, pill border) */}
+        <div
+          className="inline-flex items-center gap-2 border border-accent-gold/25 px-4 py-1.5 rounded-full font-mono text-[10px] sm:text-xs text-accent-gold tracking-wider uppercase mb-8 opacity-0 animate-[fadeIn_0.75s_ease-out_1.9s_forwards]"
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-accent-gold animate-ping" />
+          {t.hero.label}
         </div>
 
-        {/* Heading with SSR-safe word split */}
+        {/* Headline (Syne 800, clamp size, line-height 1.05) */}
         <h1
-          ref={headingRef}
-          className="text-[clamp(2.6rem,10vw,5.5rem)] md:text-7xl xl:text-[88px] font-black leading-[1.0] tracking-tight mb-6 md:mb-8"
+          className="font-syne font-extrabold text-[clamp(2.1rem,6.2vw,5.6rem)] leading-[1.05] tracking-tight text-text-primary max-w-5xl mb-6 select-none"
         >
-          <WordReveal text={dict.hero.title} className="text-white" />{" "}
-          <WordReveal text={dict.hero.titleHighlight} className="text-gradient" />
+          {renderHeadlineWords(t.hero.headline)}
         </h1>
 
-        {/* Subtitle */}
-        <p ref={subtitleRef} className="text-sm md:text-lg text-white/45 leading-relaxed max-w-xl mb-8 md:mb-10">
-          {dict.hero.subtitle}
+        {/* Subtitle (DM Sans, muted, large, max-width 560px, fades as a block) */}
+        <p
+          className="font-sans font-normal text-base sm:text-lg md:text-xl text-text-muted max-w-[560px] leading-relaxed mb-10 opacity-0 animate-[fadeIn_0.8s_cubic-bezier(0.22,1,0.36,1)_2.4s_forwards]"
+        >
+          {t.hero.subtext}
         </p>
 
-        {/* CTAs */}
-        <div ref={ctaRef} className="flex flex-wrap gap-3 md:gap-4 items-center mb-10 md:mb-16">
+        {/* CTAs (slide up last with 60ms between them) */}
+        <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
+          
+          {/* Primary CTA (Teal fill, magnetic scale 1.03) */}
           <Link
-            href={`https://wa.me/50685803868?text=${encodeURIComponent(dict.hero.whatsappMessage)}`}
-            target="_blank" rel="noopener noreferrer"
-            className="group flex items-center gap-2.5 bg-nx-mid hover:bg-nx-bright text-white px-8 py-4 rounded-full font-semibold text-sm transition-all duration-300"
-            style={{ boxShadow: "0 0 30px rgba(45,91,227,0.5)" }}
-          >
-            {dict.hero.ctaPrimary}
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </Link>
-          <Link
+            ref={primaryCtaRef}
             href="#proyectos"
-            className="text-white/50 hover:text-white text-sm font-medium transition-colors duration-300"
+            className="inline-flex items-center justify-center bg-accent-teal hover:brightness-110 text-[#07070A] font-sans font-bold text-sm px-8 py-4 rounded-full transition-all duration-300 hover:shadow-[0_0_28px_rgba(0,232,198,0.35)] transform scale-100 hover:scale-[1.03] opacity-0 animate-[slideUpReveal_0.8s_cubic-bezier(0.22,1,0.36,1)_2.55s_forwards]"
           >
-            {dict.hero.ctaSecondary} →
+            {t.hero.ctaPrimary}
+          </Link>
+
+          {/* Secondary CTA (Ghost outline, WhatsApp icon) */}
+          <Link
+            ref={secondaryCtaRef}
+            href="https://wa.me/50685803868"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center border border-white/10 hover:border-accent-teal hover:text-accent-teal text-text-primary font-sans font-semibold text-sm px-8 py-4 rounded-full transition-all duration-300 bg-white/[0.01] hover:bg-white/[0.03] opacity-0 animate-[slideUpReveal_0.8s_cubic-bezier(0.22,1,0.36,1)_2.61s_forwards]"
+          >
+            {/* WhatsApp mini SVG outline */}
+            <svg
+              className="w-4 h-4 mr-2"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.062 5.248 5.308 0 11.722 0c3.107.001 6.027 1.212 8.223 3.41 2.196 2.197 3.404 5.12 3.402 8.228-.005 6.463-5.252 11.71-11.67 11.71-2.008-.001-3.982-.515-5.732-1.493L0 24zm6.076-3.791c1.672.993 3.31 1.52 5.568 1.521 5.333 0 9.673-4.32 9.677-9.647.002-2.58-1.002-5.005-2.827-6.83-1.826-1.826-4.256-2.83-6.843-2.83-5.342 0-9.686 4.321-9.69 9.649-.001 2.148.56 4.244 1.624 6.082l-.994 3.633 3.738-.979z" />
+            </svg>
+            {t.hero.ctaSecondary}
           </Link>
         </div>
 
-        {/* Stats */}
-        <div ref={statsRef} className="grid grid-cols-3 gap-4 md:flex md:gap-12 border-t border-white/[0.06] pt-6 md:pt-8 mb-10 md:mb-16">
-          {[
-            { n: 3,   suffix: "+", label: "Proyectos" },
-            { n: 100, suffix: "%", label: "Satisfacción" },
-            { n: 24,  suffix: "h", label: "Respuesta" },
-          ].map((s) => (
-            <div key={s.label}>
-              <div
-                className="text-2xl font-black text-gradient-blue font-display"
-                data-count={s.n}
-                data-suffix={s.suffix}
-              >
-                0{s.suffix}
-              </div>
-              <div className="text-[11px] text-white/25 uppercase tracking-widest mt-1">{s.label}</div>
-            </div>
-          ))}
-        </div>
-
-        {/* Project thumbnails row */}
-        <div ref={projectsRowRef} className="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4">
-          {projects.map((p, i) => (
-            <Link
-              key={i}
-              href={p.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group block"
-            >
-              {/* thumb-inner is what gets clip-path animated */}
-              <div
-                className="thumb-inner img-card overflow-hidden"
-                style={{ clipPath: "inset(0% 100% 0% 0%)", boxShadow: "0 20px 50px rgba(5,9,26,0.6)" }}
-              >
-                <div className="relative aspect-[16/10] overflow-hidden">
-                  <Image
-                    src={p.img}
-                    alt={p.label}
-                    fill
-                    unoptimized
-                    loading={p.eager ? "eager" : "lazy"}
-                    className="object-cover object-top scale-[1.08] group-hover:scale-[1.14] transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0"
-                    style={{ background: "linear-gradient(180deg, transparent 30%, rgba(5,9,26,0.8) 100%)" }}
-                  />
-                  <div className="absolute bottom-3 left-4 eyebrow text-white/50">{p.label}</div>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 rule" />
-      <div ref={scrollHintRef}
-        className="hidden md:flex absolute bottom-8 right-8 items-center gap-2 text-white/20 text-[11px] tracking-widest uppercase"
+      {/* Scroll indicator: thin vertical line pulsing downward, center-bottom */}
+      <div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-0 animate-[fadeIn_0.8s_ease-out_2.8s_forwards]"
       >
-        <span>Scroll</span>
-        <ArrowDown className="w-3.5 h-3.5 bounce-slow" />
+        <div className="w-[1px] h-12 bg-white/20 relative overflow-hidden">
+          <span className="absolute top-0 left-0 w-full h-1/2 bg-accent-teal animate-[scrollPulse_2s_infinite]" />
+        </div>
       </div>
+
+      <style jsx global>{`
+        @keyframes heroReveal {
+          to {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+        @keyframes fadeIn {
+          to {
+            opacity: 1;
+          }
+        }
+        @keyframes slideUpReveal {
+          from {
+            transform: translateY(20px);
+            opacity: 0;
+          }
+          to {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+        @keyframes scrollPulse {
+          0% {
+            transform: translateY(-100%);
+          }
+          100% {
+            transform: translateY(200%);
+          }
+        }
+      `}</style>
     </section>
   );
 }

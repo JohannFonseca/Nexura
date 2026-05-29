@@ -1,85 +1,114 @@
 "use client";
 
-import { useRef, useEffect } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Brain, Zap, Clock, TrendingUp } from "lucide-react";
+import { useEffect, useRef } from "react";
+import { useLanguage } from "@/lib/LanguageContext";
+import { Zap, Cpu, Smartphone, Rocket, Compass, ShieldCheck } from "lucide-react";
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
-
-export default function BenefitsSection({ dict }: { dict: any }) {
+export default function BenefitsSection() {
+  const { t } = useLanguage();
   const sectionRef = useRef<HTMLElement>(null);
-  const cardsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Force visibility
-      gsap.set(".benefit-card", { opacity: 1, visibility: "visible" });
-      
-      gsap.from(".benefit-card", {
-        y: 30,
-        opacity: 0,
-        duration: 0.6,
-        stagger: 0.1,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 90%",
-        },
-      });
-    }, sectionRef);
-    return () => ctx.revert();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("reveal-visible");
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    const elements = sectionRef.current?.querySelectorAll(".reveal-hidden");
+    elements?.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
   }, []);
 
-  const benefitsItems = dict?.benefits?.items?.filter(Boolean) || [];
-  const icons = [<Brain key="0" />, <Clock key="1" />, <Zap key="2" />, <TrendingUp key="3" />];
+  const items = [
+    {
+      icon: Zap,
+      label: t.differentiators.items.i1Label,
+      desc: t.differentiators.items.i1Desc,
+    },
+    {
+      icon: Cpu,
+      label: t.differentiators.items.i2Label,
+      desc: t.differentiators.items.i2Desc,
+    },
+    {
+      icon: Smartphone,
+      label: t.differentiators.items.i3Label,
+      desc: t.differentiators.items.i3Desc,
+    },
+    {
+      icon: Rocket,
+      label: t.differentiators.items.i4Label,
+      desc: t.differentiators.items.i4Desc,
+    },
+    {
+      icon: Compass,
+      label: t.differentiators.items.i5Label,
+      desc: t.differentiators.items.i5Desc,
+    },
+    {
+      icon: ShieldCheck,
+      label: t.differentiators.items.i6Label,
+      desc: t.differentiators.items.i6Desc,
+    },
+  ];
 
   return (
-    <section 
+    <section
       ref={sectionRef}
-      id="beneficios" 
-      className="py-32 relative overflow-hidden bg-[#05091a]"
+      id="beneficios"
+      className="relative bg-bg-base z-20 py-24 border-t border-white/[0.03] clip-diagonal-both"
     >
-      {/* Background patterns */}
-      <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #4f8cff 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="max-w-3xl mb-20">
-          <p className="eyebrow mb-4">Ventajas Nexura</p>
-          <h2 className="text-4xl md:text-6xl font-black text-white mb-8 tracking-tight leading-tight">
-            {dict.benefits.title}
+      <div className="container mx-auto px-6 max-w-6xl">
+        
+        {/* Section Header */}
+        <div className="text-center max-w-2xl mx-auto mb-20 reveal-hidden">
+          <span className="font-mono text-xs text-accent-teal tracking-widest uppercase block mb-3">
+            // {t.differentiators.label}
+          </span>
+          <h2 className="font-syne font-extrabold text-[clamp(2rem,4vw,3.2rem)] leading-tight text-text-primary mb-4">
+            {t.differentiators.headline}
           </h2>
-          <p className="text-xl text-white/45 leading-relaxed">
-            {dict.benefits.subtitle}
+          <p className="font-sans text-sm sm:text-base text-text-muted">
+            {t.differentiators.subtext}
           </p>
         </div>
 
-        <div 
-          ref={cardsRef}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
-        >
-          {benefitsItems.map((item: any, idx: number) => (
-            <div 
-              key={idx}
-              className="benefit-card group p-8 rounded-[2rem] bg-white/[0.02] border border-white/[0.05] hover:bg-white/[0.05] hover:border-nx-mid/30 transition-all duration-500"
-            >
-              <div className="w-14 h-14 rounded-2xl bg-nx-mid/10 flex items-center justify-center mb-8 group-hover:scale-110 group-hover:bg-nx-mid group-hover:text-white transition-all duration-500 text-nx-bright">
-                {icons[idx]}
-              </div>
-              <h3 className="text-xl font-bold text-white mb-4">{item.title}</h3>
-              <p className="text-white/45 leading-relaxed text-sm">{item.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
+        {/* 6-item Grid Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {items.map((item, idx) => {
+            const Icon = item.icon;
+            return (
+              <div
+                key={idx}
+                className="bg-surface-card border border-white/[0.02] p-8 rounded-3xl flex gap-6 hover:border-accent-teal/20 transition-all duration-300 reveal-hidden"
+              >
+                {/* SVG Icon Container */}
+                <div className="w-12 h-12 rounded-xl bg-accent-teal/5 flex items-center justify-center shrink-0 text-accent-teal border border-accent-teal/10">
+                  <Icon className="w-5 h-5" />
+                </div>
 
-      {/* Decorative glows */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-nx-mid/10 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-nx-bright/5 blur-[100px] rounded-full translate-y-1/2 -translate-x-1/2" />
-      
-      <div className="rule mt-32" />
+                {/* Content */}
+                <div className="flex flex-col gap-2">
+                  <h3 className="font-syne font-bold text-lg text-text-primary">
+                    {item.label}
+                  </h3>
+                  <p className="font-sans text-sm text-text-muted leading-relaxed">
+                    {item.desc}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+      </div>
     </section>
   );
 }

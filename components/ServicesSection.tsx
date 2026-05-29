@@ -1,211 +1,194 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { Code2, MessageSquare, Database, Smartphone } from "lucide-react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useRef, useState, useEffect } from "react";
+import { useLanguage } from "@/lib/LanguageContext";
+import { Code2, Laptop, Layers } from "lucide-react";
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
+// Interactive Bento Service Card Component with 3D Mouse Tilt and Independent Icon Animation
+function BentoCard({
+  tag,
+  title,
+  desc,
+  icon: Icon,
+  className = "",
+}: {
+  tag: string;
+  title: string;
+  desc: string;
+  icon: React.ComponentType<any>;
+  className?: string;
+}) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [coords, setCoords] = useState({ rx: 0, ry: 0 });
+  const [hovered, setHovered] = useState(false);
 
-export default function ServicesSection({ dict }: { dict: any }) {
-  const sectionRef  = useRef<HTMLElement>(null);
-  const leftRef     = useRef<HTMLDivElement>(null);
-  const itemsRef    = useRef<HTMLDivElement[]>([]);
-  const activeLineRef = useRef<HTMLDivElement>(null);
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const card = cardRef.current;
+    if (!card) return;
 
-  const services = [
-    { icon: Code2,         title: dict.services.s1Title, desc: dict.services.s1Desc, num: "01" },
-    { icon: MessageSquare, title: dict.services.s2Title, desc: dict.services.s2Desc, num: "02" },
-    { icon: Database,      title: dict.services.s3Title, desc: dict.services.s3Desc, num: "03" },
-    { icon: Smartphone,    title: dict.services.s4Title, desc: dict.services.s4Desc, num: "04" },
-  ];
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const mm = gsap.matchMedia();
+    // Normalize coordinates from -1 to 1
+    const percentX = (x / rect.width) * 2 - 1;
+    const percentY = (y / rect.height) * 2 - 1;
 
-      mm.add("(min-width: 1024px)", () => {
-        // ── Pin left panel while items scroll ─────────
-        ScrollTrigger.create({
-          trigger: sectionRef.current,
-          start: "top top",
-          end: "bottom bottom",
-          pin: leftRef.current,
-          pinSpacing: false,
-        });
-
-        // Set initial clipPath so items appear hidden until revealed
-        itemsRef.current.forEach((item) => {
-          item.style.clipPath = "inset(0% 100% 0% 0%)";
-        });
-
-        // ── Each item: clip-path reveal from left ─────
-        itemsRef.current.forEach((item, i) => {
-          gsap.fromTo(item,
-            { clipPath: "inset(0% 100% 0% 0%)", opacity: 1 },
-            {
-              clipPath: "inset(0% 0% 0% 0%)",
-              duration: 1,
-              ease: "expo.inOut",
-              scrollTrigger: {
-                trigger: item,
-                start: "top 75%",
-                toggleActions: "play none none none",
-              },
-            }
-          );
-
-          // Active state highlight on the left panel
-          ScrollTrigger.create({
-            trigger: item,
-            start: "top 55%",
-            end: "bottom 55%",
-            onEnter: () => highlightStep(i),
-            onEnterBack: () => highlightStep(i),
-          });
-        });
-
-        return () => {
-          // Remove inline style on cleanup (mobile won't have it)
-          itemsRef.current.forEach((item) => { item.style.clipPath = ""; });
-        };
-      });
-
-      mm.add("(max-width: 1023px)", () => {
-        itemsRef.current.forEach((item, i) => {
-          gsap.fromTo(item,
-            { x: -50, opacity: 0 },
-            {
-              x: 0, opacity: 1,
-              duration: 0.9, delay: i * 0.1, ease: "expo.out",
-              scrollTrigger: { trigger: item, start: "top 85%" },
-            }
-          );
-        });
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
-
-  const highlightStep = (activeIndex: number) => {
-    itemsRef.current.forEach((item, i) => {
-      const num = item.querySelector<HTMLElement>(".svc-num");
-      const title = item.querySelector<HTMLElement>("h3");
-      if (num && title) {
-        gsap.to(num, {
-          color: i === activeIndex ? "#4f8cff" : "rgba(255,255,255,0.06)",
-          duration: 0.4,
-        });
-        gsap.to(title, {
-          color: i === activeIndex ? "#ffffff" : "rgba(255,255,255,0.4)",
-          duration: 0.4,
-        });
-      }
+    // Max rotation is 6 degrees
+    setCoords({
+      rx: -percentY * 6,
+      ry: percentX * 6,
     });
-    // Move the active line
-    if (activeLineRef.current) {
-      gsap.to(activeLineRef.current, {
-        y: activeIndex * 100 + "%",
-        duration: 0.5,
-        ease: "expo.out",
-      });
-    }
+  };
+
+  const handleMouseLeave = () => {
+    setHovered(false);
+    setCoords({ rx: 0, ry: 0 });
   };
 
   return (
-    <section ref={sectionRef} id="servicios" className="relative">
-      <div className="rule" />
+    <div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={handleMouseLeave}
+      className={`relative group bg-surface-card border rounded-3xl p-8 sm:p-10 transition-glow duration-300 card-tilt-parent overflow-hidden ${className}`}
+      style={{
+        transform: hovered
+          ? `perspective(800px) rotateX(${coords.rx}deg) rotateY(${coords.ry}deg) translateY(-6px)`
+          : "perspective(800px) rotateX(0deg) rotateY(0deg) translateY(0)",
+        borderColor: hovered ? "rgba(0, 232, 198, 0.4)" : "rgba(255, 255, 255, 0.03)",
+        boxShadow: hovered
+          ? "0 20px 40px -15px rgba(0, 232, 198, 0.08), 0 0 40px rgba(0, 232, 198, 0.08)"
+          : "none",
+      }}
+    >
+      {/* Glow highlight spot inside card */}
+      <div
+        className="absolute -inset-px rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+        style={{
+          background: "radial-gradient(400px circle at 50% 50%, rgba(0, 232, 198, 0.03), transparent 80%)",
+        }}
+      />
 
-      {/* ── Marquee strip ───────────────────────────── */}
-      <div className="overflow-hidden py-3 border-b border-white/[0.05]">
-        <div className="marquee-track flex gap-16 whitespace-nowrap" style={{ width: "max-content" }}>
-          {[...Array(3)].map((_, oi) =>
-            services.map((s, si) => (
-              <span key={`${oi}-${si}`} className="eyebrow opacity-20 shrink-0">✦ {s.title}</span>
-            ))
-          )}
-        </div>
-      </div>
-
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="lg:grid lg:grid-cols-[380px_1fr] lg:gap-16 xl:gap-24">
-
-          {/* ── LEFT – Pinned heading ─────────────────── */}
+      <div className="relative z-10 flex flex-col h-full justify-between gap-8">
+        
+        {/* Top bar: Icon and Badge tag */}
+        <div className="flex items-center justify-between">
+          
+          {/* Icon - translates independent -4px on hover */}
           <div
-            ref={leftRef}
-            className="py-12 lg:py-32 lg:h-screen flex flex-col justify-center"
+            className="w-12 h-12 rounded-2xl bg-accent-teal/5 border border-accent-teal/15 flex items-center justify-center text-accent-teal transition-transform duration-300"
+            style={{
+              transform: hovered ? "translateY(-4px)" : "translateY(0)",
+              boxShadow: hovered ? "0 0 15px rgba(0, 232, 198, 0.25)" : "none",
+            }}
           >
-            <p className="eyebrow mb-6">{dict.services.title}</p>
-            <h2 className="text-4xl xl:text-5xl font-black text-white leading-tight mb-8">
-              {dict.services.title}
-            </h2>
-            <p className="text-white/40 text-sm leading-relaxed mb-14">
-              {dict.services.subtitle}
-            </p>
-
-            {/* Step indicators */}
-            <div className="relative hidden lg:block">
-              {/* Track */}
-              <div className="space-y-0">
-                {services.map((s, i) => (
-                  <div key={i} className="flex items-center gap-3 py-3 border-b border-white/[0.05]">
-                    <span className="svc-num text-3xl font-black text-white/06 font-display transition-colors duration-400 select-none"
-                      style={{ color: i === 0 ? "#4f8cff" : "rgba(255,255,255,0.06)" }}
-                    >
-                      {s.num}
-                    </span>
-                    <span className="text-sm font-medium text-white/40 transition-colors duration-400"
-                      style={{ color: i === 0 ? "#ffffff" : undefined }}
-                    >
-                      {s.title}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <Icon className="w-6 h-6" />
           </div>
 
-          {/* ── RIGHT – Scrolling service items ──────── */}
-          <div className="py-24 lg:py-0 space-y-0">
-            {services.map((s, i) => {
-              const Icon = s.icon;
-              return (
-                <div
-                  key={i}
-              ref={(el) => { if (el) itemsRef.current[i] = el; }}
-                  className="py-12 lg:py-20 border-b border-white/[0.06]"
-                >
-                  <div className="flex gap-7">
-                    {/* Icon */}
-                    <div
-                      className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 mt-1"
-                      style={{
-                        background: "rgba(45,91,227,0.12)",
-                        border: "1px solid rgba(79,140,255,0.22)",
-                      }}
-                    >
-                      <Icon className="w-5 h-5 text-nx-bright" />
-                    </div>
-
-                    <div className="flex-1">
-                      <div className="flex items-baseline gap-4 mb-4">
-                        <h3 className="text-2xl font-black text-white">{s.title}</h3>
-                        <span className="eyebrow text-white/20">{s.num}</span>
-                      </div>
-                      <p className="text-white/45 text-[15px] leading-relaxed max-w-lg">{s.desc}</p>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+          {/* Badge (JetBrains Mono, gold) */}
+          <span
+            className="font-mono text-xs text-accent-gold border border-accent-gold/25 px-3 py-1 rounded-full uppercase tracking-wider bg-accent-gold/5"
+          >
+            {tag}
+          </span>
         </div>
-      </div>
 
-      <div className="rule" />
+        {/* Text descriptions */}
+        <div>
+          <h3
+            className="font-syne font-bold text-2xl text-text-primary mb-3 group-hover:text-accent-teal transition-colors duration-300"
+          >
+            {title}
+          </h3>
+          <p className="font-sans font-normal text-sm sm:text-base text-text-muted leading-relaxed">
+            {desc}
+          </p>
+        </div>
+
+      </div>
+    </div>
+  );
+}
+
+export default function ServicesSection() {
+  const { t } = useLanguage();
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Standard Scroll Entrance using IntersectionObserver
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("reveal-visible");
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    const elements = sectionRef.current?.querySelectorAll(".reveal-hidden");
+    elements?.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <section
+      ref={sectionRef}
+      id="servicios"
+      className="relative bg-bg-base z-20 clip-diagonal-both border-t border-b border-white/[0.03]"
+    >
+      <div className="container mx-auto px-6 relative z-10 max-w-6xl">
+        
+        {/* Section Header */}
+        <div className="text-center max-w-2xl mx-auto mb-16 reveal-hidden">
+          <span className="font-mono text-xs text-accent-teal tracking-widest uppercase block mb-3">
+            // {t.services.label}
+          </span>
+          <h2 className="font-syne font-extrabold text-[clamp(2rem,4vw,3.2rem)] leading-tight text-text-primary mb-4">
+            {t.services.headline}
+          </h2>
+          <p className="font-sans text-sm sm:text-base text-text-muted">
+            {t.services.subtext}
+          </p>
+        </div>
+
+        {/* Bento Grid layout */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          {/* Card A (WEB - spans 2 cols on desktop) */}
+          <BentoCard
+            tag={t.services.cardATag}
+            title={t.services.cardATitle}
+            desc={t.services.cardADesc}
+            icon={Code2}
+            className="md:col-span-2 reveal-hidden"
+          />
+
+          {/* Card B (SAAS - spans 1 col) */}
+          <BentoCard
+            tag={t.services.cardBTag}
+            title={t.services.cardBTitle}
+            desc={t.services.cardBDesc}
+            icon={Laptop}
+            className="reveal-hidden"
+          />
+
+          {/* Card C (CRM - spans 1 col) */}
+          <BentoCard
+            tag={t.services.cardCTag}
+            title={t.services.cardCTitle}
+            desc={t.services.cardCDesc}
+            icon={Layers}
+            className="md:col-span-3 reveal-hidden"
+          />
+
+        </div>
+
+      </div>
     </section>
   );
 }

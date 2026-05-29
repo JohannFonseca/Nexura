@@ -1,219 +1,253 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useRef } from "react";
-import { ExternalLink } from "lucide-react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useEffect, useRef, useState } from "react";
+import { useLanguage } from "@/lib/LanguageContext";
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
+// Wireframe mockup visual inside device mockup
+function MockupWireframe({ type }: { type: string }) {
+  return (
+    <div className="absolute inset-0 p-4 sm:p-6 flex flex-col gap-4 select-none">
+      
+      {/* Browser Bar */}
+      <div className="flex items-center gap-2 pb-3 border-b border-white/[0.05]">
+        <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
+        <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
+        <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
+        <div className="h-4 w-32 bg-white/5 rounded-md ml-4" />
+      </div>
+
+      {/* Wireframe layouts based on category */}
+      {type === "WEB" && (
+        <div className="flex-1 flex flex-col gap-3 justify-center">
+          <div className="w-2/3 h-4 bg-accent-teal/15 rounded-md border border-accent-teal/10" />
+          <div className="w-full h-8 bg-white/5 rounded-md border border-white/5" />
+          <div className="flex gap-3">
+            <div className="w-20 h-7 bg-accent-gold/15 rounded-full border border-accent-gold/10" />
+            <div className="w-20 h-7 bg-white/5 rounded-full border border-white/5" />
+          </div>
+          <div className="grid grid-cols-3 gap-2 mt-2">
+            <div className="h-12 bg-white/[0.02] border border-white/5 rounded-lg" />
+            <div className="h-12 bg-white/[0.02] border border-white/5 rounded-lg" />
+            <div className="h-12 bg-white/[0.02] border border-white/5 rounded-lg" />
+          </div>
+        </div>
+      )}
+
+      {type === "CRM" && (
+        <div className="flex-1 flex gap-4 mt-2">
+          {/* Sidebar */}
+          <div className="w-12 h-full bg-white/[0.02] border border-white/5 rounded-lg flex flex-col gap-2 p-1.5">
+            <div className="h-3 w-full bg-accent-teal/20 rounded" />
+            <div className="h-3 w-2/3 bg-white/5 rounded" />
+            <div className="h-3 w-3/4 bg-white/5 rounded" />
+          </div>
+          {/* Main Dashboard */}
+          <div className="flex-1 flex flex-col gap-3">
+            <div className="h-8 bg-white/[0.03] border border-white/5 rounded-lg flex items-center justify-between px-3">
+              <div className="h-3 w-16 bg-white/10 rounded" />
+              <div className="h-4 w-12 bg-accent-gold/20 border border-accent-gold/10 rounded-full" />
+            </div>
+            <div className="grid grid-cols-2 gap-3 flex-1">
+              <div className="bg-white/[0.02] border border-white/5 rounded-lg p-2.5 flex flex-col justify-between">
+                <div className="h-2 w-8 bg-white/10 rounded" />
+                <div className="h-5 w-14 bg-accent-teal/15 rounded border border-accent-teal/10" />
+              </div>
+              <div className="bg-white/[0.02] border border-white/5 rounded-lg p-2.5 flex flex-col justify-between">
+                <div className="h-2 w-8 bg-white/10 rounded" />
+                <div className="h-5 w-10 bg-white/10 rounded" />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {type === "SAAS" && (
+        <div className="flex-1 flex flex-col gap-3 justify-center">
+          <div className="flex justify-between items-center">
+            <div className="w-1/3 h-3 bg-white/10 rounded" />
+            <div className="w-16 h-3 bg-accent-teal/20 rounded" />
+          </div>
+          {/* Chart Wireframe */}
+          <div className="flex-1 border-b border-l border-white/10 mt-2 relative flex items-end gap-2.5 px-4 pb-1">
+            <div className="w-full bg-accent-teal/15 border-t border-x border-accent-teal/25 rounded-t" style={{ height: "45%" }} />
+            <div className="w-full bg-accent-gold/15 border-t border-x border-accent-gold/25 rounded-t" style={{ height: "75%" }} />
+            <div className="w-full bg-accent-teal/15 border-t border-x border-accent-teal/25 rounded-t" style={{ height: "30%" }} />
+            <div className="w-full bg-white/5 border-t border-x border-white/10 rounded-t" style={{ height: "60%" }} />
+          </div>
+        </div>
+      )}
+
+    </div>
+  );
 }
 
-export default function ProjectsSection({ dict }: { dict: any }) {
-  const sectionRef  = useRef<HTMLElement>(null);
-  const trackRef    = useRef<HTMLDivElement>(null);
+function ProjectTile({
+  tag,
+  title,
+  desc,
+  link = "https://wa.me/50685803868",
+  isStaggered = false,
+}: {
+  tag: string;
+  title: string;
+  desc: string;
+  link?: string;
+  isStaggered?: boolean;
+}) {
+  const [hovered, setHovered] = useState(false);
 
-  const projectsMetadata = [
-    { id: 1, image: "/Pura-Vida_Quiz.png",    url: "https://pura-vida-quiz.vercel.app/",      year: "2026", type: "Interactive" },
-    { id: 2, image: "/CRM_Lite.jpg",         url: "https://nexuracrm-lite.vercel.app/",      year: "2026", type: "SaaS / CRM" },
-    { id: 3, image: "/Libreria_Crayola.jpg", url: "https://libreriacrayolacr.com", year: "2026", type: "E-commerce" },
-    { id: 4, image: "/CF_Trainer.jpg",       url: "https://cf-personal-trainer.vercel.app/", year: "2026", type: "Personal Branding" },
-  ];
+  return (
+    <a
+      href={link}
+      target="_blank"
+      rel="noopener noreferrer"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className={`group block bg-surface-card rounded-[2rem] border border-white/[0.03] overflow-hidden transition-all duration-500 ease-out select-none reveal-hidden ${
+        isStaggered ? "lg:translate-y-12" : ""
+      }`}
+      style={{
+        transform: hovered
+          ? `${isStaggered ? "translateY(48px)" : ""} translateY(-8px)`
+          : `${isStaggered ? "translateY(48px)" : ""} translateY(0)`,
+        boxShadow: hovered ? "0 24px 60px -20px rgba(0, 232, 198, 0.08)" : "none",
+        borderColor: hovered ? "rgba(0, 232, 198, 0.2)" : "rgba(255, 255, 255, 0.03)",
+      }}
+    >
+      {/* Top 70%: Device Mockup Placeholder with subtle gradient shimmer */}
+      <div className="relative aspect-[16/10] bg-[#0A0A0E] p-6 sm:p-8 flex items-center justify-center overflow-hidden border-b border-white/[0.03]">
+        
+        {/* Shimmer Background Grid Overlay */}
+        <div className="absolute inset-0 shimmer-bg opacity-[0.2]" />
+        
+        {/* Fine Line Design Pattern Grid */}
+        <div
+          className="absolute inset-0 opacity-[0.05]"
+          style={{
+            backgroundImage: "radial-gradient(rgba(0, 232, 198, 0.15) 1px, transparent 1px)",
+            backgroundSize: "20px 20px",
+          }}
+        />
 
-  const projects = dict.projects.items.map((item: any) => ({
-    ...item,
-    ...projectsMetadata.find((m) => m.id === item.id),
-  }));
+        {/* Device Mockup */}
+        <div className="w-full h-full relative device-mockup bg-bg-base overflow-hidden transition-all duration-500 group-hover:scale-[1.02]">
+          <MockupWireframe type={tag} />
+        </div>
+      </div>
+
+      {/* Bottom 30%: Details */}
+      <div className="p-8 relative">
+        <div className="flex flex-col gap-3">
+          
+          {/* Tag badge (JetBrains Mono) */}
+          <div>
+            <span className="font-mono text-xs text-accent-gold border border-accent-gold/20 px-3 py-1 rounded-full uppercase tracking-widest bg-accent-gold/5">
+              {tag}
+            </span>
+          </div>
+
+          {/* Project Name (Syne) */}
+          <h3 className="font-syne font-bold text-2xl text-text-primary group-hover:text-accent-teal transition-colors duration-300">
+            {title}
+          </h3>
+
+          {/* Description (DM Sans Muted) */}
+          <p className="font-sans text-sm text-text-muted leading-relaxed max-w-sm">
+            {desc}
+          </p>
+
+        </div>
+
+        {/* Dynamic "→ View" Label slide-in at bottom-right */}
+        <div
+          className="absolute bottom-8 right-8 font-mono text-sm text-accent-teal flex items-center gap-1.5 transition-all duration-300 translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100"
+        >
+          <span>→ View</span>
+        </div>
+      </div>
+    </a >
+  );
+}
+
+export default function ProjectsSection() {
+  const { t } = useLanguage();
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      const track = trackRef.current;
-      if (!track) return;
-
-      // ── HORIZONTAL SCROLL (the iconic GSAP technique) ─
-      const mm = gsap.matchMedia();
-
-      mm.add("(min-width: 768px)", () => {
-        // Restore desktop paddingRight for the track
-        track.style.paddingRight = "10vw";
-        // Set clamp width on each project card
-        track.querySelectorAll<HTMLElement>(".proj-card").forEach((card) => {
-          card.style.width = "clamp(320px, 62vw, 780px)";
-          card.style.paddingRight = "3vw";
-          card.style.height = "100vh";
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("reveal-visible");
+          }
         });
+      },
+      { threshold: 0.15 }
+    );
 
-        const totalScroll = track.scrollWidth - window.innerWidth;
+    const elements = sectionRef.current?.querySelectorAll(".reveal-hidden");
+    elements?.forEach((el) => observer.observe(el));
 
-        const hsAnim = gsap.to(track, {
-          x: -totalScroll,
-          ease: "none",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top top",
-            end: () => `+=${totalScroll}`,
-            pin: true,
-            scrub: 1.2,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-            onUpdate: (self) => {
-              // Subtle progress line
-              const line = document.getElementById("proj-progress");
-              if (line) line.style.width = `${self.progress * 100}%`;
-            },
-          },
-        });
-
-        // ── Parallax inside each card image ────────────
-        track.querySelectorAll<HTMLElement>(".proj-img").forEach((img) => {
-          gsap.to(img, {
-            x: 40,
-            ease: "none",
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: "top top",
-              end: () => `+=${totalScroll}`,
-              scrub: 0.8,
-              containerAnimation: hsAnim,
-            },
-          });
-        });
-
-        return () => {
-          ScrollTrigger.getAll().forEach((t) => t.kill());
-          // Reset styles
-          track.style.paddingRight = "";
-          track.querySelectorAll<HTMLElement>(".proj-card").forEach((card) => {
-            card.style.width = "";
-            card.style.paddingRight = "";
-            card.style.height = "";
-          });
-        };
-      });
-
-      // ── Mobile: normal vertical stagger ───────────────
-      mm.add("(max-width: 767px)", () => {
-        track.querySelectorAll<HTMLElement>(".proj-card").forEach((card, i) => {
-          gsap.fromTo(card,
-            { y: 80, opacity: 0 },
-            {
-              y: 0, opacity: 1,
-              duration: 1, delay: i * 0.1, ease: "expo.out",
-              scrollTrigger: { trigger: card, start: "top 85%" },
-            }
-          );
-        });
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
+    return () => observer.disconnect();
   }, []);
 
   return (
-    <section ref={sectionRef} id="proyectos" className="relative overflow-hidden">
-      {/* Progress bar */}
-      <div className="fixed top-0 left-0 right-0 z-[100] h-[2px] bg-white/5">
-        <div id="proj-progress" className="h-full bg-nx-mid transition-none" style={{ width: "0%" }} />
-      </div>
-
-      {/* ── Track (horizontal scroll container) ────────── */}
-      <div
-        ref={trackRef}
-        className="flex flex-col md:flex-row md:items-stretch will-change-transform"
-        style={{ paddingRight: "0" }}
-      >
-        {/* ── Title panel ─────────────────────────────── */}
-        <div className="flex-shrink-0 w-screen md:w-[50vw] lg:w-[38vw] flex flex-col justify-center pl-[6vw] pr-8 md:pr-10 h-auto md:h-screen py-20 md:py-0">
-          <p className="eyebrow mb-5">Trabajos recientes</p>
-          <h2 className="text-3xl md:text-5xl xl:text-6xl font-black text-white leading-tight mb-6">
-            {dict.projects.title}
+    <section
+      ref={sectionRef}
+      id="proyectos"
+      className="relative bg-bg-base z-20 py-24"
+    >
+      <div className="container mx-auto px-6 max-w-6xl">
+        
+        {/* Section Header */}
+        <div className="max-w-2xl mb-20 reveal-hidden">
+          <span className="font-mono text-xs text-accent-teal tracking-widest uppercase block mb-3">
+            // {t.projects.label}
+          </span>
+          <h2 className="font-syne font-extrabold text-[clamp(2rem,4vw,3.2rem)] leading-tight text-text-primary mb-4">
+            {t.projects.headline}
           </h2>
-          <p className="text-white/40 text-sm leading-relaxed max-w-[260px]">
-            {dict.projects.subtitle}
+          <p className="font-sans text-sm sm:text-base text-text-muted">
+            {t.projects.subtext}
           </p>
-
-          {/* Scroll cue — only on desktop */}
-          <div className="hidden md:flex mt-14 items-center gap-3 text-white/25 text-xs uppercase tracking-widest">
-            <span>Desliza</span>
-            <svg width="40" height="12" viewBox="0 0 40 12" fill="none">
-              <path d="M0 6h36M30 1l6 5-6 5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </div>
         </div>
 
-        {/* ── Project cards ─────────────────────────────── */}
-        {projects.map((p: any, i: number) => (
-          <div
-            key={p.id}
-            className="proj-card flex-shrink-0 md:h-screen flex items-center w-full md:w-auto"
-            style={{ width: undefined }}
-          >
-            {/* On desktop, restore the clamp width via inline style only for md+ */}
-            <div className="w-full" style={{ maxWidth: "780px" }}>
-            <Link
-              href={p.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group block w-full img-card overflow-hidden"
-              style={{ boxShadow: "0 40px 100px rgba(5,9,26,0.75)", cursor: "none" }}
-            >
-              {/* Image */}
-              <div className="relative overflow-hidden" style={{ aspectRatio: "16/10" }}>
-                <Image
-                  src={p.image}
-                  alt={p.title}
-                  fill
-                  unoptimized
-                  // Extra scale so parallax x has room
-                  className="proj-img object-cover object-top scale-[1.12]"
-                />
-                <div className="absolute inset-0"
-                  style={{ background: "linear-gradient(180deg, transparent 30%, rgba(5,9,26,0.85) 100%)" }}
-                />
+        {/* Asymmetric 4-tile bento layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 pb-16">
+          
+          {/* Tile 1: Corporate Landing - WEB */}
+          <ProjectTile
+            tag={t.projects.items.t1Tag}
+            title={t.projects.items.t1Title}
+            desc={t.projects.items.t1Desc}
+          />
 
-                {/* Overlay on hover */}
-                <div className="absolute inset-0 bg-nx-mid/0 group-hover:bg-nx-mid/10 transition-colors duration-700" />
+          {/* Tile 2: Healthcare CRM - CRM (Staggered down Y axis on desktop) */}
+          <ProjectTile
+            tag={t.projects.items.t2Tag}
+            title={t.projects.items.t2Title}
+            desc={t.projects.items.t2Desc}
+            isStaggered={true}
+          />
 
-                {/* Hover badge */}
-                <div
-                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full glass flex items-center justify-center opacity-0 group-hover:opacity-100 scale-50 group-hover:scale-100 transition-all duration-400"
-                >
-                  <ExternalLink className="w-5 h-5 text-white" />
-                </div>
-              </div>
+          {/* Tile 3: Management SaaS - SAAS */}
+          <ProjectTile
+            tag={t.projects.items.t3Tag}
+            title={t.projects.items.t3Title}
+            desc={t.projects.items.t3Desc}
+          />
 
-              {/* Footer */}
-              <div className="p-5 md:p-8" style={{ background: "rgba(11,22,64,0.95)" }}>
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <div className="flex items-center gap-3 mb-3">
-                      <span className="badge">{p.type}</span>
-                      <span className="eyebrow text-white/30">{p.year}</span>
-                    </div>
-                    <h3 className="text-xl md:text-2xl font-black text-white mb-3 group-hover:text-gradient transition-all duration-300">
-                      {p.title}
-                    </h3>
-                    <div className="flex gap-2 flex-wrap">
-                      {p.tags.map((t: string) => (
-                        <span key={t} className="badge">{t}</span>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="text-6xl font-black text-white/5 shrink-0 font-display">
-                    0{i + 1}
-                  </div>
-                </div>
-              </div>
-            </Link>
-            </div>
-          </div>
-        ))}
+          {/* Tile 4: E-learning Platform - SAAS (Staggered down Y axis on desktop) */}
+          <ProjectTile
+            tag={t.projects.items.t4Tag}
+            title={t.projects.items.t4Title}
+            desc={t.projects.items.t4Desc}
+            isStaggered={true}
+          />
+
+        </div>
+
       </div>
-
-      {/* Rules */}
-      <div className="rule" />
     </section>
   );
 }

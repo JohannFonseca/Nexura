@@ -1,52 +1,55 @@
 import type { Metadata } from "next";
-import { Inter, Bebas_Neue, Playfair_Display } from "next/font/google";
+import { Syne, DM_Sans, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import "../globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+const syne = Syne({
+  variable: "--font-syne",
   subsets: ["latin"],
+  weight: ["700", "800"],
   display: "swap",
 });
 
-const bebasNeue = Bebas_Neue({
-  variable: "--font-display",
-  weight: "400",
+const dmSans = DM_Sans({
+  variable: "--font-dm-sans",
   subsets: ["latin"],
+  weight: ["400", "500"],
   display: "swap",
 });
 
-const playfairDisplay = Playfair_Display({
-  variable: "--font-editorial",
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
   subsets: ["latin"],
+  weight: ["500"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://nexura-cr.vercel.app"),
-  title: "Nexura | Soluciones Digitales",
+  metadataBase: new URL("https://nexuracr.dev"),
+  title: "Nexuracr.dev | Premium Custom Software & SaaS Studio",
   description:
-    "Agencia digital que construye soluciones modernas y efectivas para impulsar el crecimiento de tu negocio.",
+    "Estudio costarricense de software especializado en plataformas SaaS, sistemas CRM y desarrollo web a la medida. Entrega rápida, resultados serios.",
   keywords: [
-    "Desarrollo Web",
-    "Software",
-    "WhatsApp Automatización",
-    "Nexura",
-    "Agencia Digital",
+    "Desarrollo de Software Costa Rica",
+    "SaaS desarrollo",
+    "CRM a medida",
+    "Nexuracr.dev",
+    "Estudio de software",
+    "Desarrollo web premium",
   ],
-  authors: [{ name: "Nexura" }],
+  authors: [{ name: "Nexuracr.dev" }],
   openGraph: {
-    title: "Nexura | Soluciones Digitales",
+    title: "Nexuracr.dev | Premium Custom Software & SaaS Studio",
     description:
-      "Agencia digital que construye soluciones modernas y efectivas.",
-    url: "https://nexura-cr.vercel.app",
-    siteName: "Nexura",
+      "Construimos el software que escala tu negocio. SaaS, CRM y plataformas web premium. Entrega rápida, resultados serios.",
+    url: "https://nexuracr.dev",
+    siteName: "Nexuracr.dev",
     images: [
       {
-        url: "https://nexura-cr.vercel.app/logo-definitivo.png",
-        width: 800,
-        height: 600,
-        alt: "Nexura Logo",
+        url: "/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Nexuracr.dev Logo",
       },
     ],
     locale: "es",
@@ -65,13 +68,14 @@ export default async function RootLayout({
   return (
     <html
       lang={lang}
-      className={`${inter.variable} ${bebasNeue.variable} ${playfairDisplay.variable} antialiased scroll-smooth`}
+      className={`${syne.variable} ${dmSans.variable} ${jetbrainsMono.variable} antialiased scroll-smooth`}
       suppressHydrationWarning
     >
       <body
-        className="min-h-screen flex flex-col font-sans bg-background text-foreground"
+        className="min-h-screen flex flex-col bg-bg-base text-text-primary"
         suppressHydrationWarning
       >
+        <div className="grain-overlay" />
         {children}
         <Analytics />
       </body>

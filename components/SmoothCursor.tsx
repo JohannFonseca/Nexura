@@ -1,92 +1,139 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
 export default function SmoothCursor() {
-  const spotRef = useRef<HTMLDivElement>(null);
-  const dotRef  = useRef<HTMLDivElement>(null);
+  const dotRef = useRef<HTMLDivElement>(null);
+  const ringRef = useRef<HTMLDivElement>(null);
+  const [isTouchDevice, setIsTouchDevice] = useState(true);
 
   useEffect(() => {
-    if (!spotRef.current || !dotRef.current) return;
+    // Detect touch device (mobile / tablets)
+    const touchCheck = () => {
+      const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
+      const touchSupport = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+      return coarsePointer || touchSupport;
+    };
 
-    // ── Set initial state ─────────────────────────────
-    gsap.set(spotRef.current, { opacity: 0, xPercent: -50, yPercent: -50 });
-    gsap.set(dotRef.current,  { opacity: 0, xPercent: -50, yPercent: -50 });
+    if (touchCheck()) {
+      setIsTouchDevice(true);
+      return;
+    }
+    setIsTouchDevice(false);
 
-    // ── quickTo for smooth tracking ───────────────────
-    const sxTo = gsap.quickTo(spotRef.current, "x", { duration: 0.7, ease: "power3" });
-    const syTo = gsap.quickTo(spotRef.current, "y", { duration: 0.7, ease: "power3" });
-    const dxTo = gsap.quickTo(dotRef.current,  "x", { duration: 0.05 });
-    const dyTo = gsap.quickTo(dotRef.current,  "y", { duration: 0.05 });
+    if (!dotRef.current || !ringRef.current) return;
 
-    let visible = false;
+    // Set initial positions
+    gsap.set(dotRef.current, { xPercent: -50, yPercent: -50, opacity: 0 });
+    gsap.set(ringRef.current, { xPercent: -50, yPercent: -50, opacity: 0 });
 
-    const onMove = (e: MouseEvent) => {
-      sxTo(e.clientX); syTo(e.clientY);
-      dxTo(e.clientX); dyTo(e.clientY);
+    // Precise dot (0 lag)
+    const dotX = gsap.quickTo(dotRef.current, "x", { duration: 0.05 });
+    const dotY = gsap.quickTo(dotRef.current, "y", { duration: 0.05 });
 
-      if (!visible) {
-        visible = true;
-        gsap.to([spotRef.current, dotRef.current], { opacity: 1, duration: 0.6 });
+    // Ghost ring (150ms / 0.15s lag)
+    const ringX = gsap.quickTo(ringRef.current, "x", { duration: 0.15, ease: "power2.out" });
+    const ringY = gsap.quickTo(ringRef.current, "y", { duration: 0.15, ease: "power2.out" });
+
+    let hasMoved = false;
+
+    const onMouseMove = (e: MouseEvent) => {
+      dotX(e.clientX);
+      dotY(e.clientY);
+      ringX(e.clientX);
+      ringY(e.clientY);
+
+      if (!hasMoved) {
+        hasMoved = true;
+        gsap.to([dotRef.current, ringRef.current], { opacity: 1, duration: 0.3 });
       }
     };
 
-    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mousemove", onMouseMove);
 
-    // ── Grow spotlight on links/buttons ──────────────
-    const onEnter = () => {
-      gsap.to(spotRef.current, { scale: 2.2, duration: 0.4, ease: "expo.out" });
-      gsap.to(dotRef.current,  { scale: 3, background: "#4f8cff", duration: 0.3 });
-    };
-    const onLeave = () => {
-      gsap.to(spotRef.current, { scale: 1, duration: 0.5, ease: "expo.out" });
-      gsap.to(dotRef.current,  { scale: 1, background: "#ffffff", duration: 0.3 });
+    // Scaling and styling on clickables
+    const onMouseEnterClickable = () => {
+      // Ring scales to 48px (from 32px -> 1.5x) and fills with 15% opacity teal
+      gsap.to(ringRef.current, {
+        scale: 1.5,
+        backgroundColor: "rgba(0, 232, 198, 0.15)",
+        borderColor: "rgba(0, 232, 198, 0.2)",
+        duration: 0.25,
+        ease: "power2.out",
+      });
+      // Dot remains constant or subtle scale
+      gsap.to(dotRef.current, {
+        scale: 0.8,
+        duration: 0.2,
+      });
     };
 
-    const targets = document.querySelectorAll("a, button");
-    targets.forEach((el) => {
-      el.addEventListener("mouseenter", onEnter);
-      el.addEventListener("mouseleave", onLeave);
-    });
+    const onMouseLeaveClickable = () => {
+      gsap.to(ringRef.current, {
+        scale: 1,
+        backgroundColor: "rgba(0, 232, 198, 0)",
+        borderColor: "#00E8C6",
+        duration: 0.25,
+        ease: "power2.out",
+      });
+      gsap.to(dotRef.current, {
+        scale: 1,
+        duration: 0.2,
+      });
+    };
+
+    const addHoverListeners = () => {
+      const clickables = document.querySelectorAll(
+        'a, button, input[type="submit"], input[type="button"], select, textarea, [role="button"], .interactive-tilt, .magnetic-cta'
+      );
+      clickables.forEach((el) => {
+        el.addEventListener("mouseenter", onMouseEnterClickable);
+        el.addEventListener("mouseleave", onMouseLeaveClickable);
+      });
+    };
+
+    // Initial attach
+    addHoverListeners();
+
+    // Since SPAs change content, periodically scan or use dynamic delegation
+    // Alternatively, mouseover delegation is perfect and robust!
+    const onMouseOverDelegation = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target) return;
+      const isClickable = target.closest(
+        'a, button, input[type="submit"], input[type="button"], select, textarea, [role="button"], .interactive-tilt, .magnetic-cta'
+      );
+      if (isClickable) {
+        onMouseEnterClickable();
+      } else {
+        onMouseLeaveClickable();
+      }
+    };
+    window.addEventListener("mouseover", onMouseOverDelegation);
 
     return () => {
-      window.removeEventListener("mousemove", onMove);
-      targets.forEach((el) => {
-        el.removeEventListener("mouseenter", onEnter);
-        el.removeEventListener("mouseleave", onLeave);
-      });
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mouseover", onMouseOverDelegation);
     };
   }, []);
 
+  if (isTouchDevice) return null;
+
   return (
     <>
-      {/* Soft glow spotlight */}
-      <div
-        ref={spotRef}
-        className="fixed top-0 left-0 pointer-events-none z-[9998] hidden md:block"
-        style={{
-          width: 280,
-          height: 280,
-          borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(45,91,227,0.12) 0%, rgba(79,140,255,0.04) 50%, transparent 70%)",
-          willChange: "transform",
-        }}
-      />
-
-      {/* Precise dot */}
+      {/* 8px filled teal circle */}
       <div
         ref={dotRef}
-        className="fixed top-0 left-0 pointer-events-none z-[9999] hidden md:block"
+        className="fixed top-0 left-0 w-2 h-2 rounded-full bg-accent-teal pointer-events-none z-[99999] will-change-transform"
         style={{
-          width: 6,
-          height: 6,
-          borderRadius: "50%",
-          background: "#ffffff",
-          willChange: "transform",
-          boxShadow: "0 0 10px rgba(255,255,255,0.6)",
-          mixBlendMode: "difference",
+          boxShadow: "0 0 10px rgba(0, 232, 198, 0.4)",
         }}
+      />
+      {/* 32px ghost ring with border */}
+      <div
+        ref={ringRef}
+        className="fixed top-0 left-0 w-8 h-8 rounded-full border border-accent-teal pointer-events-none z-[99998] bg-transparent will-change-transform"
       />
     </>
   );
