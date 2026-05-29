@@ -265,13 +265,13 @@ export default function ProjectsSection() {
             link="https://www.libreriacrayolacr.com/"
           />
 
-          {/* Tile 4: CRM Parroquia - CRM (Staggered down Y axis on desktop) */}
+          {/* Tile 4: CF Trainer - WEB (Staggered down Y axis on desktop) */}
           <ProjectTile
             tag={t.projects.items.t4Tag}
             title={t.projects.items.t4Title}
             desc={t.projects.items.t4Desc}
-            image="/CRM-Parroquia.png"
-            link="https://sistema-parroquia.vercel.app/"
+            image="/CF_Trainer.jpg"
+            link="https://cf-personal-trainer.vercel.app/"
             isStaggered={true}
           />
 
