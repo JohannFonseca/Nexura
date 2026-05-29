@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "@/lib/LanguageContext";
+import Image from "next/image";
 
 // Wireframe mockup visual inside device mockup
 function MockupWireframe({ type }: { type: string }) {
@@ -85,12 +86,14 @@ function ProjectTile({
   tag,
   title,
   desc,
+  image,
   link = "https://wa.me/50685803868",
   isStaggered = false,
 }: {
   tag: string;
   title: string;
   desc: string;
+  image: string;
   link?: string;
   isStaggered?: boolean;
 }) {
@@ -131,7 +134,13 @@ function ProjectTile({
 
         {/* Device Mockup */}
         <div className="w-full h-full relative device-mockup bg-bg-base overflow-hidden transition-all duration-500 group-hover:scale-[1.02]">
-          <MockupWireframe type={tag} />
+          <Image
+            src={image}
+            alt={title}
+            fill
+            className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.05]"
+            unoptimized
+          />
         </div>
       </div>
 
@@ -215,33 +224,41 @@ export default function ProjectsSection() {
         {/* Asymmetric 4-tile bento layout */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 pb-16">
           
-          {/* Tile 1: Corporate Landing - WEB */}
+          {/* Tile 1: Pura Vida Quiz - WEB */}
           <ProjectTile
             tag={t.projects.items.t1Tag}
             title={t.projects.items.t1Title}
             desc={t.projects.items.t1Desc}
+            image="/Pura-Vida_Quiz.png"
+            link="https://pura-vida-quiz.vercel.app/"
           />
 
-          {/* Tile 2: Healthcare CRM - CRM (Staggered down Y axis on desktop) */}
+          {/* Tile 2: CRM Lite - CRM (Staggered down Y axis on desktop) */}
           <ProjectTile
             tag={t.projects.items.t2Tag}
             title={t.projects.items.t2Title}
             desc={t.projects.items.t2Desc}
+            image="/CRM_Lite.jpg"
+            link="https://nexuracrm-lite.vercel.app/"
             isStaggered={true}
           />
 
-          {/* Tile 3: Management SaaS - SAAS */}
+          {/* Tile 3: Librería Crayola - SAAS */}
           <ProjectTile
             tag={t.projects.items.t3Tag}
             title={t.projects.items.t3Title}
             desc={t.projects.items.t3Desc}
+            image="/Libreria_Crayola.jpg"
+            link="https://www.libreriacrayolacr.com/"
           />
 
-          {/* Tile 4: E-learning Platform - SAAS (Staggered down Y axis on desktop) */}
+          {/* Tile 4: CRM Parroquia - CRM (Staggered down Y axis on desktop) */}
           <ProjectTile
             tag={t.projects.items.t4Tag}
             title={t.projects.items.t4Title}
             desc={t.projects.items.t4Desc}
+            image="/CRM-Parroquia.png"
+            link="https://sistema-parroquia.vercel.app/"
             isStaggered={true}
           />
 
