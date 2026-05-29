@@ -46,8 +46,13 @@ export default function Footer() {
             <a href="https://wa.me/50685803868" target="_blank" rel="noopener noreferrer" className="hover:text-accent-teal transition-colors">
               +506 8580 3868
             </a>
-            <a href="mailto:info@nexuracr.dev" className="hover:text-accent-teal transition-colors">
-              info@nexuracr.dev
+            <a
+              href="mailto:nexura.cr.soporte@gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-accent-teal transition-colors"
+            >
+              nexura.cr.soporte@gmail.com
             </a>
           </div>
 
