@@ -9,7 +9,7 @@ export default function SmoothCursor() {
   const [isTouchDevice, setIsTouchDevice] = useState(true);
 
   useEffect(() => {
-    // Detect touch device (mobile / tablets)
+    // Detect touch device (mobile / tablets) where custom cursor shouldn't render
     const touchCheck = () => {
       const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
       const touchSupport = "ontouchstart" in window || navigator.maxTouchPoints > 0;
@@ -28,11 +28,11 @@ export default function SmoothCursor() {
     gsap.set(dotRef.current, { xPercent: -50, yPercent: -50, opacity: 0 });
     gsap.set(ringRef.current, { xPercent: -50, yPercent: -50, opacity: 0 });
 
-    // Precise dot (0 lag)
-    const dotX = gsap.quickTo(dotRef.current, "x", { duration: 0.05 });
-    const dotY = gsap.quickTo(dotRef.current, "y", { duration: 0.05 });
+    // Trailing solid dot (very slight lag for trailing effect: ~60ms)
+    const dotX = gsap.quickTo(dotRef.current, "x", { duration: 0.06, ease: "power1.out" });
+    const dotY = gsap.quickTo(dotRef.current, "y", { duration: 0.06, ease: "power1.out" });
 
-    // Ghost ring (150ms / 0.15s lag)
+    // Ghost ring (150ms lag)
     const ringX = gsap.quickTo(ringRef.current, "x", { duration: 0.15, ease: "power2.out" });
     const ringY = gsap.quickTo(ringRef.current, "y", { duration: 0.15, ease: "power2.out" });
 
@@ -52,17 +52,15 @@ export default function SmoothCursor() {
 
     window.addEventListener("mousemove", onMouseMove);
 
-    // Scaling and styling on clickables
+    // Scaling and glowing style on hovering clickable items
     const onMouseEnterClickable = () => {
-      // Ring scales to 48px (from 32px -> 1.5x) and fills with 15% opacity teal
       gsap.to(ringRef.current, {
-        scale: 1.5,
+        scale: 1.5, // 32px * 1.5 = 48px
         backgroundColor: "rgba(0, 232, 198, 0.15)",
-        borderColor: "rgba(0, 232, 198, 0.2)",
+        borderColor: "rgba(0, 232, 198, 0.3)",
         duration: 0.25,
         ease: "power2.out",
       });
-      // Dot remains constant or subtle scale
       gsap.to(dotRef.current, {
         scale: 0.8,
         duration: 0.2,
@@ -83,26 +81,12 @@ export default function SmoothCursor() {
       });
     };
 
-    const addHoverListeners = () => {
-      const clickables = document.querySelectorAll(
-        'a, button, input[type="submit"], input[type="button"], select, textarea, [role="button"], .interactive-tilt, .magnetic-cta'
-      );
-      clickables.forEach((el) => {
-        el.addEventListener("mouseenter", onMouseEnterClickable);
-        el.addEventListener("mouseleave", onMouseLeaveClickable);
-      });
-    };
-
-    // Initial attach
-    addHoverListeners();
-
-    // Since SPAs change content, periodically scan or use dynamic delegation
-    // Alternatively, mouseover delegation is perfect and robust!
+    // Use event delegation on mouseover to dynamically capture hovers (SPAs friendly)
     const onMouseOverDelegation = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       if (!target) return;
       const isClickable = target.closest(
-        'a, button, input[type="submit"], input[type="button"], select, textarea, [role="button"], .interactive-tilt, .magnetic-cta'
+        'a, button, input[type="submit"], input[type="button"], select, textarea, [role="button"], .interactive-tilt, .magnetic-cta, .proj-card'
       );
       if (isClickable) {
         onMouseEnterClickable();
@@ -110,6 +94,7 @@ export default function SmoothCursor() {
         onMouseLeaveClickable();
       }
     };
+
     window.addEventListener("mouseover", onMouseOverDelegation);
 
     return () => {
@@ -122,7 +107,7 @@ export default function SmoothCursor() {
 
   return (
     <>
-      {/* 8px filled teal circle */}
+      {/* 8px filled teal circle trailing behind */}
       <div
         ref={dotRef}
         className="fixed top-0 left-0 w-2 h-2 rounded-full bg-accent-teal pointer-events-none z-[99999] will-change-transform"
@@ -130,7 +115,7 @@ export default function SmoothCursor() {
           boxShadow: "0 0 10px rgba(0, 232, 198, 0.4)",
         }}
       />
-      {/* 32px ghost ring with border */}
+      {/* 32px ghost ring trailing behind */}
       <div
         ref={ringRef}
         className="fixed top-0 left-0 w-8 h-8 rounded-full border border-accent-teal pointer-events-none z-[99998] bg-transparent will-change-transform"

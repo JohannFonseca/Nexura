@@ -8,9 +8,9 @@
   --color-text-primary: #F2F0EB;
   --color-text-muted: #6B6B78;
 
-  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-syne: var(--font-syne), sans-serif;
-  --font-mono: var(--font-jetbrains-mono), monospace;
+  --font-sans: var(--font-dm-sans-custom), ui-sans-serif, system-ui, sans-serif;
+  --font-syne: var(--font-syne-custom), sans-serif;
+  --font-mono: var(--font-jetbrains-mono-custom), monospace;
 }
 
 /* Base Styles & Customizations */
@@ -28,13 +28,6 @@
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
     font-family: var(--font-sans);
-  }
-
-  /* Hide default cursor on desktop */
-  @media (min-width: 768px) {
-    *, *::before, *::after {
-      cursor: none !important;
-    }
   }
 
   ::-webkit-scrollbar {
@@ -247,3 +240,174 @@
 .gate-right-animate {
   animation: slide-right-gate 0.75s cubic-bezier(0.76, 0, 0.24, 1) 1.5s forwards;
 }
+
+@keyframes heroReveal {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUpReveal {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes scrollPulse {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(200%);
+  }
+}
+
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-slide {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 45s linear infinite;
+}
+
+.marquee-slide:hover {
+  animation-play-state: paused;
+}
+
+/* Elite Opening Cinematic Animations */
+@keyframes logo-emblem-fade {
+  0% {
+    transform: scale(0.7) rotate(-25deg);
+    opacity: 0;
+    filter: drop-shadow(0 0 0px transparent);
+  }
+  50% {
+    transform: scale(1.04) rotate(0deg);
+    opacity: 1;
+    filter: drop-shadow(0 0 10px rgba(0, 232, 198, 0.3));
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+    filter: drop-shadow(0 0 20px rgba(0, 232, 198, 0.45));
+  }
+}
+
+@keyframes logo-text-fade {
+  0% {
+    letter-spacing: -0.05em;
+    opacity: 0;
+    filter: blur(8px);
+  }
+  100% {
+    letter-spacing: 0.18em;
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@keyframes logo-sub-fade {
+  0% {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 0.8;
+  }
+}
+
+.intro-emblem {
+  animation: logo-emblem-fade 1.1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.intro-text-brand {
+  animation: logo-text-fade 1.3s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
+}
+
+.intro-sub-brand {
+  animation: logo-sub-fade 1s cubic-bezier(0.22, 1, 0.36, 1) 0.65s forwards;
+}
+
+@keyframes gate-left-slide {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+@keyframes gate-right-slide {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(100%); }
+}
+
+.gate-left-slide-animate {
+  animation: gate-left-slide 0.85s cubic-bezier(0.76, 0, 0.24, 1) 1.55s forwards;
+}
+
+.gate-right-slide-animate {
+  animation: gate-right-slide 0.85s cubic-bezier(0.76, 0, 0.24, 1) 1.55s forwards;
+}
+
+@keyframes logo-container-fade-out {
+  0% { opacity: 1; }
+  100% { opacity: 0; filter: blur(5px); }
+}
+
+.logo-container-fade-out-animate {
+  animation: logo-container-fade-out 0.4s cubic-bezier(0.22, 1, 0.36, 1) 1.3s forwards;
+}
+
+/* SaaS & database architecture visualizer lines */
+@keyframes data-flow-dash {
+  to {
+    stroke-dashoffset: -40;
+  }
+}
+
+.data-flow-line {
+  stroke-dasharray: 8, 12;
+  animation: data-flow-dash 1.5s linear infinite;
+}
+
+@keyframes pulse-green {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+.pulse-green-indicator {
+  animation: pulse-green 2s infinite ease-in-out;
+}
+
+/* Database Schematic Query Ticker animations */
+@keyframes query-scroll {
+  0%, 20% { transform: translateY(0); }
+  25%, 45% { transform: translateY(-12px); }
+  50%, 70% { transform: translateY(-24px); }
+  75%, 95% { transform: translateY(-36px); }
+  100% { transform: translateY(0); }
+}
+
+.animate-query-ticker {
+  animation: query-scroll 12s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+}
+
+
+

@@ -4,21 +4,21 @@ import { Analytics } from "@vercel/analytics/react";
 import "../globals.css";
 
 const syne = Syne({
-  variable: "--font-syne",
+  variable: "--font-syne-custom",
   subsets: ["latin"],
   weight: ["700", "800"],
-  display: "swap",
+  display: "block",
 });
 
 const dmSans = DM_Sans({
-  variable: "--font-dm-sans",
+  variable: "--font-dm-sans-custom",
   subsets: ["latin"],
   weight: ["400", "500"],
   display: "swap",
 });
 
 const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
+  variable: "--font-jetbrains-mono-custom",
   subsets: ["latin"],
   weight: ["500"],
   display: "swap",

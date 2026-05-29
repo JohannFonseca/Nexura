@@ -83,25 +83,6 @@ export default function Footer() {
         </div>
 
       </div>
-
-      <style jsx global>{`
-        @keyframes marquee-scroll {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-50%);
-          }
-        }
-        .marquee-slide {
-          display: flex;
-          width: max-content;
-          animation: marquee-scroll 45s linear infinite;
-        }
-        .marquee-slide:hover {
-          animation-play-state: paused;
-        }
-      `}</style>
     </footer>
   );
 }
