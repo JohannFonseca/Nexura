@@ -21,8 +21,14 @@ function BentoCard({
   const cardRef = useRef<HTMLDivElement>(null);
   const [coords, setCoords] = useState({ rx: 0, ry: 0 });
   const [hovered, setHovered] = useState(false);
+  const [isTouch, setIsTouch] = useState(false);
+
+  useEffect(() => {
+    setIsTouch(window.matchMedia("(pointer: coarse)").matches);
+  }, []);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (isTouch) return;
     const card = cardRef.current;
     if (!card) return;
 
@@ -54,8 +60,10 @@ function BentoCard({
       onMouseLeave={handleMouseLeave}
       className={`relative group bg-surface-card border rounded-3xl p-8 sm:p-10 transition-glow duration-300 card-tilt-parent overflow-hidden ${className}`}
       style={{
-        transform: hovered
+        transform: hovered && !isTouch
           ? `perspective(800px) rotateX(${coords.rx}deg) rotateY(${coords.ry}deg) translateY(-6px)`
+          : hovered
+          ? "translateY(-6px)"
           : "perspective(800px) rotateX(0deg) rotateY(0deg) translateY(0)",
         borderColor: hovered ? "rgba(0, 232, 198, 0.4)" : "rgba(255, 255, 255, 0.03)",
         boxShadow: hovered

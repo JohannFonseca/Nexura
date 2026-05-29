@@ -98,6 +98,18 @@ function ProjectTile({
   isStaggered?: boolean;
 }) {
   const [hovered, setHovered] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 1024);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const hasStagger = isStaggered && isDesktop;
 
   return (
     <a
@@ -107,12 +119,12 @@ function ProjectTile({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       className={`group block bg-surface-card rounded-[2rem] border border-white/[0.03] overflow-hidden transition-all duration-500 ease-out select-none reveal-hidden ${
-        isStaggered ? "lg:translate-y-12" : ""
+        hasStagger ? "lg:translate-y-12" : ""
       }`}
       style={{
         transform: hovered
-          ? `${isStaggered ? "translateY(48px)" : ""} translateY(-8px)`
-          : `${isStaggered ? "translateY(48px)" : ""} translateY(0)`,
+          ? `${hasStagger ? "translateY(48px)" : ""} translateY(-8px)`
+          : `${hasStagger ? "translateY(48px)" : ""} translateY(0)`,
         boxShadow: hovered ? "0 24px 60px -20px rgba(0, 232, 198, 0.08)" : "none",
         borderColor: hovered ? "rgba(0, 232, 198, 0.2)" : "rgba(255, 255, 255, 0.03)",
       }}
@@ -138,8 +150,9 @@ function ProjectTile({
             src={image}
             alt={title}
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.05]"
-            unoptimized
+            priority={title.includes("Quiz") || title.includes("Lite")}
           />
         </div>
       </div>

@@ -131,6 +131,7 @@
   animation: rotating-spin 4s linear infinite;
   z-index: 0;
   pointer-events: none;
+  will-change: transform;
 }
 
 .rotating-border-inner {
