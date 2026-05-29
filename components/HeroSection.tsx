@@ -576,7 +576,11 @@ export default function HeroSection() {
           {/* Secondary CTA (Ghost outline, WhatsApp icon) */}
           <Link
             ref={secondaryCtaRef}
-            href="https://wa.me/50685803868"
+            href={
+              lang === "es"
+                ? "https://wa.me/50685803868?text=Hola,%20me%20interesa%20agendar%20una%20consultoría%20para%20conocer%20más%20sobre%20el%20desarrollo%20de%20software%20a%20la%20medida%20para%20mi%20negocio."
+                : "https://wa.me/50685803868?text=Hi,%20I%20am%20interested%20in%20scheduling%20a%20consultation%20to%20learn%20more%20about%20custom%20software%20development%20for%20my%20business."
+            }
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center border border-white/10 hover:border-accent-teal hover:text-accent-teal text-text-primary font-sans font-semibold text-sm px-8 py-4 rounded-full transition-all duration-300 bg-white/[0.01] hover:bg-white/[0.03] opacity-0 animate-[slideUpReveal_0.8s_cubic-bezier(0.22,1,0.36,1)_2.61s_forwards]"

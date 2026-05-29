@@ -25,18 +25,18 @@
       },
       {
         "id": 2,
-        "title": "Nexura CRM Lite",
-        "tags": ["SaaS", "Custom System", "WhatsApp Integration"]
+        "title": "CRM Lite",
+        "tags": ["SaaS", "Client Management", "Automation"]
       },
       {
         "id": 3,
         "title": "Librería Crayola",
-        "tags": ["E-commerce", "Online Store"]
+        "tags": ["E-commerce", "Digital Catalog"]
       },
       {
         "id": 4,
-        "title": "CF Trainer",
-        "tags": ["Landing Page", "Fitness", "Personal Branding"]
+        "title": "CRM Parroquia",
+        "tags": ["Custom Systems", "Bookkeeping", "Sales Control"]
       }
     ]
   },

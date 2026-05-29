@@ -176,7 +176,11 @@ export default function PricingSection() {
             </div>
 
             <a
-              href="https://wa.me/50685803868"
+              href={
+                lang === "es"
+                  ? "https://wa.me/50685803868?text=Hola,%20me%20interesa%20obtener%20información%20sobre%20el%20plan%20Starter%20(Landing%20Page)%20para%20mi%20negocio."
+                  : "https://wa.me/50685803868?text=Hi,%20I%20am%20interested%20in%20getting%20information%20about%20the%20Starter%20(Landing%20Page)%20plan%20for%20my%20business."
+              }
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center bg-white/5 hover:bg-accent-teal hover:text-[#07070A] text-text-primary font-sans font-bold text-sm w-full py-4 rounded-full mt-8 border border-white/5 hover:border-accent-teal transition-all duration-300"
@@ -226,7 +230,11 @@ export default function PricingSection() {
               {/* Magnetic Teal button */}
               <a
                 ref={proCtaRef}
-                href="https://wa.me/50685803868"
+                href={
+                  lang === "es"
+                    ? "https://wa.me/50685803868?text=Hola,%20me%20gustaría%20cotizar%20el%20plan%20Pro%20(Landing%20%2B%20Base%20de%20Datos)%20para%20desarrollar%20una%20plataforma%20a%20la%20medida."
+                    : "https://wa.me/50685803868?text=Hi,%20I%20would%20like%20to%20get%20a%20quote%20for%20the%20Pro%20(Landing%20%2B%20Database)%20plan%20to%20build%20a%20custom%20platform."
+                }
                 target="_blank"
                 rel="noopener noreferrer"
                 className="magnetic-cta inline-flex items-center justify-center bg-accent-teal hover:brightness-110 text-[#07070A] font-sans font-bold text-sm w-full py-4 rounded-full mt-8 transition-all duration-300 hover:shadow-[0_0_24px_rgba(0,232,198,0.45)] transform"
@@ -267,7 +275,11 @@ export default function PricingSection() {
             </div>
 
             <a
-              href="https://wa.me/50685803868"
+              href={
+                lang === "es"
+                  ? "https://wa.me/50685803868?text=Hola,%20quiero%20una%20cotización%20personalizada%20para%20el%20plan%20Enterprise%20(CRM%20/%20Sistema%20a%20la%20Medida)%20para%20mi%20empresa."
+                  : "https://wa.me/50685803868?text=Hi,%20I%20want%20a%20custom%20quote%20for%20the%20Enterprise%20(Custom%20CRM%20/%20Custom%20System)%20plan%20for%20my%20company."
+              }
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center bg-white/5 hover:bg-accent-teal hover:text-[#07070A] text-text-primary font-sans font-bold text-sm w-full py-4 rounded-full mt-8 border border-white/5 hover:border-accent-teal transition-all duration-300"
