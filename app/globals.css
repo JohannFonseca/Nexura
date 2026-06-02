@@ -73,12 +73,15 @@
 
 .drift-1 {
   animation: drift-orb-1 30s ease-in-out infinite;
+  will-change: transform;
 }
 .drift-2 {
   animation: drift-orb-2 25s ease-in-out infinite;
+  will-change: transform;
 }
 .drift-3 {
   animation: drift-orb-3 35s ease-in-out infinite;
+  will-change: transform;
 }
 
 /* Section dividers: clip-path diagonal cuts, 2.5deg angle */

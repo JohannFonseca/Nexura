@@ -6,6 +6,166 @@ import { useLanguage } from "@/lib/LanguageContext";
 import gsap from "gsap";
 import { Home, BarChart2, User, Settings, LayoutDashboard, Users, Package } from "lucide-react";
 
+// Reusable Smartphone Mockup Component for visualizers
+function SmartphoneMockup({ idSuffix, className }: { idSuffix: string; className: string }) {
+  return (
+    <div className={className}>
+      {/* Physical Button Mockups on Rim */}
+      <div className="absolute -left-[4px] top-[80px] w-[3px] h-[25px] bg-[#2E2E38] rounded-l-md" />
+      <div className="absolute -left-[4px] top-[115px] w-[3px] h-[25px] bg-[#2E2E38] rounded-l-md" />
+      <div className="absolute -right-[4px] top-[95px] w-[3px] h-[40px] bg-[#2E2E38] rounded-r-md" />
+
+      {/* Glossy glass reflection overlay */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-white/[0.01] via-transparent to-white/[0.08] pointer-events-none z-30 rounded-[2.4rem] border border-white/10" />
+      
+      {/* Top iOS Status Bar & Dynamic Island */}
+      <div className="relative z-10 flex items-center justify-between px-2 pt-0.5 pb-1">
+        <span className="font-sans text-[8px] font-semibold text-white/95">9:41</span>
+        
+        {/* Dynamic Island Capsule */}
+        <div className="w-[64px] h-[18px] bg-[#000000] border border-white/10 rounded-full flex items-center justify-between px-2 relative shadow-inner">
+          {/* Camera lens */}
+          <div className="w-1.5 h-1.5 rounded-full bg-[#101015] border border-white/5 flex items-center justify-center">
+            <div className="w-0.5 h-0.5 rounded-full bg-[#0d2a4a]" />
+          </div>
+          {/* Active indicator dot */}
+          <span className="w-1 h-1 rounded-full bg-accent-teal shadow-[0_0_4px_#00E8C6] animate-pulse" />
+        </div>
+
+        <div className="flex items-center gap-1.5 text-white/80">
+          {/* Cellular Signal Strength Bars */}
+          <svg className="w-3 h-2.5 text-white/90" fill="currentColor" viewBox="0 0 120 120">
+            <rect x="10" y="80" width="15" height="30" rx="3" />
+            <rect x="35" y="60" width="15" height="50" rx="3" />
+            <rect x="60" y="40" width="15" height="70" rx="3" />
+            <rect x="85" y="10" width="15" height="100" rx="3" fill="currentColor" className="text-accent-teal" />
+          </svg>
+          {/* WiFi Arc Icon */}
+          <svg className="w-3 h-2.5 text-white/90" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 21l-12-12a17 17 0 0 1 24 0z" />
+          </svg>
+          {/* Battery Rim + Fill */}
+          <div className="w-[18px] h-[9px] border border-white/40 rounded-[3px] p-[1px] flex items-center relative">
+            <div className="h-full w-[80%] bg-accent-teal rounded-[1px]" />
+            <div className="w-[1.5px] h-[3px] bg-white/40 absolute -right-[2.5px] rounded-r-[1px]" />
+          </div>
+        </div>
+      </div>
+
+      {/* Premium App Bar Header */}
+      <div className="relative z-10 px-1 pb-1.5 border-b border-white/[0.06] flex justify-between items-center">
+        <div className="flex items-center gap-1.5">
+          <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-accent-gold/20 to-accent-teal/20 border border-white/10 flex items-center justify-center overflow-hidden">
+            <User className="w-3 h-3 text-accent-gold" />
+          </div>
+          <div className="flex flex-col">
+            <span className="font-sans text-[8.5px] font-bold text-white tracking-wide uppercase">NEXURA HQ</span>
+            <span className="font-sans text-[6px] text-text-muted">CEO Dashboard</span>
+          </div>
+        </div>
+        <span className="font-mono text-[6.5px] text-accent-teal uppercase font-bold tracking-widest animate-pulse flex items-center gap-1">
+          <span className="w-1 h-1 rounded-full bg-accent-teal" /> LIVE
+        </span>
+      </div>
+
+      {/* App Interface Content Suite */}
+      <div className="relative z-10 flex-1 flex flex-col gap-2 pt-2 justify-start overflow-hidden">
+        {/* Section 1: KPI Business Metrics */}
+        <div className="grid grid-cols-2 gap-1.5">
+          <div className="bg-white/[0.02] border border-white/[0.04] p-1.5 rounded-lg flex flex-col justify-center shadow-inner">
+            <span className="font-mono text-[6px] text-text-muted uppercase">Ventas Hoy</span>
+            <span className="font-sans font-bold text-[9.5px] text-white mt-0.5">₡450,000</span>
+            <span className="font-mono text-[5.5px] text-accent-teal mt-0.5 font-bold">▲ +18%</span>
+          </div>
+          <div className="bg-white/[0.02] border border-white/[0.04] p-1.5 rounded-lg flex flex-col justify-center shadow-inner">
+            <span className="font-mono text-[6px] text-text-muted uppercase">Clientes</span>
+            <span className="font-sans font-bold text-[9.5px] text-white mt-0.5">+18</span>
+            <span className="font-mono text-[5.5px] text-accent-gold mt-0.5 font-bold">★ Record</span>
+          </div>
+        </div>
+
+        {/* Section 2: Real-time Sparkline Mini Area Graph */}
+        <div className="bg-white/[0.02] border border-white/[0.04] p-1.5 rounded-lg flex flex-col justify-between shadow-inner h-[58px]">
+          <div className="flex justify-between items-center border-b border-white/[0.03] pb-0.5">
+            <span className="font-mono text-[6px] text-text-muted uppercase">Rendimiento Operativo</span>
+            <span className="font-mono text-[6px] text-accent-teal">99.8%</span>
+          </div>
+          {/* SVG Mini Chart */}
+          <svg viewBox="0 0 160 35" className="w-full h-[32px] overflow-visible">
+            <defs>
+              <linearGradient id={`phone-chart-fill${idSuffix}`} x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#C9A84C" stopOpacity="0.25" />
+                <stop offset="100%" stopColor="#C9A84C" stopOpacity="0.0" />
+              </linearGradient>
+            </defs>
+            <path
+              d="M 0 30 Q 30 5 60 20 T 120 10 T 160 18 L 160 35 L 0 35 Z"
+              fill={`url(#phone-chart-fill${idSuffix})`}
+            />
+            <path
+              d="M 0 30 Q 30 5 60 20 T 120 10 T 160 18"
+              fill="none"
+              stroke="#C9A84C"
+              strokeWidth="1.2"
+            />
+            <circle cx="120" cy="10" r="1.8" fill="#00E8C6" className="animate-pulse" />
+          </svg>
+        </div>
+
+        {/* Section 3: Live System Push Notifications */}
+        <div className="flex flex-col gap-1.5">
+          <span className="font-mono text-[6px] text-text-muted uppercase tracking-wider px-0.5">Actividad Omnicanal</span>
+          
+          {/* Notification Item 1 */}
+          <div className="bg-white/[0.03] border border-white/[0.04] p-1.5 rounded-lg flex items-center justify-between shadow-inner">
+            <div className="flex items-center gap-1.5 overflow-hidden">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent-teal shadow-[0_0_4px_#00E8C6] shrink-0" />
+              <span className="font-mono text-[7px] text-white/90 truncate">Caja 01: Factura Enviada</span>
+            </div>
+            <span className="font-mono text-[6.5px] text-accent-teal shrink-0">+₡300k</span>
+          </div>
+          
+          {/* Notification Item 2 */}
+          <div className="bg-white/[0.03] border border-white/[0.04] p-1.5 rounded-lg flex items-center justify-between shadow-inner">
+            <div className="flex items-center gap-1.5 overflow-hidden">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent-gold shadow-[0_0_4px_#C9A84C] shrink-0" />
+              <span className="font-mono text-[7px] text-white/90 truncate">CRM: Contrato Firmado [Grupo Sur]</span>
+            </div>
+            <span className="font-mono text-[6.5px] text-accent-gold shrink-0">✓ Firmado</span>
+          </div>
+        </div>
+
+        {/* Section 4: SaaS Targets Gauge Meter */}
+        <div className="bg-white/[0.01] border border-white/[0.03] p-1.5 rounded-lg flex flex-col gap-1 mt-0.5">
+          <div className="flex justify-between font-mono text-[6px] text-text-muted uppercase">
+            <span>Disponibilidad API</span>
+            <span className="text-white font-bold">99.9%</span>
+          </div>
+          <div className="w-full h-1 bg-white/5 rounded-full overflow-hidden">
+            <div className="h-full bg-accent-teal rounded-full animate-pulse shadow-[0_0_4px_#00E8C6]" style={{ width: "99.9%" }} />
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom iOS Navigation Bar */}
+      <div className="relative z-10 border-t border-white/[0.06] pt-1.5 pb-0.5 flex justify-around items-center font-sans text-[11px] text-text-muted">
+        <span className="text-accent-teal cursor-pointer hover:text-white transition-colors group">
+          <Home className="w-4 h-4 text-accent-teal" />
+        </span>
+        <span className="cursor-pointer hover:text-white transition-colors group">
+          <BarChart2 className="w-4 h-4 text-text-muted group-hover:text-white transition-colors" />
+        </span>
+        <span className="cursor-pointer hover:text-white transition-colors group">
+          <User className="w-4 h-4 text-text-muted group-hover:text-white transition-colors" />
+        </span>
+        <span className="cursor-pointer hover:text-white transition-colors group">
+          <Settings className="w-4 h-4 text-text-muted group-hover:text-white transition-colors" />
+        </span>
+      </div>
+    </div>
+  );
+}
+
 export default function HeroSection() {
   const { lang, t } = useLanguage();
   const visualizerRef = useRef<HTMLDivElement>(null);
@@ -369,162 +529,10 @@ export default function HeroSection() {
           </div>
 
           {/* Device 3: Smartphone Mockup (z-20, Upgraded iPhone Pro Executive App) */}
-          <div
+          <SmartphoneMockup
+            idSuffix="-desktop"
             className="absolute right-[3%] top-[6%] w-[215px] h-[400px] z-20 backdrop-blur-2xl bg-[#07070A]/85 border-[4px] border-[#1e1e24] ring-1 ring-white/15 rounded-[2.6rem] p-3.5 shadow-[0_45px_100px_rgba(0,0,0,0.85),inset_0_1px_2px_rgba(255,255,255,0.15)] transition-all duration-300 hover:border-accent-teal/40 hover:shadow-[0_45px_80px_rgba(0,232,198,0.25)] group/phone flex flex-col justify-between overflow-hidden"
-          >
-            {/* Physical Button Mockups on Rim */}
-            <div className="absolute -left-[4px] top-[80px] w-[3px] h-[25px] bg-[#2E2E38] rounded-l-md" />
-            <div className="absolute -left-[4px] top-[115px] w-[3px] h-[25px] bg-[#2E2E38] rounded-l-md" />
-            <div className="absolute -right-[4px] top-[95px] w-[3px] h-[40px] bg-[#2E2E38] rounded-r-md" />
-
-            {/* Glossy glass reflection overlay */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-white/[0.01] via-transparent to-white/[0.08] pointer-events-none z-30 rounded-[2.4rem] border border-white/10" />
-            
-            {/* Top iOS Status Bar & Dynamic Island */}
-            <div className="relative z-10 flex items-center justify-between px-2 pt-0.5 pb-1">
-              <span className="font-sans text-[8px] font-semibold text-white/95">9:41</span>
-              
-              {/* Dynamic Island Capsule */}
-              <div className="w-[64px] h-[18px] bg-[#000000] border border-white/10 rounded-full flex items-center justify-between px-2 relative shadow-inner">
-                {/* Camera lens */}
-                <div className="w-1.5 h-1.5 rounded-full bg-[#101015] border border-white/5 flex items-center justify-center">
-                  <div className="w-0.5 h-0.5 rounded-full bg-[#0d2a4a]" />
-                </div>
-                {/* Active indicator dot */}
-                <span className="w-1 h-1 rounded-full bg-accent-teal shadow-[0_0_4px_#00E8C6] animate-pulse" />
-              </div>
-
-              <div className="flex items-center gap-1.5 text-white/80">
-                {/* Cellular Signal Strength Bars */}
-                <svg className="w-3 h-2.5 text-white/90" fill="currentColor" viewBox="0 0 120 120">
-                  <rect x="10" y="80" width="15" height="30" rx="3" />
-                  <rect x="35" y="60" width="15" height="50" rx="3" />
-                  <rect x="60" y="40" width="15" height="70" rx="3" />
-                  <rect x="85" y="10" width="15" height="100" rx="3" fill="currentColor" className="text-accent-teal" />
-                </svg>
-                {/* WiFi Arc Icon */}
-                <svg className="w-3 h-2.5 text-white/90" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 21l-12-12a17 17 0 0 1 24 0z" />
-                </svg>
-                {/* Battery Rim + Fill */}
-                <div className="w-[18px] h-[9px] border border-white/40 rounded-[3px] p-[1px] flex items-center relative">
-                  <div className="h-full w-[80%] bg-accent-teal rounded-[1px]" />
-                  <div className="w-[1.5px] h-[3px] bg-white/40 absolute -right-[2.5px] rounded-r-[1px]" />
-                </div>
-              </div>
-            </div>
-
-            {/* Premium App Bar Header */}
-            <div className="relative z-10 px-1 pb-1.5 border-b border-white/[0.06] flex justify-between items-center">
-              <div className="flex items-center gap-1.5">
-                <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-accent-gold/20 to-accent-teal/20 border border-white/10 flex items-center justify-center overflow-hidden">
-                  <User className="w-3 h-3 text-accent-gold" />
-                </div>
-                <div className="flex flex-col">
-                  <span className="font-sans text-[8.5px] font-bold text-white tracking-wide uppercase">NEXURA HQ</span>
-                  <span className="font-sans text-[6px] text-text-muted">CEO Dashboard</span>
-                </div>
-              </div>
-              <span className="font-mono text-[6.5px] text-accent-teal uppercase font-bold tracking-widest animate-pulse flex items-center gap-1">
-                <span className="w-1 h-1 rounded-full bg-accent-teal" /> LIVE
-              </span>
-            </div>
-
-            {/* App Interface Scrollable Content Suite */}
-            <div className="relative z-10 flex-1 flex flex-col gap-2 pt-2 justify-start overflow-hidden">
-              {/* Section 1: KPI Business Metrics */}
-              <div className="grid grid-cols-2 gap-1.5">
-                <div className="bg-white/[0.02] border border-white/[0.04] p-1.5 rounded-lg flex flex-col justify-center shadow-inner">
-                  <span className="font-mono text-[6px] text-text-muted uppercase">Ventas Hoy</span>
-                  <span className="font-sans font-bold text-[9.5px] text-white mt-0.5">₡450,000</span>
-                  <span className="font-mono text-[5.5px] text-accent-teal mt-0.5 font-bold">▲ +18%</span>
-                </div>
-                <div className="bg-white/[0.02] border border-white/[0.04] p-1.5 rounded-lg flex flex-col justify-center shadow-inner">
-                  <span className="font-mono text-[6px] text-text-muted uppercase">Clientes</span>
-                  <span className="font-sans font-bold text-[9.5px] text-white mt-0.5">+18</span>
-                  <span className="font-mono text-[5.5px] text-accent-gold mt-0.5 font-bold">★ Record</span>
-                </div>
-              </div>
-
-              {/* Section 2: Real-time Sparkline Mini Area Graph */}
-              <div className="bg-white/[0.02] border border-white/[0.04] p-1.5 rounded-lg flex flex-col justify-between shadow-inner h-[58px]">
-                <div className="flex justify-between items-center border-b border-white/[0.03] pb-0.5">
-                  <span className="font-mono text-[6px] text-text-muted uppercase">Rendimiento Operativo</span>
-                  <span className="font-mono text-[6px] text-accent-teal">99.8%</span>
-                </div>
-                {/* SVG Mini Chart */}
-                <svg viewBox="0 0 160 35" className="w-full h-[32px] overflow-visible">
-                  <defs>
-                    <linearGradient id="phone-chart-fill" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#C9A84C" stopOpacity="0.25" />
-                      <stop offset="100%" stopColor="#C9A84C" stopOpacity="0.0" />
-                    </linearGradient>
-                  </defs>
-                  <path
-                    d="M 0 30 Q 30 5 60 20 T 120 10 T 160 18 L 160 35 L 0 35 Z"
-                    fill="url(#phone-chart-fill)"
-                  />
-                  <path
-                    d="M 0 30 Q 30 5 60 20 T 120 10 T 160 18"
-                    fill="none"
-                    stroke="#C9A84C"
-                    strokeWidth="1.2"
-                  />
-                  <circle cx="120" cy="10" r="1.8" fill="#00E8C6" className="animate-pulse" />
-                </svg>
-              </div>
-
-              {/* Section 3: Live System Push Notifications */}
-              <div className="flex flex-col gap-1.5">
-                <span className="font-mono text-[6px] text-text-muted uppercase tracking-wider px-0.5">Actividad Omnicanal</span>
-                
-                {/* Notification Item 1 */}
-                <div className="bg-white/[0.03] border border-white/[0.04] p-1.5 rounded-lg flex items-center justify-between shadow-inner">
-                  <div className="flex items-center gap-1.5 overflow-hidden">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent-teal shadow-[0_0_4px_#00E8C6] shrink-0" />
-                    <span className="font-mono text-[7px] text-white/90 truncate">Caja 01: Factura Enviada</span>
-                  </div>
-                  <span className="font-mono text-[6.5px] text-accent-teal shrink-0">+₡300k</span>
-                </div>
-                
-                {/* Notification Item 2 */}
-                <div className="bg-white/[0.03] border border-white/[0.04] p-1.5 rounded-lg flex items-center justify-between shadow-inner">
-                  <div className="flex items-center gap-1.5 overflow-hidden">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent-gold shadow-[0_0_4px_#C9A84C] shrink-0" />
-                    <span className="font-mono text-[7px] text-white/90 truncate">CRM: Contrato Firmado [Grupo Sur]</span>
-                  </div>
-                  <span className="font-mono text-[6.5px] text-accent-gold shrink-0">✓ Firmado</span>
-                </div>
-              </div>
-
-              {/* Section 4: SaaS Targets Gauge Meter */}
-              <div className="bg-white/[0.01] border border-white/[0.03] p-1.5 rounded-lg flex flex-col gap-1 mt-0.5">
-                <div className="flex justify-between font-mono text-[6px] text-text-muted uppercase">
-                  <span>Disponibilidad API</span>
-                  <span className="text-white font-bold">99.9%</span>
-                </div>
-                <div className="w-full h-1 bg-white/5 rounded-full overflow-hidden">
-                  <div className="h-full bg-accent-teal rounded-full animate-pulse shadow-[0_0_4px_#00E8C6]" style={{ width: "99.9%" }} />
-                </div>
-              </div>
-            </div>
-
-            {/* Bottom iOS Navigation Bar */}
-            <div className="relative z-10 border-t border-white/[0.06] pt-1.5 pb-0.5 flex justify-around items-center font-sans text-[11px] text-text-muted">
-              <span className="text-accent-teal cursor-pointer hover:text-white transition-colors group">
-                <Home className="w-4 h-4 text-accent-teal" />
-              </span>
-              <span className="cursor-pointer hover:text-white transition-colors group">
-                <BarChart2 className="w-4 h-4 text-text-muted group-hover:text-white transition-colors" />
-              </span>
-              <span className="cursor-pointer hover:text-white transition-colors group">
-                <User className="w-4 h-4 text-text-muted group-hover:text-white transition-colors" />
-              </span>
-              <span className="cursor-pointer hover:text-white transition-colors group">
-                <Settings className="w-4 h-4 text-text-muted group-hover:text-white transition-colors" />
-              </span>
-            </div>
-          </div>
+          />
 
           {/* Subtle floating product suite tags */}
           <div className="absolute left-[3%] bottom-[6%] font-mono text-[8px] text-[#00E8C6]/12 hover:text-[#00E8C6]/35 transition-colors pointer-events-auto cursor-default">
@@ -575,162 +583,10 @@ export default function HeroSection() {
 
         {/* Mobile-only beautiful glowing smartphone mockup (centered, scales down nicely, lightweight) */}
         {mounted && !showVisualizer && (
-          <div
+          <SmartphoneMockup
+            idSuffix="-mobile"
             className="lg:hidden my-4 relative w-[190px] h-[360px] backdrop-blur-2xl bg-[#07070A]/85 border-[4px] border-[#1e1e24] ring-1 ring-white/15 rounded-[2.6rem] p-3 shadow-[0_24px_50px_rgba(0,0,0,0.85),inset_0_1px_2px_rgba(255,255,255,0.15)] flex flex-col justify-between overflow-hidden opacity-0 animate-[fadeIn_0.8s_ease-out_2.45s_forwards] mb-8 scale-90 sm:scale-100"
-          >
-            {/* Physical Button Mockups on Rim */}
-            <div className="absolute -left-[4px] top-[80px] w-[3px] h-[25px] bg-[#2E2E38] rounded-l-md" />
-            <div className="absolute -left-[4px] top-[115px] w-[3px] h-[25px] bg-[#2E2E38] rounded-l-md" />
-            <div className="absolute -right-[4px] top-[95px] w-[3px] h-[40px] bg-[#2E2E38] rounded-r-md" />
-
-            {/* Glossy glass reflection overlay */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-white/[0.01] via-transparent to-white/[0.08] pointer-events-none z-30 rounded-[2.4rem] border border-white/10" />
-            
-            {/* Top iOS Status Bar & Dynamic Island */}
-            <div className="relative z-10 flex items-center justify-between px-2 pt-0.5 pb-1">
-              <span className="font-sans text-[8px] font-semibold text-white/95">9:41</span>
-              
-              {/* Dynamic Island Capsule */}
-              <div className="w-[64px] h-[18px] bg-[#000000] border border-white/10 rounded-full flex items-center justify-between px-2 relative shadow-inner">
-                {/* Camera lens */}
-                <div className="w-1.5 h-1.5 rounded-full bg-[#101015] border border-white/5 flex items-center justify-center">
-                  <div className="w-0.5 h-0.5 rounded-full bg-[#0d2a4a]" />
-                </div>
-                {/* Active indicator dot */}
-                <span className="w-1 h-1 rounded-full bg-accent-teal shadow-[0_0_4px_#00E8C6] animate-pulse" />
-              </div>
-
-              <div className="flex items-center gap-1.5 text-white/80">
-                {/* Cellular Signal Strength Bars */}
-                <svg className="w-3 h-2.5 text-white/90" fill="currentColor" viewBox="0 0 120 120">
-                  <rect x="10" y="80" width="15" height="30" rx="3" />
-                  <rect x="35" y="60" width="15" height="50" rx="3" />
-                  <rect x="60" y="40" width="15" height="70" rx="3" />
-                  <rect x="85" y="10" width="15" height="100" rx="3" fill="currentColor" className="text-accent-teal" />
-                </svg>
-                {/* WiFi Arc Icon */}
-                <svg className="w-3 h-2.5 text-white/90" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 21l-12-12a17 17 0 0 1 24 0z" />
-                </svg>
-                {/* Battery Rim + Fill */}
-                <div className="w-[18px] h-[9px] border border-white/40 rounded-[3px] p-[1px] flex items-center relative">
-                  <div className="h-full w-[80%] bg-accent-teal rounded-[1px]" />
-                  <div className="w-[1.5px] h-[3px] bg-white/40 absolute -right-[2.5px] rounded-r-[1px]" />
-                </div>
-              </div>
-            </div>
-
-            {/* Premium App Bar Header */}
-            <div className="relative z-10 px-1 pb-1.5 border-b border-white/[0.06] flex justify-between items-center">
-              <div className="flex items-center gap-1.5">
-                <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-accent-gold/20 to-accent-teal/20 border border-white/10 flex items-center justify-center overflow-hidden">
-                  <User className="w-3 h-3 text-accent-gold" />
-                </div>
-                <div className="flex flex-col">
-                  <span className="font-sans text-[8.5px] font-bold text-white tracking-wide uppercase">NEXURA HQ</span>
-                  <span className="font-sans text-[6px] text-text-muted">CEO Dashboard</span>
-                </div>
-              </div>
-              <span className="font-mono text-[6.5px] text-accent-teal uppercase font-bold tracking-widest animate-pulse flex items-center gap-1">
-                <span className="w-1 h-1 rounded-full bg-accent-teal" /> LIVE
-              </span>
-            </div>
-
-            {/* App Interface Content Suite */}
-            <div className="relative z-10 flex-1 flex flex-col gap-2 pt-2 justify-start overflow-hidden">
-              {/* Section 1: KPI Business Metrics */}
-              <div className="grid grid-cols-2 gap-1.5">
-                <div className="bg-white/[0.02] border border-white/[0.04] p-1.5 rounded-lg flex flex-col justify-center shadow-inner">
-                  <span className="font-mono text-[6px] text-text-muted uppercase">Ventas Hoy</span>
-                  <span className="font-sans font-bold text-[9.5px] text-white mt-0.5">₡450,000</span>
-                  <span className="font-mono text-[5.5px] text-accent-teal mt-0.5 font-bold">▲ +18%</span>
-                </div>
-                <div className="bg-white/[0.02] border border-white/[0.04] p-1.5 rounded-lg flex flex-col justify-center shadow-inner">
-                  <span className="font-mono text-[6px] text-text-muted uppercase">Clientes</span>
-                  <span className="font-sans font-bold text-[9.5px] text-white mt-0.5">+18</span>
-                  <span className="font-mono text-[5.5px] text-accent-gold mt-0.5 font-bold">★ Record</span>
-                </div>
-              </div>
-
-              {/* Section 2: Real-time Sparkline Mini Area Graph */}
-              <div className="bg-white/[0.02] border border-white/[0.04] p-1.5 rounded-lg flex flex-col justify-between shadow-inner h-[58px]">
-                <div className="flex justify-between items-center border-b border-white/[0.03] pb-0.5">
-                  <span className="font-mono text-[6px] text-text-muted uppercase">Rendimiento Operativo</span>
-                  <span className="font-mono text-[6px] text-accent-teal">99.8%</span>
-                </div>
-                {/* SVG Mini Chart */}
-                <svg viewBox="0 0 160 35" className="w-full h-[32px] overflow-visible">
-                  <defs>
-                    <linearGradient id="phone-chart-fill-mobile" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#C9A84C" stopOpacity="0.25" />
-                      <stop offset="100%" stopColor="#C9A84C" stopOpacity="0.0" />
-                    </linearGradient>
-                  </defs>
-                  <path
-                    d="M 0 30 Q 30 5 60 20 T 120 10 T 160 18 L 160 35 L 0 35 Z"
-                    fill="url(#phone-chart-fill-mobile)"
-                  />
-                  <path
-                    d="M 0 30 Q 30 5 60 20 T 120 10 T 160 18"
-                    fill="none"
-                    stroke="#C9A84C"
-                    strokeWidth="1.2"
-                  />
-                  <circle cx="120" cy="10" r="1.8" fill="#00E8C6" className="animate-pulse" />
-                </svg>
-              </div>
-
-              {/* Section 3: Live System Push Notifications */}
-              <div className="flex flex-col gap-1.5">
-                <span className="font-mono text-[6px] text-text-muted uppercase tracking-wider px-0.5">Actividad Omnicanal</span>
-                
-                {/* Notification Item 1 */}
-                <div className="bg-white/[0.03] border border-white/[0.04] p-1.5 rounded-lg flex items-center justify-between shadow-inner">
-                  <div className="flex items-center gap-1.5 overflow-hidden">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent-teal shadow-[0_0_4px_#00E8C6] shrink-0" />
-                    <span className="font-mono text-[7px] text-white/90 truncate">Caja 01: Factura Enviada</span>
-                  </div>
-                  <span className="font-mono text-[6.5px] text-accent-teal shrink-0">+₡300k</span>
-                </div>
-                
-                {/* Notification Item 2 */}
-                <div className="bg-white/[0.03] border border-white/[0.04] p-1.5 rounded-lg flex items-center justify-between shadow-inner">
-                  <div className="flex items-center gap-1.5 overflow-hidden">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent-gold shadow-[0_0_4px_#C9A84C] shrink-0" />
-                    <span className="font-mono text-[7px] text-white/90 truncate">CRM: Contrato Firmado [Grupo Sur]</span>
-                  </div>
-                  <span className="font-mono text-[6.5px] text-accent-gold shrink-0">✓ Firmado</span>
-                </div>
-              </div>
-
-              {/* Section 4: SaaS Targets Gauge Meter */}
-              <div className="bg-white/[0.01] border border-white/[0.03] p-1.5 rounded-lg flex flex-col gap-1 mt-0.5">
-                <div className="flex justify-between font-mono text-[6px] text-text-muted uppercase">
-                  <span>Disponibilidad API</span>
-                  <span className="text-white font-bold">99.9%</span>
-                </div>
-                <div className="w-full h-1 bg-white/5 rounded-full overflow-hidden">
-                  <div className="h-full bg-accent-teal rounded-full animate-pulse shadow-[0_0_4px_#00E8C6]" style={{ width: "99.9%" }} />
-                </div>
-              </div>
-            </div>
-
-            {/* Bottom iOS Navigation Bar */}
-            <div className="relative z-10 border-t border-white/[0.06] pt-1.5 pb-0.5 flex justify-around items-center font-sans text-[11px] text-text-muted">
-              <span className="text-accent-teal cursor-pointer">
-                <Home className="w-4 h-4 text-accent-teal" />
-              </span>
-              <span className="cursor-pointer">
-                <BarChart2 className="w-4 h-4 text-text-muted" />
-              </span>
-              <span className="cursor-pointer">
-                <User className="w-4 h-4 text-text-muted" />
-              </span>
-              <span className="cursor-pointer">
-                <Settings className="w-4 h-4 text-text-muted" />
-              </span>
-            </div>
-          </div>
+          />
         )}
 
         {/* CTAs (slide up last with 60ms between them) */}

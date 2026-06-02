@@ -6,10 +6,10 @@ import BenefitsSection from "@/components/BenefitsSection";
 import PricingSection from "@/components/PricingSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
-import SmoothCursor from "@/components/SmoothCursor";
 import IntroLoader from "@/components/IntroLoader";
 import { LanguageProvider } from "@/lib/LanguageContext";
 import { Locale } from "@/lib/translations";
+import ClientCursor from "@/components/ClientCursor";
 
 export default async function Home({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
@@ -23,7 +23,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
       <IntroLoader />
 
       {/* Desktop-only custom magnetic cursor (Teal filled dot + ghost ring) */}
-      <SmoothCursor />
+      <ClientCursor />
 
       {/* Transparent-to-blur header */}
       <Navbar />

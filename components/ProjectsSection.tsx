@@ -152,7 +152,6 @@ function ProjectTile({
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.05]"
-            priority={title.includes("Quiz") || title.includes("Lite")}
           />
         </div>
       </div>
@@ -242,7 +241,7 @@ export default function ProjectsSection() {
             tag={t.projects.items.t1Tag}
             title={t.projects.items.t1Title}
             desc={t.projects.items.t1Desc}
-            image="/Pura-Vida_Quiz.png"
+            image="/Pura-Vida_Quiz.webp"
             link="https://pura-vida-quiz.vercel.app/"
           />
 
@@ -251,7 +250,7 @@ export default function ProjectsSection() {
             tag={t.projects.items.t2Tag}
             title={t.projects.items.t2Title}
             desc={t.projects.items.t2Desc}
-            image="/CRM_Lite.jpg"
+            image="/CRM_Lite.webp"
             link="https://nexuracrm-lite.vercel.app/"
             isStaggered={true}
           />
@@ -261,7 +260,7 @@ export default function ProjectsSection() {
             tag={t.projects.items.t3Tag}
             title={t.projects.items.t3Title}
             desc={t.projects.items.t3Desc}
-            image="/Libreria_Crayola.jpg"
+            image="/Libreria_Crayola.webp"
             link="https://www.libreriacrayolacr.com/"
           />
 
@@ -270,7 +269,7 @@ export default function ProjectsSection() {
             tag={t.projects.items.t4Tag}
             title={t.projects.items.t4Title}
             desc={t.projects.items.t4Desc}
-            image="/CF_Trainer.jpg"
+            image="/CF_Trainer.webp"
             link="https://cf-personal-trainer.vercel.app/"
             isStaggered={true}
           />
