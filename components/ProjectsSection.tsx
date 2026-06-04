@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import { useLanguage } from "@/lib/LanguageContext";
 import Image from "next/image";
 
@@ -99,37 +99,16 @@ function ProjectTile({
   isStaggered?: boolean;
   className?: string;
 }) {
-  const [hovered, setHovered] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 1024);
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const hasStagger = isStaggered && isDesktop;
+  const staggerClasses = isStaggered
+    ? "lg:translate-y-12 lg:hover:translate-y-[40px]"
+    : "";
 
   return (
     <a
       href={link}
       target="_blank"
       rel="noopener noreferrer"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className={`group block bg-surface-card rounded-[2rem] border border-white/[0.03] overflow-hidden transition-all duration-500 ease-out select-none reveal-hidden ${
-        hasStagger ? "lg:translate-y-12" : ""
-      } ${className}`}
-      style={{
-        transform: hovered
-          ? `${hasStagger ? "translateY(48px)" : ""} translateY(-8px)`
-          : `${hasStagger ? "translateY(48px)" : ""} translateY(0)`,
-        boxShadow: hovered ? "0 24px 60px -20px rgba(0, 232, 198, 0.08)" : "none",
-        borderColor: hovered ? "rgba(0, 232, 198, 0.2)" : "rgba(255, 255, 255, 0.03)",
-      }}
+      className={`group block bg-surface-card rounded-[2rem] border border-white/[0.03] overflow-hidden transition-all duration-500 ease-out select-none reveal-hidden hover:-translate-y-2 hover:shadow-[0_24px_60px_-20px_rgba(0,232,198,0.08)] hover:border-accent-teal/20 ${staggerClasses} ${className}`}
     >
       {/* Top 70%: Device Mockup Placeholder with subtle gradient shimmer */}
       <div className="relative aspect-[16/10] bg-[#0A0A0E] p-6 sm:p-8 flex items-center justify-center overflow-hidden border-b border-white/[0.03]">
@@ -215,7 +194,7 @@ export default function ProjectsSection() {
     return () => observer.disconnect();
   }, [isExpanded]);
 
-  const projects = [
+  const projects = useMemo(() => [
     {
       tag: t.projects.items.t1Tag,
       title: t.projects.items.t1Title,
@@ -251,7 +230,7 @@ export default function ProjectsSection() {
       image: "/PuntoDeVentaRestaurante.png",
       link: "https://wa.me/50685803868",
     },
-  ];
+  ], [t]);
 
   return (
     <section
