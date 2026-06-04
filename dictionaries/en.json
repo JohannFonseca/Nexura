@@ -37,6 +37,11 @@
         "id": 4,
         "title": "CF Trainer",
         "tags": ["Landing Page", "Fitness", "Personal Branding"]
+      },
+      {
+        "id": 5,
+        "title": "Restaurant POS System",
+        "tags": ["SaaS", "POS", "Restaurants"]
       }
     ]
   },

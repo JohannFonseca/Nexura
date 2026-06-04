@@ -89,6 +89,7 @@ function ProjectTile({
   image,
   link = "https://wa.me/50685803868",
   isStaggered = false,
+  className = "",
 }: {
   tag: string;
   title: string;
@@ -96,6 +97,7 @@ function ProjectTile({
   image: string;
   link?: string;
   isStaggered?: boolean;
+  className?: string;
 }) {
   const [hovered, setHovered] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
@@ -120,7 +122,7 @@ function ProjectTile({
       onMouseLeave={() => setHovered(false)}
       className={`group block bg-surface-card rounded-[2rem] border border-white/[0.03] overflow-hidden transition-all duration-500 ease-out select-none reveal-hidden ${
         hasStagger ? "lg:translate-y-12" : ""
-      }`}
+      } ${className}`}
       style={{
         transform: hovered
           ? `${hasStagger ? "translateY(48px)" : ""} translateY(-8px)`
@@ -186,13 +188,14 @@ function ProjectTile({
           <span>→ View</span>
         </div>
       </div>
-    </a >
+    </a>
   );
 }
 
 export default function ProjectsSection() {
   const { t } = useLanguage();
   const sectionRef = useRef<HTMLElement>(null);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -210,7 +213,45 @@ export default function ProjectsSection() {
     elements?.forEach((el) => observer.observe(el));
 
     return () => observer.disconnect();
-  }, []);
+  }, [isExpanded]);
+
+  const projects = [
+    {
+      tag: t.projects.items.t1Tag,
+      title: t.projects.items.t1Title,
+      desc: t.projects.items.t1Desc,
+      image: "/Pura-Vida_Quiz.webp",
+      link: "https://pura-vida-quiz.vercel.app/",
+    },
+    {
+      tag: t.projects.items.t2Tag,
+      title: t.projects.items.t2Title,
+      desc: t.projects.items.t2Desc,
+      image: "/CRM_Lite.webp",
+      link: "https://nexuracrm-lite.vercel.app/",
+    },
+    {
+      tag: t.projects.items.t3Tag,
+      title: t.projects.items.t3Title,
+      desc: t.projects.items.t3Desc,
+      image: "/Libreria_Crayola.webp",
+      link: "https://www.libreriacrayolacr.com/",
+    },
+    {
+      tag: t.projects.items.t4Tag,
+      title: t.projects.items.t4Title,
+      desc: t.projects.items.t4Desc,
+      image: "/CF_Trainer.webp",
+      link: "https://cf-personal-trainer.vercel.app/",
+    },
+    {
+      tag: t.projects.items.t5Tag,
+      title: t.projects.items.t5Title,
+      desc: t.projects.items.t5Desc,
+      image: "/PuntoDeVentaRestaurante.png",
+      link: "https://wa.me/50685803868",
+    },
+  ];
 
   return (
     <section
@@ -233,47 +274,44 @@ export default function ProjectsSection() {
           </p>
         </div>
 
-        {/* Asymmetric 4-tile bento layout */}
+        {/* Asymmetric 5-tile bento layout */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 pb-16">
-          
-          {/* Tile 1: Pura Vida Quiz - WEB */}
-          <ProjectTile
-            tag={t.projects.items.t1Tag}
-            title={t.projects.items.t1Title}
-            desc={t.projects.items.t1Desc}
-            image="/Pura-Vida_Quiz.webp"
-            link="https://pura-vida-quiz.vercel.app/"
-          />
+          {projects.map((project, index) => {
+            const isStaggered = index % 2 === 1;
+            const isHiddenOnMobile = index >= 3 && !isExpanded;
 
-          {/* Tile 2: CRM Lite - CRM (Staggered down Y axis on desktop) */}
-          <ProjectTile
-            tag={t.projects.items.t2Tag}
-            title={t.projects.items.t2Title}
-            desc={t.projects.items.t2Desc}
-            image="/CRM_Lite.webp"
-            link="https://nexuracrm-lite.vercel.app/"
-            isStaggered={true}
-          />
+            return (
+              <ProjectTile
+                key={index}
+                tag={project.tag}
+                title={project.title}
+                desc={project.desc}
+                image={project.image}
+                link={project.link}
+                isStaggered={isStaggered}
+                className={isHiddenOnMobile ? "hidden lg:block" : ""}
+              />
+            );
+          })}
+        </div>
 
-          {/* Tile 3: Librería Crayola - SAAS */}
-          <ProjectTile
-            tag={t.projects.items.t3Tag}
-            title={t.projects.items.t3Title}
-            desc={t.projects.items.t3Desc}
-            image="/Libreria_Crayola.webp"
-            link="https://www.libreriacrayolacr.com/"
-          />
-
-          {/* Tile 4: CF Trainer - WEB (Staggered down Y axis on desktop) */}
-          <ProjectTile
-            tag={t.projects.items.t4Tag}
-            title={t.projects.items.t4Title}
-            desc={t.projects.items.t4Desc}
-            image="/CF_Trainer.webp"
-            link="https://cf-personal-trainer.vercel.app/"
-            isStaggered={true}
-          />
-
+        {/* Toggle Button for mobile */}
+        <div className="flex justify-center mt-8 lg:hidden">
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="inline-flex items-center justify-center border border-white/10 hover:border-accent-teal hover:text-accent-teal text-text-primary font-sans font-semibold text-sm px-8 py-3.5 rounded-full transition-all duration-300 bg-white/[0.01] hover:bg-white/[0.03] select-none"
+          >
+            <span>{isExpanded ? t.projects.showLess : t.projects.showMore}</span>
+            <svg
+              className={`w-4 h-4 ml-2 transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
         </div>
 
       </div>

@@ -32,6 +32,8 @@ export interface TranslationSet {
     headline: string;
     subtext: string;
     viewCta: string;
+    showMore: string;
+    showLess: string;
     items: {
       t1Tag: string;
       t1Title: string;
@@ -45,6 +47,9 @@ export interface TranslationSet {
       t4Tag: string;
       t4Title: string;
       t4Desc: string;
+      t5Tag: string;
+      t5Title: string;
+      t5Desc: string;
     };
   };
   differentiators: {
@@ -127,6 +132,8 @@ export const translations = {
       headline: "Nuestros Proyectos",
       subtext: "Explora una muestra selecta de software a medida y plataformas web premium que hemos entregado.",
       viewCta: "→ Ver",
+      showMore: "Ver más",
+      showLess: "Ver menos",
       items: {
         t1Tag: "WEB",
         t1Title: "Pura Vida Quiz",
@@ -140,6 +147,9 @@ export const translations = {
         t4Tag: "WEB",
         t4Title: "CF Trainer",
         t4Desc: "Landing page de marca personal y plataforma de entrenamiento para coach de fitness.",
+        t5Tag: "SAAS",
+        t5Title: "Punto de Venta Restaurante",
+        t5Desc: "Sistema integral de punto de venta, facturación y gestión de inventario para restaurantes.",
       },
     },
     differentiators: {
@@ -239,6 +249,8 @@ export const translations = {
       headline: "Selected Works",
       subtext: "Explore a curated showcase of custom software and premium web platforms we have delivered.",
       viewCta: "→ View",
+      showMore: "Show more",
+      showLess: "Show less",
       items: {
         t1Tag: "WEB",
         t1Title: "Pura Vida Quiz",
@@ -252,6 +264,9 @@ export const translations = {
         t4Tag: "WEB",
         t4Title: "CF Trainer",
         t4Desc: "Premium personal branding landing page and training platform for fitness coaching.",
+        t5Tag: "SAAS",
+        t5Title: "Restaurant POS System",
+        t5Desc: "Comprehensive point of sale, inventory control, and billing system for restaurants.",
       },
     },
     differentiators: {

@@ -37,6 +37,11 @@
         "id": 4,
         "title": "CF Trainer",
         "tags": ["Landing Page", "Fitness", "Marca Personal"]
+      },
+      {
+        "id": 5,
+        "title": "Punto de Venta Restaurante",
+        "tags": ["SaaS", "Punto de Venta", "Restaurantes"]
       }
     ]
   },
