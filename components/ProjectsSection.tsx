@@ -103,7 +103,7 @@ export default function ProjectsSection() {
   ];
 
   return (
-    <section ref={sectionRef} id="casos" className="py-[118px]">
+    <section ref={sectionRef} id="casos" className="py-[76px]">
       <div className="max-w-[1180px] mx-auto px-6 md:px-8">
         
         {/* Section Head */}

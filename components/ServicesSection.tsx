@@ -79,7 +79,7 @@ export default function ServicesSection() {
   ];
 
   return (
-    <section ref={sectionRef} id="servicios" className="py-[118px] bg-bg relative z-10">
+    <section ref={sectionRef} id="servicios" className="py-[76px] bg-bg relative z-10">
       <div className="max-w-[1180px] mx-auto px-6 md:px-8">
         
         {/* Section Head */}

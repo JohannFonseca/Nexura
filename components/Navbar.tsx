@@ -19,10 +19,11 @@ export default function Navbar() {
   }, []);
 
   const links = [
-    { href: "#servicios", label: t.nav.services },
-    { href: "#casos", label: t.nav.cases },
-    { href: "#precios", label: t.nav.pricing },
-    { href: "#nosotros", label: t.nav.about },
+    { href: `/${lang}#servicios`, label: t.nav.services },
+    { href: `/${lang}/portafolio`, label: t.nav.projects },
+    { href: `/${lang}#casos`, label: t.nav.cases },
+    { href: `/${lang}#precios`, label: t.nav.pricing },
+    { href: `/${lang}#nosotros`, label: t.nav.about },
   ];
 
   const waNumber = "50685803868";
@@ -45,7 +46,7 @@ export default function Navbar() {
         <div className="max-w-[1180px] mx-auto px-6 md:px-8 flex items-center justify-between w-full">
           {/* Logo Column (Left-aligned, fills left third) */}
           <div className="flex-1 flex justify-start">
-            <Link href="#" className="flex items-center gap-2 group outline-none">
+            <Link href={`/${lang}`} className="flex items-center gap-2 group outline-none">
               <span className="w-2 h-2 rounded-full bg-status shadow-[0_0_0_4px_var(--color-status-dim)] animate-[pulse_1.8s_ease-in-out_infinite]" />
               <span className="font-display font-bold text-xl tracking-tight text-ink group-hover:text-signal transition-colors duration-300 uppercase">
                 Nexura

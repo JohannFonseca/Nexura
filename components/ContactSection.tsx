@@ -44,7 +44,7 @@ export default function ContactSection() {
   const waUrl = `https://wa.me/${waNumber}?text=${waMsg}`;
 
   return (
-    <section className="py-[118px]">
+    <section className="py-[76px]">
       <div
         ref={sectionRef}
         className="max-w-[1116px] mx-auto px-6 md:px-8 opacity-0"

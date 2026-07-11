@@ -57,6 +57,7 @@ export interface TranslationSet {
     viewCta: string;
     showMore: string;
     showLess: string;
+    viewAll: string;
     items: {
       t1Tag: string;
       t1Title: string;
@@ -73,6 +74,12 @@ export interface TranslationSet {
       t5Tag: string;
       t5Title: string;
       t5Desc: string;
+      t6Tag: string;
+      t6Title: string;
+      t6Desc: string;
+      t7Tag: string;
+      t7Title: string;
+      t7Desc: string;
       tag1: string; // new
       desc1: string; // new
       metric1Num1: string; // new
@@ -249,22 +256,29 @@ export const translations = {
       viewCta: "→ Ver",
       showMore: "Ver más",
       showLess: "Ver menos",
+      viewAll: "Ver todos los proyectos",
       items: {
-        t1Tag: "WEB",
-        t1Title: "Pura Vida Quiz",
-        t1Desc: "Plataforma interactiva de trivia y juego educativo costarricense.",
+        t1Tag: "SAAS",
+        t1Title: "Librería Crayola",
+        t1Desc: "E-commerce y sistema de control de catálogo para ventas minoristas.",
         t2Tag: "CRM",
         t2Title: "CRM Lite",
         t2Desc: "Estructura de gestión de clientes ágil y automatizaciones para PYMEs.",
         t3Tag: "SAAS",
-        t3Title: "Librería Crayola",
-        t3Desc: "E-commerce y sistema de control de catálogo para ventas minoristas.",
+        t3Title: "Punto de Venta Restaurante",
+        t3Desc: "Sistema integral de punto de venta, facturación y gestión de inventario para restaurantes.",
         t4Tag: "WEB",
-        t4Title: "CF Trainer",
-        t4Desc: "Landing page de marca personal y plataforma de entrenamiento para coach de fitness.",
-        t5Tag: "SAAS",
-        t5Title: "Punto de Venta Restaurante",
-        t5Desc: "Sistema integral de punto de venta, facturación y gestión de inventario para restaurantes.",
+        t4Title: "Next Interaction",
+        t4Desc: "Sitio web premium para agencia de marketing digital con diseño de vanguardia y animaciones fluidas.",
+        t5Tag: "WEB",
+        t5Title: "Pura Vida Quiz",
+        t5Desc: "Plataforma interactiva de trivia y juego educativo costarricense.",
+        t6Tag: "WEB",
+        t6Title: "CF Trainer",
+        t6Desc: "Landing page de marca personal y plataforma de entrenamiento para coach de fitness.",
+        t7Tag: "NEXURA",
+        t7Title: "¿Tu negocio aquí?",
+        t7Desc: "Diseñamos y desarrollamos el software o sitio web a la medida que tu empresa necesita para crecer.",
         tag1: "Taller mecánico · Sistema web + POS",
         desc1: "Pasaron de agendar citas por WhatsApp a mano a un sistema que controla órdenes, repuestos y cobro en un solo lugar.",
         metric1Num1: "38",
@@ -462,22 +476,29 @@ export const translations = {
       viewCta: "→ View",
       showMore: "Show more",
       showLess: "Show less",
+      viewAll: "View all projects",
       items: {
-        t1Tag: "WEB",
-        t1Title: "Pura Vida Quiz",
-        t1Desc: "Interactive trivia platform and educational Costa Rican game.",
+        t1Tag: "SAAS",
+        t1Title: "Librería Crayola",
+        t1Desc: "Production e-commerce and catalog management system for retail store sales.",
         t2Tag: "CRM",
         t2Title: "CRM Lite",
         t2Desc: "Agile client management framework and automation tools for SMBs.",
         t3Tag: "SAAS",
-        t3Title: "Librería Crayola",
-        t3Desc: "E-commerce and catalog management system for retail store sales.",
+        t3Title: "Restaurant POS System",
+        t3Desc: "Comprehensive point of sale, inventory control, and billing system for restaurants.",
         t4Tag: "WEB",
-        t4Title: "CF Trainer",
-        t4Desc: "Premium personal branding landing page and training platform for fitness coaching.",
-        t5Tag: "SAAS",
-        t5Title: "Restaurant POS System",
-        t5Desc: "Comprehensive point of sale, inventory control, and billing system for restaurants.",
+        t4Title: "Next Interaction",
+        t4Desc: "Premium website for a digital marketing agency with cutting-edge design and fluid animations.",
+        t5Tag: "WEB",
+        t5Title: "Pura Vida Quiz",
+        t5Desc: "Interactive trivia platform and educational Costa Rican game.",
+        t6Tag: "WEB",
+        t6Title: "CF Trainer",
+        t6Desc: "Premium personal branding landing page and training platform for fitness coaching.",
+        t7Tag: "NEXURA",
+        t7Title: "Your business here?",
+        t7Desc: "We design and build the custom software or website your business needs to grow.",
         tag1: "Mechanic Shop · Web System + POS",
         desc1: "Went from scheduling WhatsApp appointments by hand to a system that controls orders, spare parts, and checkout in one place.",
         metric1Num1: "38",

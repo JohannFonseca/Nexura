@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState, useMemo } from "react";
+import { useEffect, useRef, useMemo } from "react";
 import { useLanguage } from "@/lib/LanguageContext";
 import Image from "next/image";
+import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -10,7 +11,7 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-function ProjectTile({
+export function ProjectTile({
   tag,
   title,
   desc,
@@ -76,7 +77,6 @@ function ProjectTile({
 export default function PortfolioSection() {
   const { lang, t } = useLanguage();
   const sectionRef = useRef<HTMLElement>(null);
-  const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -118,16 +118,9 @@ export default function PortfolioSection() {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, [isExpanded, lang]);
+  }, [lang]);
 
   const projects = useMemo(() => [
-    {
-      tag: t.projects.items.t1Tag,
-      title: t.projects.items.t1Title,
-      desc: t.projects.items.t1Desc,
-      image: "/Pura-Vida_Quiz.webp",
-      link: "https://pura-vida-quiz.vercel.app/",
-    },
     {
       tag: t.projects.items.t2Tag,
       title: t.projects.items.t2Title,
@@ -139,27 +132,22 @@ export default function PortfolioSection() {
       tag: t.projects.items.t3Tag,
       title: t.projects.items.t3Title,
       desc: t.projects.items.t3Desc,
-      image: "/Libreria_Crayola.webp",
-      link: "https://www.libreriacrayolacr.com/",
+      image: "/PuntoDeVentaRestaurante.png",
+      link: lang === "es"
+        ? "https://wa.me/50685803868?text=Hola%20Nexura,%20me%20interesa%20cotizar%20un%20Punto%20de%20Venta%20para%20Restaurante."
+        : "https://wa.me/50685803868?text=Hello%20Nexura,%20I%20am%20interested%20in%20quoting%20a%20Restaurant%20POS%20System.",
     },
     {
       tag: t.projects.items.t4Tag,
       title: t.projects.items.t4Title,
       desc: t.projects.items.t4Desc,
-      image: "/CF_Trainer.webp",
-      link: "https://cf-personal-trainer.vercel.app/",
+      image: "/Next-Interaction.jpg",
+      link: "https://nextinteraction.com/",
     },
-    {
-      tag: t.projects.items.t5Tag,
-      title: t.projects.items.t5Title,
-      desc: t.projects.items.t5Desc,
-      image: "/PuntoDeVentaRestaurante.png",
-      link: "https://wa.me/50685803868",
-    },
-  ], [t]);
+  ], [t, lang]);
 
   return (
-    <section ref={sectionRef} id="proyectos" className="py-[118px] bg-bg relative z-10">
+    <section ref={sectionRef} id="proyectos" className="py-[76px] bg-bg relative z-10">
       <div className="max-w-[1180px] mx-auto px-6 md:px-8">
         
         {/* Section Head */}
@@ -176,11 +164,8 @@ export default function PortfolioSection() {
         </div>
 
         {/* Bento Grid */}
-        <div className="portfolio-grid grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 pb-12">
+        <div className="portfolio-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 pb-12">
           {projects.map((project, index) => {
-            const isStaggered = index % 2 === 1;
-            const isHiddenOnMobile = index >= 3 && !isExpanded;
-
             return (
               <ProjectTile
                 key={index}
@@ -189,29 +174,29 @@ export default function PortfolioSection() {
                 desc={project.desc}
                 image={project.image}
                 link={project.link}
-                isStaggered={isStaggered}
-                className={`portfolio-card opacity-0 ${isHiddenOnMobile ? "hidden md:block" : ""}`}
+                isStaggered={false}
+                className="portfolio-card opacity-0"
               />
             );
           })}
         </div>
 
-        {/* View More Button for mobile */}
-        <div className="flex justify-center mt-8 md:hidden">
-          <button
-            onClick={() => setIsExpanded(!isExpanded)}
-            className="inline-flex items-center justify-center border border-line hover:border-ink hover:text-ink text-ink font-sans font-semibold text-sm px-8 py-3.5 rounded-full transition-all duration-300 bg-white cursor-pointer"
+        {/* View All Projects Button */}
+        <div className="flex justify-center mt-8">
+          <Link
+            href={`/${lang}/portafolio`}
+            className="group inline-flex items-center justify-center border border-line hover:border-ink hover:text-ink text-ink font-sans font-semibold text-sm px-8 py-3.5 rounded-full transition-all duration-300 bg-white cursor-pointer"
           >
-            <span>{isExpanded ? t.projects.showLess : t.projects.showMore}</span>
+            <span>{t.projects.viewAll}</span>
             <svg
-              className={`w-4 h-4 ml-2 transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`}
+              className="w-4 h-4 ml-2 transition-transform duration-350 transform group-hover:translate-x-1"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
             </svg>
-          </button>
+          </Link>
         </div>
 
       </div>

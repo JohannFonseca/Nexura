@@ -43,7 +43,7 @@ export default function AboutSection() {
   ];
 
   return (
-    <section ref={sectionRef} id="nosotros" className="py-[118px] relative z-10 opacity-0">
+    <section ref={sectionRef} id="nosotros" className="py-[76px] relative z-10 opacity-0">
       <div className="max-w-[1180px] mx-auto px-6 md:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-[70px] items-center">
           

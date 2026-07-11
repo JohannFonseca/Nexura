@@ -117,7 +117,7 @@ export default function PricingSection() {
     <section
       ref={sectionRef}
       id="precios"
-      className="relative bg-bg z-10 py-[118px]"
+      className="relative bg-bg z-10 py-[76px]"
     >
       <div className="max-w-[1180px] mx-auto px-6 md:px-8">
         
