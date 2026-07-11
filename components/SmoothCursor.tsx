@@ -56,8 +56,8 @@ export default function SmoothCursor() {
     const onMouseEnterClickable = () => {
       gsap.to(ringRef.current, {
         scale: 1.5, // 32px * 1.5 = 48px
-        backgroundColor: "rgba(0, 232, 198, 0.15)",
-        borderColor: "rgba(0, 232, 198, 0.3)",
+        backgroundColor: "rgba(36, 81, 255, 0.15)",
+        borderColor: "rgba(36, 81, 255, 0.3)",
         duration: 0.25,
         ease: "power2.out",
       });
@@ -70,8 +70,8 @@ export default function SmoothCursor() {
     const onMouseLeaveClickable = () => {
       gsap.to(ringRef.current, {
         scale: 1,
-        backgroundColor: "rgba(0, 232, 198, 0)",
-        borderColor: "#00E8C6",
+        backgroundColor: "rgba(36, 81, 255, 0)",
+        borderColor: "#2451ff",
         duration: 0.25,
         ease: "power2.out",
       });
@@ -107,18 +107,18 @@ export default function SmoothCursor() {
 
   return (
     <>
-      {/* 8px filled teal circle trailing behind */}
+      {/* 8px filled blue circle trailing behind */}
       <div
         ref={dotRef}
-        className="fixed top-0 left-0 w-2 h-2 rounded-full bg-accent-teal pointer-events-none z-[99999] will-change-transform"
+        className="fixed top-0 left-0 w-2 h-2 rounded-full bg-signal pointer-events-none z-[99999] will-change-transform"
         style={{
-          boxShadow: "0 0 10px rgba(0, 232, 198, 0.4)",
+          boxShadow: "0 0 10px rgba(36, 81, 255, 0.4)",
         }}
       />
       {/* 32px ghost ring trailing behind */}
       <div
         ref={ringRef}
-        className="fixed top-0 left-0 w-8 h-8 rounded-full border border-accent-teal pointer-events-none z-[99998] bg-transparent will-change-transform"
+        className="fixed top-0 left-0 w-8 h-8 rounded-full border border-signal pointer-events-none z-[99998] bg-transparent will-change-transform"
       />
     </>
   );

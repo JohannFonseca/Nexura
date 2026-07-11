@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
-import { Syne, DM_Sans, JetBrains_Mono } from "next/font/google";
+import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import "../globals.css";
 
-const syne = Syne({
-  variable: "--font-syne-custom",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk-custom",
   subsets: ["latin"],
-  weight: ["700", "800"],
-  display: "block",
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
 });
 
-const dmSans = DM_Sans({
-  variable: "--font-dm-sans-custom",
+const inter = Inter({
+  variable: "--font-inter-custom",
   subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -68,11 +68,11 @@ export default async function RootLayout({
   return (
     <html
       lang={lang}
-      className={`${syne.variable} ${dmSans.variable} ${jetbrainsMono.variable} antialiased scroll-smooth`}
+      className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} antialiased scroll-smooth`}
       suppressHydrationWarning
     >
       <body
-        className="min-h-screen flex flex-col bg-bg-base text-text-primary"
+        className="min-h-screen flex flex-col bg-bg text-ink"
         suppressHydrationWarning
       >
         <div className="grain-overlay" />

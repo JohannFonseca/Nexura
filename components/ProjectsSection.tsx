@@ -1,296 +1,156 @@
 "use client";
 
-import { useEffect, useRef, useState, useMemo } from "react";
+import { useEffect, useRef } from "react";
 import { useLanguage } from "@/lib/LanguageContext";
-import Image from "next/image";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-// Wireframe mockup visual inside device mockup
-function MockupWireframe({ type }: { type: string }) {
-  return (
-    <div className="absolute inset-0 p-4 sm:p-6 flex flex-col gap-4 select-none">
-      
-      {/* Browser Bar */}
-      <div className="flex items-center gap-2 pb-3 border-b border-white/[0.05]">
-        <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
-        <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
-        <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
-        <div className="h-4 w-32 bg-white/5 rounded-md ml-4" />
-      </div>
-
-      {/* Wireframe layouts based on category */}
-      {type === "WEB" && (
-        <div className="flex-1 flex flex-col gap-3 justify-center">
-          <div className="w-2/3 h-4 bg-accent-teal/15 rounded-md border border-accent-teal/10" />
-          <div className="w-full h-8 bg-white/5 rounded-md border border-white/5" />
-          <div className="flex gap-3">
-            <div className="w-20 h-7 bg-accent-gold/15 rounded-full border border-accent-gold/10" />
-            <div className="w-20 h-7 bg-white/5 rounded-full border border-white/5" />
-          </div>
-          <div className="grid grid-cols-3 gap-2 mt-2">
-            <div className="h-12 bg-white/[0.02] border border-white/5 rounded-lg" />
-            <div className="h-12 bg-white/[0.02] border border-white/5 rounded-lg" />
-            <div className="h-12 bg-white/[0.02] border border-white/5 rounded-lg" />
-          </div>
-        </div>
-      )}
-
-      {type === "CRM" && (
-        <div className="flex-1 flex gap-4 mt-2">
-          {/* Sidebar */}
-          <div className="w-12 h-full bg-white/[0.02] border border-white/5 rounded-lg flex flex-col gap-2 p-1.5">
-            <div className="h-3 w-full bg-accent-teal/20 rounded" />
-            <div className="h-3 w-2/3 bg-white/5 rounded" />
-            <div className="h-3 w-3/4 bg-white/5 rounded" />
-          </div>
-          {/* Main Dashboard */}
-          <div className="flex-1 flex flex-col gap-3">
-            <div className="h-8 bg-white/[0.03] border border-white/5 rounded-lg flex items-center justify-between px-3">
-              <div className="h-3 w-16 bg-white/10 rounded" />
-              <div className="h-4 w-12 bg-accent-gold/20 border border-accent-gold/10 rounded-full" />
-            </div>
-            <div className="grid grid-cols-2 gap-3 flex-1">
-              <div className="bg-white/[0.02] border border-white/5 rounded-lg p-2.5 flex flex-col justify-between">
-                <div className="h-2 w-8 bg-white/10 rounded" />
-                <div className="h-5 w-14 bg-accent-teal/15 rounded border border-accent-teal/10" />
-              </div>
-              <div className="bg-white/[0.02] border border-white/5 rounded-lg p-2.5 flex flex-col justify-between">
-                <div className="h-2 w-8 bg-white/10 rounded" />
-                <div className="h-5 w-10 bg-white/10 rounded" />
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {type === "SAAS" && (
-        <div className="flex-1 flex flex-col gap-3 justify-center">
-          <div className="flex justify-between items-center">
-            <div className="w-1/3 h-3 bg-white/10 rounded" />
-            <div className="w-16 h-3 bg-accent-teal/20 rounded" />
-          </div>
-          {/* Chart Wireframe */}
-          <div className="flex-1 border-b border-l border-white/10 mt-2 relative flex items-end gap-2.5 px-4 pb-1">
-            <div className="w-full bg-accent-teal/15 border-t border-x border-accent-teal/25 rounded-t" style={{ height: "45%" }} />
-            <div className="w-full bg-accent-gold/15 border-t border-x border-accent-gold/25 rounded-t" style={{ height: "75%" }} />
-            <div className="w-full bg-accent-teal/15 border-t border-x border-accent-teal/25 rounded-t" style={{ height: "30%" }} />
-            <div className="w-full bg-white/5 border-t border-x border-white/10 rounded-t" style={{ height: "60%" }} />
-          </div>
-        </div>
-      )}
-
-    </div>
-  );
-}
-
-function ProjectTile({
-  tag,
-  title,
-  desc,
-  image,
-  link = "https://wa.me/50685803868",
-  isStaggered = false,
-  className = "",
-}: {
-  tag: string;
-  title: string;
-  desc: string;
-  image: string;
-  link?: string;
-  isStaggered?: boolean;
-  className?: string;
-}) {
-  const staggerClasses = isStaggered
-    ? "lg:translate-y-12 lg:hover:translate-y-[40px]"
-    : "";
-
-  return (
-    <a
-      href={link}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`group block bg-surface-card rounded-[2rem] border border-white/[0.03] overflow-hidden transition-all duration-500 ease-out select-none reveal-hidden hover:-translate-y-2 hover:shadow-[0_24px_60px_-20px_rgba(0,232,198,0.08)] hover:border-accent-teal/20 ${staggerClasses} ${className}`}
-    >
-      {/* Top 70%: Device Mockup Placeholder with subtle gradient shimmer */}
-      <div className="relative aspect-[16/10] bg-[#0A0A0E] p-6 sm:p-8 flex items-center justify-center overflow-hidden border-b border-white/[0.03]">
-        
-        {/* Shimmer Background Grid Overlay */}
-        <div className="absolute inset-0 shimmer-bg opacity-[0.2]" />
-        
-        {/* Fine Line Design Pattern Grid */}
-        <div
-          className="absolute inset-0 opacity-[0.05]"
-          style={{
-            backgroundImage: "radial-gradient(rgba(0, 232, 198, 0.15) 1px, transparent 1px)",
-            backgroundSize: "20px 20px",
-          }}
-        />
-
-        {/* Device Mockup */}
-        <div className="w-full h-full relative device-mockup bg-bg-base overflow-hidden transition-all duration-500 group-hover:scale-[1.02]">
-          <Image
-            src={image}
-            alt={title}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.05]"
-          />
-        </div>
-      </div>
-
-      {/* Bottom 30%: Details */}
-      <div className="p-8 relative">
-        <div className="flex flex-col gap-3">
-          
-          {/* Tag badge (JetBrains Mono) */}
-          <div>
-            <span className="font-mono text-xs text-accent-gold border border-accent-gold/20 px-3 py-1 rounded-full uppercase tracking-widest bg-accent-gold/5">
-              {tag}
-            </span>
-          </div>
-
-          {/* Project Name (Syne) */}
-          <h3 className="font-syne font-bold text-2xl text-text-primary group-hover:text-accent-teal transition-colors duration-300">
-            {title}
-          </h3>
-
-          {/* Description (DM Sans Muted) */}
-          <p className="font-sans text-sm text-text-muted leading-relaxed max-w-sm">
-            {desc}
-          </p>
-
-        </div>
-
-        {/* Dynamic "→ View" Label slide-in at bottom-right */}
-        <div
-          className="absolute bottom-8 right-8 font-mono text-sm text-accent-teal flex items-center gap-1.5 transition-all duration-300 translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100"
-        >
-          <span>→ View</span>
-        </div>
-      </div>
-    </a>
-  );
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
 }
 
 export default function ProjectsSection() {
-  const { t } = useLanguage();
+  const { lang, t } = useLanguage();
   const sectionRef = useRef<HTMLElement>(null);
-  const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("reveal-visible");
+    const ctx = gsap.context(() => {
+      // reveal title section
+      gsap.fromTo(
+        ".projects-reveal",
+        { opacity: 0, y: 32 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".projects-reveal",
+            start: "top 92%",
+          },
+        }
+      );
+
+      // stagger cards reveal
+      const cards = sectionRef.current?.querySelectorAll(".case-card");
+      if (cards && cards.length > 0) {
+        gsap.fromTo(
+          cards,
+          { opacity: 0, y: 40 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            stagger: 0.12,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: ".cases-grid",
+              start: "top 88%",
+            },
           }
+        );
+      }
+
+      // viewport counters count-up
+      const counters = sectionRef.current?.querySelectorAll(".counter");
+      counters?.forEach((el) => {
+        const target = parseFloat(el.getAttribute("data-target") || "0");
+        const obj = { val: 0 };
+        gsap.to(obj, {
+          val: target,
+          duration: 1.4,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 90%",
+            once: true,
+          },
+          onUpdate() {
+            el.textContent = Math.round(obj.val).toString();
+          },
         });
-      },
-      { threshold: 0.15 }
-    );
+      });
+    }, sectionRef);
 
-    const elements = sectionRef.current?.querySelectorAll(".reveal-hidden");
-    elements?.forEach((el) => observer.observe(el));
+    return () => ctx.revert();
+  }, [lang]);
 
-    return () => observer.disconnect();
-  }, [isExpanded]);
-
-  const projects = useMemo(() => [
+  const items = [
     {
-      tag: t.projects.items.t1Tag,
-      title: t.projects.items.t1Title,
-      desc: t.projects.items.t1Desc,
-      image: "/Pura-Vida_Quiz.webp",
-      link: "https://pura-vida-quiz.vercel.app/",
+      tag: t.projects.items.tag1,
+      desc: t.projects.items.desc1,
+      metrics: [
+        { num: t.projects.items.metric1Num1, tag: t.projects.items.metric1Tag1, suffix: "%" },
+        { num: t.projects.items.metric1Num2, tag: t.projects.items.metric1Tag2, suffix: lang === "es" ? "h/día" : "h/day" },
+      ],
     },
     {
-      tag: t.projects.items.t2Tag,
-      title: t.projects.items.t2Title,
-      desc: t.projects.items.t2Desc,
-      image: "/CRM_Lite.webp",
-      link: "https://nexuracrm-lite.vercel.app/",
+      tag: t.projects.items.tag2,
+      desc: t.projects.items.desc2,
+      metrics: [
+        { num: t.projects.items.metric2Num1, tag: t.projects.items.metric2Tag1, suffix: "" },
+        { num: t.projects.items.metric2Num2, tag: t.projects.items.metric2Tag2, isStatic: true },
+      ],
     },
     {
-      tag: t.projects.items.t3Tag,
-      title: t.projects.items.t3Title,
-      desc: t.projects.items.t3Desc,
-      image: "/Libreria_Crayola.webp",
-      link: "https://www.libreriacrayolacr.com/",
+      tag: t.projects.items.tag3,
+      desc: t.projects.items.desc3,
+      metrics: [
+        { num: t.projects.items.metric3Num1, tag: t.projects.items.metric3Tag1, suffix: "x" },
+        { num: t.projects.items.metric3Num2, tag: t.projects.items.metric3Tag2, suffix: "%" },
+      ],
     },
-    {
-      tag: t.projects.items.t4Tag,
-      title: t.projects.items.t4Title,
-      desc: t.projects.items.t4Desc,
-      image: "/CF_Trainer.webp",
-      link: "https://cf-personal-trainer.vercel.app/",
-    },
-    {
-      tag: t.projects.items.t5Tag,
-      title: t.projects.items.t5Title,
-      desc: t.projects.items.t5Desc,
-      image: "/PuntoDeVentaRestaurante.png",
-      link: "https://wa.me/50685803868",
-    },
-  ], [t]);
+  ];
 
   return (
-    <section
-      ref={sectionRef}
-      id="proyectos"
-      className="relative bg-bg-base z-20 py-24"
-    >
-      <div className="container mx-auto px-6 max-w-6xl">
+    <section ref={sectionRef} id="casos" className="py-[118px]">
+      <div className="max-w-[1180px] mx-auto px-6 md:px-8">
         
-        {/* Section Header */}
-        <div className="max-w-2xl mb-20 reveal-hidden">
-          <span className="font-mono text-xs text-accent-teal tracking-widest uppercase block mb-3">
-            // {t.projects.label}
+        {/* Section Head */}
+        <div className="projects-reveal max-w-[600px] mb-16 opacity-0">
+          <span className="font-mono text-[12px] tracking-[0.14em] text-signal font-semibold uppercase block mb-4">
+            {t.projects.eyebrow}
           </span>
-          <h2 className="font-syne font-extrabold text-[clamp(2rem,4vw,3.2rem)] leading-tight text-text-primary mb-4">
-            {t.projects.headline}
+          <h2 className="font-display font-bold text-[clamp(28px,3.6vw,42px)] text-ink tracking-tight leading-[1.12]">
+            {t.projects.title}
           </h2>
-          <p className="font-sans text-sm sm:text-base text-text-muted">
-            {t.projects.subtext}
+          <p className="text-[16.5px] text-ink-soft leading-relaxed mt-4">
+            {t.projects.subtitle}
           </p>
         </div>
 
-        {/* Asymmetric 5-tile bento layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 pb-16">
-          {projects.map((project, index) => {
-            const isStaggered = index % 2 === 1;
-            const isHiddenOnMobile = index >= 3 && !isExpanded;
-
-            return (
-              <ProjectTile
-                key={index}
-                tag={project.tag}
-                title={project.title}
-                desc={project.desc}
-                image={project.image}
-                link={project.link}
-                isStaggered={isStaggered}
-                className={isHiddenOnMobile ? "hidden lg:block" : ""}
-              />
-            );
-          })}
-        </div>
-
-        {/* Toggle Button for mobile */}
-        <div className="flex justify-center mt-8 lg:hidden">
-          <button
-            onClick={() => setIsExpanded(!isExpanded)}
-            className="inline-flex items-center justify-center border border-white/10 hover:border-accent-teal hover:text-accent-teal text-text-primary font-sans font-semibold text-sm px-8 py-3.5 rounded-full transition-all duration-300 bg-white/[0.01] hover:bg-white/[0.03] select-none"
-          >
-            <span>{isExpanded ? t.projects.showLess : t.projects.showMore}</span>
-            <svg
-              className={`w-4 h-4 ml-2 transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
+        {/* Cases Grid */}
+        <div className="cases-grid grid grid-cols-1 md:grid-cols-3 gap-[22px]">
+          {items.map((item, idx) => (
+            <div
+              key={idx}
+              className="case-card border border-line rounded-[14px] bg-white p-[30px] flex flex-col gap-[22px] transition-all duration-[250ms] hover:border-[#d3d8de] hover:shadow-[0_24px_44px_-28px_rgba(11,14,20,0.22)] hover:-translate-y-1 opacity-0"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
+              <span className="font-mono text-[11px] tracking-wider text-ink-soft uppercase">
+                {item.tag}
+              </span>
+              <p className="text-[16px] leading-[1.55] text-ink flex-1">
+                {item.desc}
+              </p>
+              <div className="flex gap-[22px] pt-[18px] border-t border-line">
+                {item.metrics.map((m, i) => (
+                  <div key={i} className="flex-1">
+                    <div className="font-display text-[28px] font-bold text-signal leading-none">
+                      {m.isStatic ? (
+                        <span>{m.num}</span>
+                      ) : (
+                        <>
+                          <span className="counter" data-target={m.num}>0</span>
+                          {m.suffix}
+                        </>
+                      )}
+                    </div>
+                    <div className="text-[12.5px] text-ink-soft mt-1.5 leading-snug">{m.tag}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
 
       </div>

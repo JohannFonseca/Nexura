@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Image from "next/image";
+import { useLanguage } from "@/lib/LanguageContext";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -9,165 +9,79 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-export default function AboutSection({ dict }: { dict: any }) {
-  const sectionRef  = useRef<HTMLElement>(null);
-  const leftRef     = useRef<HTMLDivElement>(null);
-  const imageRef    = useRef<HTMLDivElement>(null);
-  const quoteRef    = useRef<HTMLDivElement>(null);
-  const statsRef    = useRef<HTMLDivElement>(null);
+export default function AboutSection() {
+  const { lang, t } = useLanguage();
+  const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // ── Text lines stagger reveal ─────────────────────
-      const lines = leftRef.current?.querySelectorAll(".txt-line");
-      lines?.forEach((line, i) => {
-        gsap.fromTo(line,
-          { y: 30, opacity: 0 },
-          {
-            y: 0, opacity: 1,
-            duration: 0.9, delay: i * 0.08, ease: "expo.out",
-            scrollTrigger: { trigger: line, start: "top 82%" },
-          }
-        );
-      });
-
-      // ── Image clip-path reveal (top → down) ──────────
-      gsap.fromTo(imageRef.current,
-        { clipPath: "inset(0% 0% 100% 0%)" },
+      // reveal split section
+      gsap.fromTo(
+        sectionRef.current,
+        { opacity: 0, y: 32 },
         {
-          clipPath: "inset(0% 0% 0% 0%)",
-          duration: 1.3, ease: "expo.inOut",
-          scrollTrigger: { trigger: imageRef.current, start: "top 78%" },
-        }
-      );
-
-      // ── Image parallax (inner img moves up slower) ────
-      const innerImg = imageRef.current?.querySelector(".about-inner-img") ?? null;
-      if (innerImg) {
-        gsap.to(innerImg, {
-          y: -60,
-          ease: "none",
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          ease: "power3.out",
           scrollTrigger: {
-            trigger: imageRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 1.5,
+            trigger: sectionRef.current,
+            start: "top 92%",
           },
-        });
-      }
-
-      // ── Quote sliding in ─────────────────────────────
-      gsap.fromTo(quoteRef.current,
-        { x: 40, opacity: 0 },
-        {
-          x: 0, opacity: 1,
-          duration: 1, ease: "expo.out",
-          scrollTrigger: { trigger: quoteRef.current, start: "top 84%" },
         }
       );
-
-      // ── Stat counters ────────────────────────────────
-      const counters = statsRef.current?.querySelectorAll<HTMLElement>("[data-count]");
-      counters?.forEach((el) => {
-        const target = parseFloat(el.dataset.count || "0");
-        const suffix = el.dataset.suffix || "";
-        const obj = { val: 0 };
-        gsap.to(obj, {
-          val: target,
-          duration: 2,
-          ease: "power2.out",
-          scrollTrigger: { trigger: el, start: "top 85%" },
-          onUpdate() {
-            el.textContent = Math.round(obj.val) + suffix;
-          },
-        });
-      });
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [lang]);
+
+  const rows = [
+    { label: t.about.row1Label, val: t.about.row1Val },
+    { label: t.about.row2Label, val: t.about.row2Val },
+    { label: t.about.row3Label, val: t.about.row3Val },
+    { label: t.about.row4Label, val: t.about.row4Val },
+  ];
 
   return (
-    <section ref={sectionRef} id="nosotros" className="py-16 md:py-32 relative overflow-hidden">
-      <div className="glow-blue absolute left-0 bottom-0 w-[500px] h-[400px] opacity-35" />
-      <div className="rule mb-0" />
-
-      <div className="container mx-auto px-6 pt-20 relative z-10">
-        <p className="eyebrow mb-16">{dict.about.label}</p>
-
-        <div className="grid lg:grid-cols-2 gap-10 md:gap-16 xl:gap-24 items-start">
-
-          {/* LEFT */}
-          <div ref={leftRef}>
-            <h2 className="txt-line text-4xl md:text-5xl font-black text-white leading-tight mb-8">
-              {dict.about.titleStart}{" "}
-              <span className="text-gradient">{dict.about.titleHighlight}</span>.
+    <section ref={sectionRef} id="nosotros" className="py-[118px] relative z-10 opacity-0">
+      <div className="max-w-[1180px] mx-auto px-6 md:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-[70px] items-center">
+          
+          {/* Left Text */}
+          <div className="about-copy">
+            <span className="font-mono text-[12px] tracking-[0.14em] text-signal font-semibold uppercase block mb-4">
+              {t.about.eyebrow}
+            </span>
+            <h2 className="font-display font-bold text-[clamp(28px,3.6vw,42px)] text-ink tracking-tight leading-[1.12] mb-[22px]">
+              {t.about.title}
             </h2>
-            <p className="txt-line text-white/45 text-sm leading-relaxed mb-5">{dict.about.p1}</p>
-            <p className="txt-line text-white/45 text-sm leading-relaxed mb-12">{dict.about.p2}</p>
-
-            {/* Stats grid */}
-            <div ref={statsRef} className="txt-line grid grid-cols-3 gap-px overflow-hidden rounded-2xl border border-white/[0.06]">
-              {[
-                { n: 100, suffix: "%", label: "Satisfacción" },
-                { n: 3,   suffix: "+", label: "Proyectos" },
-                { n: 1,   suffix: "",  label: "Equipo dedicado" },
-              ].map((s, i) => (
-                <div key={i} className="bg-white/[0.03] p-6 text-center hover:bg-white/[0.05] transition-colors duration-300">
-                  <div
-                    className="text-2xl font-black text-gradient-blue mb-1 font-display"
-                    data-count={s.n}
-                    data-suffix={s.suffix}
-                  >
-                    0{s.suffix}
-                  </div>
-                  <div className="text-[10px] text-white/30 uppercase tracking-widest">{s.label}</div>
-                </div>
-              ))}
-            </div>
+            <p className="text-[16.5px] text-ink-soft leading-relaxed">
+              {t.about.p1Start}
+              <strong className="text-ink font-semibold">{t.about.p1Bold}</strong>
+              {t.about.p1End}
+            </p>
+            <p className="text-[16.5px] text-ink-soft leading-relaxed mt-[18px]">
+              {t.about.p2}
+            </p>
           </div>
 
-          {/* RIGHT */}
-          <div className="space-y-6">
-            {/* Image with clip-path reveal */}
-            <div
-              ref={imageRef}
-              className="img-card overflow-hidden relative"
-              style={{ boxShadow: "0 40px 100px rgba(5,9,26,0.8)", clipPath: "inset(0% 0% 100% 0%)" }}
-            >
-              <div className="relative aspect-[4/3] overflow-hidden">
-                <Image
-                  src="/CRM_Lite.jpg"
-                  alt="Nexura en acción"
-                  fill
-                  unoptimized
-                  className="about-inner-img object-cover object-top scale-[1.15]"
-                />
-                <div className="absolute inset-0"
-                  style={{ background: "linear-gradient(180deg,transparent 50%,rgba(5,9,26,0.85) 100%)" }}
-                />
-                <div className="absolute bottom-6 left-6">
-                  <div className="eyebrow text-white/40 mb-1">Nexura · 2025</div>
-                  <div className="text-white font-bold text-sm">Soluciones que funcionan</div>
-                </div>
+          {/* Right Stats Box */}
+          <div className="border border-line rounded-[14px] p-[34px] bg-bg-alt">
+            {rows.map((row, idx) => (
+              <div
+                key={idx}
+                className={`flex justify-between py-3.5 border-b border-line text-[14.5px] ${
+                  idx === rows.length - 1 ? "border-b-0" : ""
+                }`}
+              >
+                <span className="text-ink-soft">{row.label}</span>
+                <span className="font-mono font-medium text-ink">{row.val}</span>
               </div>
-            </div>
-
-            {/* Quote */}
-            <div
-              ref={quoteRef}
-              className="glass rounded-2xl p-6"
-              style={{ borderLeft: "3px solid rgba(79,140,255,0.45)" }}
-            >
-              <p className="text-white/65 text-sm leading-relaxed italic font-serif">
-                "Si quieres escalar, nosotros ponemos la tecnología."
-              </p>
-              <div className="mt-3 eyebrow text-white/25">— Nexura Digital Agency</div>
-            </div>
+            ))}
           </div>
+
         </div>
       </div>
-      <div className="rule mt-32" />
     </section>
   );
 }

@@ -1,640 +1,187 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
+import { useEffect, useRef } from "react";
 import { useLanguage } from "@/lib/LanguageContext";
 import gsap from "gsap";
-import { Home, BarChart2, User, Settings, LayoutDashboard, Users, Package } from "lucide-react";
-
-// Reusable Smartphone Mockup Component for visualizers
-function SmartphoneMockup({ idSuffix, className }: { idSuffix: string; className: string }) {
-  return (
-    <div className={className}>
-      {/* Physical Button Mockups on Rim */}
-      <div className="absolute -left-[4px] top-[80px] w-[3px] h-[25px] bg-[#2E2E38] rounded-l-md" />
-      <div className="absolute -left-[4px] top-[115px] w-[3px] h-[25px] bg-[#2E2E38] rounded-l-md" />
-      <div className="absolute -right-[4px] top-[95px] w-[3px] h-[40px] bg-[#2E2E38] rounded-r-md" />
-
-      {/* Glossy glass reflection overlay */}
-      <div className="absolute inset-0 bg-gradient-to-tr from-white/[0.01] via-transparent to-white/[0.08] pointer-events-none z-30 rounded-[2.4rem] border border-white/10" />
-      
-      {/* Top iOS Status Bar & Dynamic Island */}
-      <div className="relative z-10 flex items-center justify-between px-2 pt-0.5 pb-1">
-        <span className="font-sans text-[8px] font-semibold text-white/95">9:41</span>
-        
-        {/* Dynamic Island Capsule */}
-        <div className="w-[64px] h-[18px] bg-[#000000] border border-white/10 rounded-full flex items-center justify-between px-2 relative shadow-inner">
-          {/* Camera lens */}
-          <div className="w-1.5 h-1.5 rounded-full bg-[#101015] border border-white/5 flex items-center justify-center">
-            <div className="w-0.5 h-0.5 rounded-full bg-[#0d2a4a]" />
-          </div>
-          {/* Active indicator dot */}
-          <span className="w-1 h-1 rounded-full bg-accent-teal shadow-[0_0_4px_#00E8C6] animate-pulse" />
-        </div>
-
-        <div className="flex items-center gap-1.5 text-white/80">
-          {/* Cellular Signal Strength Bars */}
-          <svg className="w-3 h-2.5 text-white/90" fill="currentColor" viewBox="0 0 120 120">
-            <rect x="10" y="80" width="15" height="30" rx="3" />
-            <rect x="35" y="60" width="15" height="50" rx="3" />
-            <rect x="60" y="40" width="15" height="70" rx="3" />
-            <rect x="85" y="10" width="15" height="100" rx="3" fill="currentColor" className="text-accent-teal" />
-          </svg>
-          {/* WiFi Arc Icon */}
-          <svg className="w-3 h-2.5 text-white/90" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 21l-12-12a17 17 0 0 1 24 0z" />
-          </svg>
-          {/* Battery Rim + Fill */}
-          <div className="w-[18px] h-[9px] border border-white/40 rounded-[3px] p-[1px] flex items-center relative">
-            <div className="h-full w-[80%] bg-accent-teal rounded-[1px]" />
-            <div className="w-[1.5px] h-[3px] bg-white/40 absolute -right-[2.5px] rounded-r-[1px]" />
-          </div>
-        </div>
-      </div>
-
-      {/* Premium App Bar Header */}
-      <div className="relative z-10 px-1 pb-1.5 border-b border-white/[0.06] flex justify-between items-center">
-        <div className="flex items-center gap-1.5">
-          <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-accent-gold/20 to-accent-teal/20 border border-white/10 flex items-center justify-center overflow-hidden">
-            <User className="w-3 h-3 text-accent-gold" />
-          </div>
-          <div className="flex flex-col">
-            <span className="font-sans text-[8.5px] font-bold text-white tracking-wide uppercase">NEXURA HQ</span>
-            <span className="font-sans text-[6px] text-text-muted">CEO Dashboard</span>
-          </div>
-        </div>
-        <span className="font-mono text-[6.5px] text-accent-teal uppercase font-bold tracking-widest animate-pulse flex items-center gap-1">
-          <span className="w-1 h-1 rounded-full bg-accent-teal" /> LIVE
-        </span>
-      </div>
-
-      {/* App Interface Content Suite */}
-      <div className="relative z-10 flex-1 flex flex-col gap-2 pt-2 justify-start overflow-hidden">
-        {/* Section 1: KPI Business Metrics */}
-        <div className="grid grid-cols-2 gap-1.5">
-          <div className="bg-white/[0.02] border border-white/[0.04] p-1.5 rounded-lg flex flex-col justify-center shadow-inner">
-            <span className="font-mono text-[6px] text-text-muted uppercase">Ventas Hoy</span>
-            <span className="font-sans font-bold text-[9.5px] text-white mt-0.5">₡450,000</span>
-            <span className="font-mono text-[5.5px] text-accent-teal mt-0.5 font-bold">▲ +18%</span>
-          </div>
-          <div className="bg-white/[0.02] border border-white/[0.04] p-1.5 rounded-lg flex flex-col justify-center shadow-inner">
-            <span className="font-mono text-[6px] text-text-muted uppercase">Clientes</span>
-            <span className="font-sans font-bold text-[9.5px] text-white mt-0.5">+18</span>
-            <span className="font-mono text-[5.5px] text-accent-gold mt-0.5 font-bold">★ Record</span>
-          </div>
-        </div>
-
-        {/* Section 2: Real-time Sparkline Mini Area Graph */}
-        <div className="bg-white/[0.02] border border-white/[0.04] p-1.5 rounded-lg flex flex-col justify-between shadow-inner h-[58px]">
-          <div className="flex justify-between items-center border-b border-white/[0.03] pb-0.5">
-            <span className="font-mono text-[6px] text-text-muted uppercase">Rendimiento Operativo</span>
-            <span className="font-mono text-[6px] text-accent-teal">99.8%</span>
-          </div>
-          {/* SVG Mini Chart */}
-          <svg viewBox="0 0 160 35" className="w-full h-[32px] overflow-visible">
-            <defs>
-              <linearGradient id={`phone-chart-fill${idSuffix}`} x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#C9A84C" stopOpacity="0.25" />
-                <stop offset="100%" stopColor="#C9A84C" stopOpacity="0.0" />
-              </linearGradient>
-            </defs>
-            <path
-              d="M 0 30 Q 30 5 60 20 T 120 10 T 160 18 L 160 35 L 0 35 Z"
-              fill={`url(#phone-chart-fill${idSuffix})`}
-            />
-            <path
-              d="M 0 30 Q 30 5 60 20 T 120 10 T 160 18"
-              fill="none"
-              stroke="#C9A84C"
-              strokeWidth="1.2"
-            />
-            <circle cx="120" cy="10" r="1.8" fill="#00E8C6" className="animate-pulse" />
-          </svg>
-        </div>
-
-        {/* Section 3: Live System Push Notifications */}
-        <div className="flex flex-col gap-1.5">
-          <span className="font-mono text-[6px] text-text-muted uppercase tracking-wider px-0.5">Actividad Omnicanal</span>
-          
-          {/* Notification Item 1 */}
-          <div className="bg-white/[0.03] border border-white/[0.04] p-1.5 rounded-lg flex items-center justify-between shadow-inner">
-            <div className="flex items-center gap-1.5 overflow-hidden">
-              <span className="w-1.5 h-1.5 rounded-full bg-accent-teal shadow-[0_0_4px_#00E8C6] shrink-0" />
-              <span className="font-mono text-[7px] text-white/90 truncate">Caja 01: Factura Enviada</span>
-            </div>
-            <span className="font-mono text-[6.5px] text-accent-teal shrink-0">+₡300k</span>
-          </div>
-          
-          {/* Notification Item 2 */}
-          <div className="bg-white/[0.03] border border-white/[0.04] p-1.5 rounded-lg flex items-center justify-between shadow-inner">
-            <div className="flex items-center gap-1.5 overflow-hidden">
-              <span className="w-1.5 h-1.5 rounded-full bg-accent-gold shadow-[0_0_4px_#C9A84C] shrink-0" />
-              <span className="font-mono text-[7px] text-white/90 truncate">CRM: Contrato Firmado [Grupo Sur]</span>
-            </div>
-            <span className="font-mono text-[6.5px] text-accent-gold shrink-0">✓ Firmado</span>
-          </div>
-        </div>
-
-        {/* Section 4: SaaS Targets Gauge Meter */}
-        <div className="bg-white/[0.01] border border-white/[0.03] p-1.5 rounded-lg flex flex-col gap-1 mt-0.5">
-          <div className="flex justify-between font-mono text-[6px] text-text-muted uppercase">
-            <span>Disponibilidad API</span>
-            <span className="text-white font-bold">99.9%</span>
-          </div>
-          <div className="w-full h-1 bg-white/5 rounded-full overflow-hidden">
-            <div className="h-full bg-accent-teal rounded-full animate-pulse shadow-[0_0_4px_#00E8C6]" style={{ width: "99.9%" }} />
-          </div>
-        </div>
-      </div>
-
-      {/* Bottom iOS Navigation Bar */}
-      <div className="relative z-10 border-t border-white/[0.06] pt-1.5 pb-0.5 flex justify-around items-center font-sans text-[11px] text-text-muted">
-        <span className="text-accent-teal cursor-pointer hover:text-white transition-colors group">
-          <Home className="w-4 h-4 text-accent-teal" />
-        </span>
-        <span className="cursor-pointer hover:text-white transition-colors group">
-          <BarChart2 className="w-4 h-4 text-text-muted group-hover:text-white transition-colors" />
-        </span>
-        <span className="cursor-pointer hover:text-white transition-colors group">
-          <User className="w-4 h-4 text-text-muted group-hover:text-white transition-colors" />
-        </span>
-        <span className="cursor-pointer hover:text-white transition-colors group">
-          <Settings className="w-4 h-4 text-text-muted group-hover:text-white transition-colors" />
-        </span>
-      </div>
-    </div>
-  );
-}
 
 export default function HeroSection() {
   const { lang, t } = useLanguage();
-  const visualizerRef = useRef<HTMLDivElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [isMobile, setIsMobile] = useState(true);
-  const [showVisualizer, setShowVisualizer] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const flowPathRef = useRef<SVGPathElement>(null);
 
-  // Detect layout scale & touch pointer on mount
   useEffect(() => {
-    setMounted(true);
-    const handleResize = () => {
-      const mobile = window.innerWidth < 768 || window.matchMedia("(pointer: coarse)").matches;
-      setIsMobile(mobile);
-      setShowVisualizer(window.innerWidth >= 1024);
-    };
+    // Initial setup for GSAP animation
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+      // Reset initial values natively to avoid layout shift before animation starts
+      gsap.set(".hero-reveal-element", { opacity: 0, y: 28 });
+      gsap.set(".line-inner", { y: "112%" });
+      gsap.set(".flow-container", { opacity: 0, y: 32 });
+
+      tl.to(".hero-eyebrow", { opacity: 1, y: 0, duration: 0.7 })
+        .to(".line-inner", { y: "0%", duration: 1, stagger: 0.13, ease: "power4.out" }, "-=0.4")
+        .to(".hero-sub", { opacity: 1, y: 0, duration: 0.8 }, "-=0.6")
+        .to(".hero-cta-btn", { opacity: 1, y: 0, duration: 0.8, stagger: 0.1 }, "-=0.6")
+        .to(".flow-container", { opacity: 1, y: 0, duration: 1 }, "-=0.8");
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, []);
 
-
-
-  // Magnetic Button Effect helper
-  const primaryCtaRef = useRef<HTMLAnchorElement>(null);
-  const secondaryCtaRef = useRef<HTMLAnchorElement>(null);
-
-  useEffect(() => {
-    if (isMobile) return;
-
-    const setupMagnetic = (ref: React.RefObject<HTMLAnchorElement | null>) => {
-      const el = ref.current;
-      if (!el) return;
-
-      const handleMouseMove = (e: MouseEvent) => {
-        const bounds = el.getBoundingClientRect();
-        const elX = bounds.left + bounds.width / 2;
-        const elY = bounds.top + bounds.height / 2;
-        const dist = Math.hypot(e.clientX - elX, e.clientY - elY);
-
-        // Within 80px hover, snap button slightly towards cursor (max 7px)
-        if (dist < 80) {
-          const deltaX = (e.clientX - elX) * 0.25;
-          const deltaY = (e.clientY - elY) * 0.25;
-          gsap.to(el, {
-            x: deltaX,
-            y: deltaY,
-            duration: 0.3,
-            ease: "power2.out",
-          });
-        } else {
-          gsap.to(el, { x: 0, y: 0, duration: 0.4, ease: "power2.out" });
-        }
-      };
-
-      const handleMouseLeave = () => {
-        gsap.to(el, { x: 0, y: 0, duration: 0.4, ease: "power2.out" });
-      };
-
-      window.addEventListener("mousemove", handleMouseMove);
-      el.addEventListener("mouseleave", handleMouseLeave);
-
-      return () => {
-        window.removeEventListener("mousemove", handleMouseMove);
-        el.removeEventListener("mouseleave", handleMouseLeave);
-      };
-    };
-
-    const cleanup1 = setupMagnetic(primaryCtaRef);
-    const cleanup2 = setupMagnetic(secondaryCtaRef);
-
-    return () => {
-      if (cleanup1) cleanup1();
-      if (cleanup2) cleanup2();
-    };
-  }, [isMobile]);
-
-  // Split words helper for Hero Text Reveal
-  // TranslateY(70px) to 0, Opacity 0 to 1, Stagger 80ms, cubic-bezier(0.22, 1, 0.36, 1)
-  // Animate on mount, triggers after loading gate starts slideouts (2.1s delay)
-  const renderHeadlineWords = (text: string) => {
-    return text.split(" ").map((word, i) => (
-      <span key={i} className="inline-block overflow-hidden mr-3 pb-1">
-        <span
-          className="inline-block transform translate-y-[70px] opacity-0 animate-[heroReveal_0.9s_cubic-bezier(0.22,1,0.36,1)_forwards]"
-          style={{
-            animationDelay: `${2050 + i * 80}ms`,
-          }}
-        >
-          {word}
-        </span>
-      </span>
-    ));
-  };
+  const waNumber = "50685803868";
+  const waMsg = encodeURIComponent(
+    lang === "es"
+      ? "Hola Nexura, quiero contarles sobre un sistema que necesito."
+      : "Hello Nexura, I want to talk about a custom system I need."
+  );
+  const waUrl = `https://wa.me/${waNumber}?text=${waMsg}`;
 
   return (
-    <section
-      ref={containerRef}
-      id="inicio"
-      className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-bg-base"
+    <header
+      ref={sectionRef}
+      className="relative pt-[172px] pb-[100px] bg-[radial-gradient(760px_420px_at_82%_-10%,var(--color-signal-dim),transparent_60%),radial-gradient(#eceff4_1px,transparent_1px)] bg-[size:auto,26px_26px] overflow-hidden"
     >
-      {/* Drifting blurred background Orbs */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        
-        {/* Orb 1: Electric Teal */}
-        <div className="absolute top-[10%] left-[-10%] w-[38vw] h-[38vw] min-w-[300px] rounded-full bg-accent-teal/15 blur-[120px] drift-1" />
-        
-        {/* Orb 2: Dark Teal */}
-        <div className="absolute bottom-[15%] right-[-5%] w-[42vw] h-[42vw] min-w-[350px] rounded-full bg-accent-teal/5 blur-[130px] drift-2" />
-        
-        {/* Orb 3: Near Black / Matte Gold Shadow */}
-        <div className="absolute top-[40%] right-[30%] w-[32vw] h-[32vw] min-w-[280px] rounded-full bg-accent-gold/5 blur-[100px] drift-3" />
-      </div>
-
-      {/* SaaS & Cloud Architecture Visualizer (Stripe/Linear style) */}
-      {mounted && showVisualizer && (
-        <div
-          ref={visualizerRef}
-          className="absolute top-[52%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[98vw] max-w-[920px] aspect-[16/9] z-10 pointer-events-none select-none overflow-visible opacity-[0.82] hover:opacity-[0.92] transition-opacity duration-700 scale-[0.35] min-[400px]:scale-[0.42] sm:scale-[0.6] md:scale-[0.8] lg:scale-100"
-        >
-          {/* Backplane: SVG Omnichannel Sync Beams with animated flowing dots */}
-          <svg
-            className="absolute inset-0 w-full h-full pointer-events-none"
-          >
-            {/* Fine grid dotted layout lines */}
-            <defs>
-              <linearGradient id="teal-glow-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#00E8C6" stopOpacity="0.6" />
-                <stop offset="100%" stopColor="#00E8C6" stopOpacity="0.02" />
-              </linearGradient>
-              <linearGradient id="gold-glow-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#C9A84C" stopOpacity="0.6" />
-                <stop offset="100%" stopColor="#C9A84C" stopOpacity="0.02" />
-              </linearGradient>
-              <pattern id="infra-dots" width="24" height="24" patternUnits="userSpaceOnUse">
-                <circle cx="1.5" cy="1.5" r="0.75" fill="rgba(0, 232, 198, 0.07)" />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#infra-dots)" />
-
-            {/* Connecting flow lines from Laptop (Left) to POS Tablet (Center-Bottom) */}
-            <path
-              d="M 270 200 C 330 200, 330 310, 420 310"
-              fill="none"
-              stroke="rgba(0, 232, 198, 0.12)"
-              strokeWidth="1.5"
-            />
-            <path
-              d="M 270 200 C 330 200, 330 310, 420 310"
-              fill="none"
-              stroke="#00E8C6"
-              strokeWidth="1.5"
-              className="data-flow-line opacity-40"
-            />
-
-            {/* Connecting flow lines from Laptop (Left) to Smartphone (Right) */}
-            <path
-              d="M 270 140 C 450 140, 450 160, 700 160"
-              fill="none"
-              stroke="rgba(0, 232, 198, 0.12)"
-              strokeWidth="1.5"
-            />
-            <path
-              d="M 270 140 C 450 140, 450 160, 700 160"
-              fill="none"
-              stroke="#00E8C6"
-              strokeWidth="1.5"
-              className="data-flow-line opacity-40"
-            />
-
-            {/* Connecting flow lines from POS Tablet (Center-Bottom) to Smartphone (Right) */}
-            <path
-              d="M 520 310 C 620 310, 620 200, 700 200"
-              fill="none"
-              stroke="rgba(0, 232, 198, 0.12)"
-              strokeWidth="1.5"
-            />
-            <path
-              d="M 520 310 C 620 310, 620 200, 700 200"
-              fill="none"
-              stroke="#00E8C6"
-              strokeWidth="1.5"
-              className="data-flow-line opacity-40"
-            />
-
-            {/* Left Edge Input path — Representing active store sales syncing */}
-            <path
-              d="M -50 155 H 110"
-              fill="none"
-              stroke="rgba(0, 232, 198, 0.08)"
-              strokeWidth="1"
-            />
-
-            {/* Glowing moving flow dot along Laptop -> POS Tablet */}
-            <circle r="3" fill="#00E8C6" className="shadow-[0_0_8px_#00E8C6]">
-              <animateMotion
-                path="M 270 200 C 330 200, 330 310, 420 310"
-                dur="4.5s"
-                repeatCount="indefinite"
-              />
-            </circle>
-
-            {/* Glowing moving flow dot along Laptop -> Smartphone */}
-            <circle r="3" fill="#00E8C6" className="shadow-[0_0_8px_#00E8C6]">
-              <animateMotion
-                path="M 270 140 C 450 140, 450 160, 700 160"
-                dur="5.5s"
-                repeatCount="indefinite"
-              />
-            </circle>
-
-            {/* Glowing moving flow dot along POS Tablet -> Smartphone */}
-            <circle r="2.5" fill="#C9A84C" className="shadow-[0_0_6px_#C9A84C]">
-              <animateMotion
-                path="M 520 310 C 620 310, 620 200, 700 200"
-                dur="3.8s"
-                repeatCount="indefinite"
-              />
-            </circle>
-          </svg>
-
-          {/* Device 1: Widescreen Laptop Mockup (z-10, CRM & Executive Portal) (Parallax: 12px) */}
-          <div
-            className="absolute left-[3%] top-[8%] w-[490px] h-[290px] z-10 backdrop-blur-xl bg-[#0F0F14]/40 border border-white/[0.08] rounded-2xl p-4 shadow-[0_20px_50px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.05)] transition-all duration-300 hover:border-accent-teal/30 hover:shadow-[0_25px_60px_rgba(0,232,198,0.15)] group/laptop flex flex-col justify-between"
-          >
-            {/* Top window bar macOS style */}
-            <div className="flex items-center justify-between border-b border-white/[0.06] pb-2 mb-2.5">
-              <div className="flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-white/10 group-hover/laptop:bg-[#FF5F56] transition-colors" />
-                <span className="w-2 h-2 rounded-full bg-white/10 group-hover/laptop:bg-[#FFBD2E] transition-colors" />
-                <span className="w-2 h-2 rounded-full bg-white/10 group-hover/laptop:bg-[#27C93F] transition-colors" />
-              </div>
-              <span className="font-mono text-[8px] text-accent-gold tracking-widest uppercase font-bold">// NEXURA_CONTROL // ERP</span>
-              <div className="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-pulse" />
-            </div>
-            
-            {/* Split Screen Portal Layout */}
-            <div className="flex-1 flex gap-3.5 overflow-hidden">
-              {/* Sidebar Portal Navigation */}
-              <div className="w-[105px] border-r border-white/[0.05] pr-2.5 flex flex-col gap-2 font-mono text-[8.5px] text-text-muted">
-                <div className="text-accent-teal font-bold bg-accent-teal/5 border border-accent-teal/10 px-2 py-1.5 rounded-lg flex items-center gap-2 cursor-pointer group">
-                  <LayoutDashboard className="w-3 h-3 text-accent-teal" /> Dashboard
-                </div>
-                <div className="hover:text-white px-2 py-1.5 rounded-lg flex items-center gap-2 transition-colors cursor-pointer group">
-                  <Users className="w-3 h-3 text-text-muted group-hover:text-white transition-colors" /> Clientes
-                </div>
-                <div className="hover:text-white px-2 py-1.5 rounded-lg flex items-center gap-2 transition-colors cursor-pointer group">
-                  <Package className="w-3 h-3 text-text-muted group-hover:text-white transition-colors" /> Inventario
-                </div>
-                <div className="hover:text-white px-2 py-1.5 rounded-lg flex items-center gap-2 transition-colors cursor-pointer group">
-                  <Settings className="w-3 h-3 text-text-muted group-hover:text-white transition-colors" /> Ajustes
-                </div>
-              </div>
-
-              {/* Main CRM Area */}
-              <div className="flex-1 flex flex-col justify-between overflow-hidden">
-                {/* KPI Metrics Widgets */}
-                <div className="grid grid-cols-2 gap-2.5">
-                  <div className="bg-bg-base/60 border border-white/[0.03] p-2 rounded-xl flex flex-col justify-center">
-                    <span className="font-mono text-[7px] text-text-muted uppercase">Facturación Mensual</span>
-                    <span className="font-sans font-bold text-xs text-white mt-0.5">₡18,450,000</span>
-                    <span className="font-mono text-[7px] text-accent-teal mt-0.5">▲ +24.8% este mes</span>
-                  </div>
-                  <div className="bg-bg-base/60 border border-white/[0.03] p-2 rounded-xl flex flex-col justify-center">
-                    <span className="font-mono text-[7px] text-text-muted uppercase">Facturas Emitidas</span>
-                    <span className="font-sans font-bold text-xs text-white mt-0.5">1,248</span>
-                    <span className="font-mono text-[7px] text-accent-teal mt-0.5">✓ Sincronizadas MH</span>
-                  </div>
-                </div>
-
-                {/* Sales Graph Chart */}
-                <div className="bg-bg-base/40 border border-white/[0.02] p-2 rounded-xl flex-1 mt-2.5 flex flex-col justify-between overflow-hidden">
-                  <div className="flex justify-between items-center border-b border-white/5 pb-1 mb-1">
-                    <span className="font-mono text-[7px] text-text-muted uppercase">Ventas de la Semana</span>
-                    <span className="font-mono text-[7px] text-accent-gold font-semibold">En Vivo</span>
-                  </div>
-                  {/* Styled SVG Area Chart representing professional Sales Curve */}
-                  <svg viewBox="0 0 300 80" className="w-full h-[75px] overflow-visible">
-                    <defs>
-                      <linearGradient id="chart-fill" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#00E8C6" stopOpacity="0.25" />
-                        <stop offset="100%" stopColor="#00E8C6" stopOpacity="0.0" />
-                      </linearGradient>
-                    </defs>
-                    {/* Grid Guide lines */}
-                    <line x1="0" y1="20" x2="300" y2="20" stroke="rgba(255,255,255,0.03)" strokeWidth="0.5" />
-                    <line x1="0" y1="50" x2="300" y2="50" stroke="rgba(255,255,255,0.03)" strokeWidth="0.5" />
-                    {/* Gradient Fill Area */}
-                    <path
-                      d="M 0 60 Q 50 15 100 45 T 200 10 T 300 35 L 300 80 L 0 80 Z"
-                      fill="url(#chart-fill)"
-                    />
-                    {/* Glowing Stroke Path */}
-                    <path
-                      d="M 0 60 Q 50 15 100 45 T 200 10 T 300 35"
-                      fill="none"
-                      stroke="#00E8C6"
-                      strokeWidth="2"
-                      className="shadow-[0_0_10px_#00E8C6]"
-                    />
-                    {/* Hot point dot */}
-                    <circle cx="200" cy="10" r="3.5" fill="#C9A84C" className="animate-pulse" />
-                  </svg>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Device 2: POS Tablet Mockup (z-15, Omnichannel checkout) (Parallax: 18px) */}
-          <div
-            className="absolute left-[35%] top-[50%] w-[330px] h-[210px] z-15 backdrop-blur-xl bg-[#0F0F14]/45 border border-white/[0.08] rounded-2xl p-4 shadow-[0_30px_70px_rgba(0,0,0,0.7),inset_0_1px_1px_rgba(255,255,255,0.06)] transition-all duration-300 hover:border-accent-teal/30 hover:shadow-[0_25px_60px_rgba(0,232,198,0.15)] group/pos flex flex-col justify-between"
-          >
-            {/* Top Bar POS Title */}
-            <div className="flex items-center justify-between border-b border-white/[0.06] pb-2 mb-2.5">
-              <span className="font-mono text-[8px] text-accent-gold tracking-widest uppercase font-bold">// NEXURA_POS // RESTAURANTE SUCURSAL</span>
-              <div className="flex items-center gap-1.5 font-mono text-[7px] text-accent-teal uppercase font-bold bg-accent-teal/5 border border-accent-teal/10 px-2 py-0.5 rounded-full">
-                <span className="w-1.5 h-1.5 rounded-full bg-accent-teal animate-[pulse_1s_infinite]" />
-                <span>Factura Electrónica</span>
-              </div>
-            </div>
-
-            {/* Split Screen POS Checkout */}
-            <div className="flex-1 flex gap-3 overflow-hidden">
-              {/* Left Column: Current Checkout Invoice (span 3) */}
-              <div className="flex-1 flex flex-col justify-between font-mono text-[8.5px] text-text-muted bg-bg-base/40 border border-white/[0.02] p-2.5 rounded-xl overflow-hidden">
-                <div className="flex flex-col gap-1.5 overflow-hidden">
-                  <span className="font-bold text-white border-b border-white/5 pb-1">Factura Actual</span>
-                  <div className="flex justify-between text-white/80">
-                    <span>1x Software Facturación</span>
-                    <span>₡180,000</span>
-                  </div>
-                  <div className="flex justify-between text-white/80">
-                    <span>1x Integración API MH</span>
-                    <span>₡120,000</span>
-                  </div>
-                </div>
-                <div className="flex justify-between font-bold text-accent-teal border-t border-white/5 pt-1.5 mt-1 text-[9.5px]">
-                  <span>TOTAL COBRO:</span>
-                  <span>₡300,000</span>
-                </div>
-              </div>
-
-              {/* Right Column: Checkout Controls & Processing (span 2) */}
-              <div className="w-[110px] flex flex-col justify-between font-mono text-[8px] text-text-muted">
-                <div className="bg-bg-base/30 border border-white/[0.03] p-1.5 rounded-lg flex flex-col gap-1 justify-center">
-                  <span>Terminal: <span className="text-white">Caja 01</span></span>
-                  <span>Cajero: <span className="text-white">ID 408</span></span>
-                </div>
-                {/* Billing processing button */}
-                <div className="flex flex-col gap-1.5 mt-2">
-                  <div className="bg-accent-teal hover:brightness-110 text-black text-center rounded-xl font-bold py-2.5 shadow-[0_0_12px_rgba(0,232,198,0.25)] transition-all cursor-pointer">
-                    Cobrar ₡300,000
-                  </div>
-                  <div className="text-[7px] text-center text-text-muted animate-pulse">
-                    Validando con Hacienda...
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Device 3: Smartphone Mockup (z-20, Upgraded iPhone Pro Executive App) */}
-          <SmartphoneMockup
-            idSuffix="-desktop"
-            className="absolute right-[3%] top-[6%] w-[215px] h-[400px] z-20 backdrop-blur-2xl bg-[#07070A]/85 border-[4px] border-[#1e1e24] ring-1 ring-white/15 rounded-[2.6rem] p-3.5 shadow-[0_45px_100px_rgba(0,0,0,0.85),inset_0_1px_2px_rgba(255,255,255,0.15)] transition-all duration-300 hover:border-accent-teal/40 hover:shadow-[0_45px_80px_rgba(0,232,198,0.25)] group/phone flex flex-col justify-between overflow-hidden"
-          />
-
-          {/* Subtle floating product suite tags */}
-          <div className="absolute left-[3%] bottom-[6%] font-mono text-[8px] text-[#00E8C6]/12 hover:text-[#00E8C6]/35 transition-colors pointer-events-auto cursor-default">
-            // OMNICHANNEL_SYNC // flawless
-          </div>
-          <div className="absolute right-[5%] top-[5%] font-mono text-[8px] text-[#C9A84C]/12 hover:text-[#C9A84C]/35 transition-colors pointer-events-auto cursor-default">
-            // ANALYTICS_ENGINE // live
-          </div>
-          <div className="absolute left-[26%] top-[3%] font-mono text-[8px] text-white/5 hover:text-white/15 transition-colors pointer-events-auto cursor-default">
-            // API_GATEWAY // active
-          </div>
-          <div className="absolute right-[28%] bottom-[3%] font-mono text-[8px] text-white/5 hover:text-white/15 transition-colors pointer-events-auto cursor-default">
-            // REALTIME_REVENUE // fluid
-          </div>
-        </div>
-      )}
-
-      {/* Main Content Area */}
-      <div className="container mx-auto px-6 pt-20 sm:pt-32 pb-12 sm:pb-16 relative z-20 flex flex-col items-center text-center">
-        
-        {/* Small top label (JetBrains Mono, gold, pill border) */}
-        <div
-          className="inline-flex items-center gap-2 border border-accent-gold/25 px-4 py-1.5 rounded-full font-mono text-[10px] sm:text-xs text-accent-gold tracking-wider uppercase mb-5 sm:mb-8 opacity-0 animate-[fadeIn_0.75s_ease-out_1.9s_forwards]"
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-accent-gold animate-ping" />
-          {t.hero.label}
-        </div>
-
-        {/* Headline (Syne 800, clamp size, line-height 1.05) */}
-        <h1
-          className="font-syne font-extrabold text-[clamp(2.0rem,6.2vw,5.6rem)] leading-[1.05] tracking-tight text-text-primary max-w-5xl mb-4 sm:mb-6 select-none"
-        >
-          {mounted && showVisualizer ? (
-            renderHeadlineWords(t.hero.headline)
-          ) : (
-            <span className="inline-block opacity-0 animate-[fadeIn_0.8s_cubic-bezier(0.22,1,0.36,1)_2.15s_forwards]">
-              {t.hero.headline}
-            </span>
-          )}
-        </h1>
-
-        {/* Subtitle (DM Sans, muted, large, max-width 560px, fades as a block) */}
-        <p
-          className="font-sans font-normal text-base sm:text-lg md:text-xl text-text-muted max-w-[560px] leading-relaxed mb-6 sm:mb-10 opacity-0 animate-[fadeIn_0.8s_cubic-bezier(0.22,1,0.36,1)_2.4s_forwards]"
-        >
-          {t.hero.subtext}
-        </p>
-
-        {/* Mobile-only beautiful glowing smartphone mockup (centered, scales down nicely, lightweight) */}
-        {mounted && !showVisualizer && (
-          <SmartphoneMockup
-            idSuffix="-mobile"
-            className="lg:hidden my-4 relative w-[190px] h-[360px] backdrop-blur-2xl bg-[#07070A]/85 border-[4px] border-[#1e1e24] ring-1 ring-white/15 rounded-[2.6rem] p-3 shadow-[0_24px_50px_rgba(0,0,0,0.85),inset_0_1px_2px_rgba(255,255,255,0.15)] flex flex-col justify-between overflow-hidden opacity-0 animate-[fadeIn_0.8s_ease-out_2.45s_forwards] mb-8 scale-90 sm:scale-100"
-          />
-        )}
-
-        {/* CTAs (slide up last with 60ms between them) */}
-        <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
+      <div className="max-w-[1180px] mx-auto px-6 md:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.18fr_0.82fr] gap-10 lg:gap-5 items-center">
           
-          {/* Primary CTA (Teal fill, magnetic scale 1.03) */}
-          <Link
-            ref={primaryCtaRef}
-            href="#proyectos"
-            className="inline-flex items-center justify-center bg-accent-teal hover:brightness-110 text-[#07070A] font-sans font-bold text-sm px-8 py-4 rounded-full transition-all duration-300 hover:shadow-[0_0_28px_rgba(0,232,198,0.35)] transform scale-100 hover:scale-[1.03] opacity-0 animate-[slideUpReveal_0.8s_cubic-bezier(0.22,1,0.36,1)_2.55s_forwards]"
-          >
-            {t.hero.ctaPrimary}
-          </Link>
+          {/* Left Copy */}
+          <div className="hero-copy">
+            <span className="hero-eyebrow inline-flex items-center gap-2 font-mono text-[12px] tracking-[0.12em] text-ink font-semibold border-l-[1.5px] border-t-[1.5px] border-r-[1.5px] border-b-[1.5px] border-transparent relative px-[22px] py-[11px] mb-8 select-none">
+              {/* Corner Borders */}
+              <span className="absolute top-0 left-0 w-2.5 h-2.5 border-l-[1.5px] border-t-[1.5px] border-signal" />
+              <span className="absolute bottom-0 right-0 w-2.5 h-2.5 border-r-[1.5px] border-b-[1.5px] border-signal" />
+              
+              <span className="w-1.5 h-1.5 rounded-full bg-status shadow-[0_0_0_4px_var(--color-status-dim)] animate-[pulse_1.8s_ease-in-out_infinite]" />
+              {t.hero.eyebrow}
+              <span className="text-signal font-bold animate-[blink_1s_steps(1)_infinite]">_</span>
+            </span>
 
-          {/* Secondary CTA (Ghost outline, WhatsApp icon) */}
-          <Link
-            ref={secondaryCtaRef}
-            href={
-              lang === "es"
-                ? "https://wa.me/50685803868?text=Hola,%20me%20interesa%20agendar%20una%20consultoría%20para%20conocer%20más%20sobre%20el%20desarrollo%20de%20software%20a%20la%20medida%20para%20mi%20negocio."
-                : "https://wa.me/50685803868?text=Hi,%20I%20am%20interested%20in%20scheduling%20a%20consultation%20to%20learn%20more%20about%20custom%20software%20development%20for%20my%20business."
-            }
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center border border-white/10 hover:border-accent-teal hover:text-accent-teal text-text-primary font-sans font-semibold text-sm px-8 py-4 rounded-full transition-all duration-300 bg-white/[0.01] hover:bg-white/[0.03] opacity-0 animate-[slideUpReveal_0.8s_cubic-bezier(0.22,1,0.36,1)_2.61s_forwards]"
-          >
-            {/* WhatsApp mini SVG outline */}
-            <svg
-              className="w-4 h-4 mr-2"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.062 5.248 5.308 0 11.722 0c3.107.001 6.027 1.212 8.223 3.41 2.196 2.197 3.404 5.12 3.402 8.228-.005 6.463-5.252 11.71-11.67 11.71-2.008-.001-3.982-.515-5.732-1.493L0 24zm6.076-3.791c1.672.993 3.31 1.52 5.568 1.521 5.333 0 9.673-4.32 9.677-9.647.002-2.58-1.002-5.005-2.827-6.83-1.826-1.826-4.256-2.83-6.843-2.83-5.342 0-9.686 4.321-9.69 9.649-.001 2.148.56 4.244 1.624 6.082l-.994 3.633 3.738-.979z" />
+            <h1 className="font-display font-bold text-[clamp(36px,4.6vw,54px)] leading-[1.08] tracking-[-0.02em] text-ink">
+              <span className="block overflow-hidden">
+                <span className="line-inner block whitespace-nowrap">{t.hero.title1}</span>
+              </span>
+              <span className="block overflow-hidden">
+                <span className="line-inner block whitespace-nowrap">{t.hero.title2}</span>
+              </span>
+              <span className="block overflow-hidden">
+                <span className="line-inner block whitespace-nowrap">
+                  {lang === "es" ? "sistema " : "system "}
+                  <span className="text-signal">{t.hero.titleAccent}</span>
+                </span>
+              </span>
+            </h1>
+
+            <p className="hero-sub hero-reveal-element mt-6 max-w-[480px] text-[17.5px] leading-relaxed text-ink-soft">
+              {t.hero.subtitle}
+            </p>
+
+            <div className="hero-reveal-element mt-[38px] flex flex-wrap gap-4.5">
+              <a
+                href={waUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hero-cta-btn inline-flex items-center gap-2 font-sans font-semibold text-[14.5px] px-6 py-3.5 rounded-full border border-transparent cursor-pointer transition-all duration-250 ease-out whitespace-nowrap bg-ink text-white hover:-translate-y-[2px] hover:shadow-[0_10px_24px_-8px_rgba(11,14,20,0.45)]"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor" className="w-4.5 h-4.5">
+                  <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.77.46 3.45 1.32 4.94L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.9-4.45 9.9-9.91C21.95 6.45 17.5 2 12.04 2Zm5.8 14.02c-.24.68-1.4 1.3-1.94 1.38-.5.08-1.12.11-1.8-.11-.42-.13-.95-.31-1.64-.6-2.88-1.24-4.76-4.13-4.9-4.32-.14-.19-1.17-1.56-1.17-2.98 0-1.42.74-2.11 1-2.4.26-.29.57-.36.76-.36.19 0 .38 0 .55.01.18.01.42-.07.65.5.24.58.82 2 .89 2.14.07.14.11.31.02.5-.09.19-.14.31-.28.48-.14.17-.29.37-.42.5-.14.14-.29.29-.12.57.17.28.75 1.24 1.61 2.01 1.11 1 2.05 1.31 2.32 1.46.28.14.44.12.6-.07.17-.19.71-.83.9-1.11.19-.29.38-.24.63-.15.26.1 1.65.78 1.93.92.28.14.47.21.54.33.07.13.07.72-.17 1.4Z" />
+                </svg>
+                {t.hero.ctaPrimary}
+              </a>
+              <a
+                href="#casos"
+                className="hero-cta-btn inline-flex items-center gap-2 font-sans font-semibold text-[14.5px] px-6 py-3.5 rounded-full border border-line cursor-pointer transition-all duration-250 ease-out whitespace-nowrap bg-transparent text-ink hover:border-ink"
+              >
+                {t.hero.ctaSecondary}
+              </a>
+            </div>
+          </div>
+
+          {/* Right Visualizer - System Flow Diagram */}
+          <div className="flow-container relative w-full select-none" aria-hidden="true">
+            <svg className="w-full h-auto overflow-visible" viewBox="0 0 1000 240">
+              {/* Background Path */}
+              <path
+                className="stroke-line stroke-[2px] fill-none"
+                d="M60,140 C220,70 350,50 500,70 C650,90 800,70 940,150"
+              />
+              
+              {/* Animated Drawing Path */}
+              <path
+                ref={flowPathRef}
+                id="flowPathRef"
+                className="stroke-signal stroke-[2px] fill-none"
+                d="M60,140 C220,70 350,50 500,70 C650,90 800,70 940,150"
+                strokeDasharray="1000"
+                strokeDashoffset="1000"
+                style={{
+                  animation: "drawPath 1.8s cubic-bezier(.4,.1,.2,1) 0.5s forwards"
+                }}
+              />
+              
+              {/* Flowing Status Pulses */}
+              <circle className="fill-signal" r="5">
+                <animateMotion dur="4s" repeatCount="indefinite">
+                  <mpath href="#flowPathRef" />
+                </animateMotion>
+              </circle>
+              <circle className="fill-status" r="4">
+                <animateMotion dur="4s" begin="1.3s" repeatCount="indefinite">
+                  <mpath href="#flowPathRef" />
+                </animateMotion>
+              </circle>
+              <circle className="fill-signal" r="4">
+                <animateMotion dur="4s" begin="2.6s" repeatCount="indefinite">
+                  <mpath href="#flowPathRef" />
+                </animateMotion>
+              </circle>
             </svg>
-            {t.hero.ctaSecondary}
-          </Link>
-        </div>
-      </div>
 
-      {/* Scroll indicator: thin vertical line pulsing downward, center-bottom */}
-      <div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-0 animate-[fadeIn_0.8s_ease-out_2.8s_forwards]"
-      >
-        <div className="w-[1px] h-12 bg-white/20 relative overflow-hidden">
-          <span className="absolute top-0 left-0 w-full h-1/2 bg-accent-teal animate-[scrollPulse_2s_infinite]" />
+            {/* Node: Tu Negocio */}
+            <div className="absolute left-[6%] top-[58.3%] -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-2.5 text-center">
+              <div className="w-[46px] h-[46px] rounded-[12px] bg-white border border-line flex items-center justify-center shadow-[0_14px_26px_-16px_rgba(11,14,20,0.25)]">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 text-ink-soft">
+                  <path d="M3 9.5 12 3l9 6.5V21H3V9.5Z" />
+                  <path d="M9 21v-7h6v7" />
+                </svg>
+              </div>
+              <span className="font-mono text-[10.5px] tracking-wider text-ink-soft uppercase">{lang === "es" ? "TU NEGOCIO" : "YOUR BUSINESS"}</span>
+            </div>
+
+            {/* Node: Hub (NEXURA) */}
+            <div className="absolute left-[50%] top-[29.2%] -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-2.5 text-center">
+              <div className="w-[64px] h-[64px] rounded-[16px] bg-ink border border-ink flex items-center justify-center shadow-[0_20px_40px_-16px_rgba(36,81,255,0.45)]">
+                <span className="font-display font-bold text-white text-[20px]">N</span>
+              </div>
+              <span className="font-mono text-[10.5px] tracking-wider text-ink font-semibold uppercase">NEXURA</span>
+            </div>
+
+            {/* Node: Clientes */}
+            <div className="absolute left-[94%] top-[62.5%] -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-2.5 text-center">
+              <div className="w-[46px] h-[46px] rounded-[12px] bg-white border border-line flex items-center justify-center shadow-[0_14px_26px_-16px_rgba(11,14,20,0.25)]">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 text-ink-soft">
+                  <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5Z" />
+                </svg>
+              </div>
+              <span className="font-mono text-[10.5px] tracking-wider text-ink-soft uppercase">{lang === "es" ? "CLIENTES" : "CLIENTS"}</span>
+            </div>
+          </div>
+
         </div>
       </div>
-    </section>
+      
+      {/* Keyframe style inline for path drawing to ensure load reliability */}
+      <style jsx global>{`
+        @keyframes drawPath {
+          to {
+            stroke-dashoffset: 0;
+          }
+        }
+        @keyframes blink {
+          0%, 49% { opacity: 1; }
+          50%, 100% { opacity: 0; }
+        }
+      `}</style>
+    </header>
   );
 }

@@ -27,37 +27,37 @@ export default function IntroLoader() {
     <div className="fixed inset-0 z-[99999] pointer-events-none overflow-hidden select-none">
       
       {/* Left Gate */}
-      <div className="absolute top-0 left-0 w-1/2 h-full bg-[#07070A] origin-left gate-left-slide-animate border-r border-accent-teal/5 z-[99999]" />
+      <div className="absolute top-0 left-0 w-1/2 h-full bg-bg origin-left gate-left-slide-animate border-r border-line z-[99999]" />
 
       {/* Right Gate */}
-      <div className="absolute top-0 right-0 w-1/2 h-full bg-[#07070A] origin-right gate-right-slide-animate border-l border-accent-teal/5 z-[99999]" />
+      <div className="absolute top-0 right-0 w-1/2 h-full bg-bg origin-right gate-right-slide-animate border-l border-line z-[99999]" />
 
-      {/* SVG Stroke Cinematic Logo (Centered, fades out completely at 1.3s) */}
+      {/* SVG Stroke Cinematic Logo */}
       <div className="absolute inset-0 flex items-center justify-center z-[100000] logo-container-fade-out-animate pointer-events-none">
         <svg
           viewBox="0 0 760 180"
           className="w-[85vw] max-w-[560px] h-auto select-none overflow-visible"
         >
-          {/* nexura - Electric Teal Stroke */}
+          {/* nexura - Blue Stroke */}
           <text
             x="50"
             y="120"
-            className="svg-stroke-animate font-extrabold text-[84px] tracking-normal"
+            className="svg-stroke-animate font-bold text-[84px] tracking-normal uppercase"
             fill="none"
-            stroke="#00E8C6"
-            strokeWidth="2"
-            style={{ fontFamily: "var(--font-syne)" }}
+            stroke="var(--color-signal)"
+            strokeWidth="2.5"
+            style={{ fontFamily: "var(--font-display)" }}
           >
             nexura
           </text>
           
-          {/* dev - Matte Gold Solid Glow */}
+          {/* dev - Ink Solid */}
           <text
             x="530"
             y="120"
-            className="fade-gold-animate font-extrabold text-[84px] tracking-normal"
-            fill="#C9A84C"
-            style={{ fontFamily: "var(--font-syne)" }}
+            className="fade-gold-animate font-bold text-[84px] tracking-normal uppercase"
+            fill="var(--color-ink)"
+            style={{ fontFamily: "var(--font-display)" }}
           >
             dev
           </text>

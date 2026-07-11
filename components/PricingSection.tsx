@@ -3,6 +3,11 @@
 import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "@/lib/LanguageContext";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 // High-fidelity count-up hook
 function useCountUp(target: number, duration: number = 800, trigger: boolean = false) {
@@ -18,9 +23,7 @@ function useCountUp(target: number, duration: number = 800, trigger: boolean = f
     const step = (timestamp: number) => {
       if (!startTimestamp) startTimestamp = timestamp;
       const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-      
-      // Easing out quadratic
-      const easeProgress = progress * (2 - progress);
+      const easeProgress = progress * (2 - progress); // Easing out quadratic
       setCount(Math.floor(easeProgress * target));
 
       if (progress < 1) {
@@ -37,138 +40,123 @@ function useCountUp(target: number, duration: number = 800, trigger: boolean = f
 export default function PricingSection() {
   const { lang, t } = useLanguage();
   const sectionRef = useRef<HTMLElement>(null);
-  const proCtaRef = useRef<HTMLAnchorElement>(null);
   const [inView, setInView] = useState(false);
 
-  // Intersection observer to trigger count ups
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setInView(true);
-            entry.target.classList.add("reveal-visible");
+    const ctx = gsap.context(() => {
+      // reveal section header
+      gsap.fromTo(
+        ".pricing-reveal",
+        { opacity: 0, y: 32 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".pricing-reveal",
+            start: "top 92%",
+            onEnter: () => setInView(true),
+          },
+        }
+      );
+
+      // stagger cards reveal
+      const cards = sectionRef.current?.querySelectorAll(".pricing-card");
+      if (cards && cards.length > 0) {
+        gsap.fromTo(
+          cards,
+          { opacity: 0, y: 40 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            stagger: 0.12,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: ".pricing-grid",
+              start: "top 88%",
+            },
           }
-        });
-      },
-      { threshold: 0.15 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    const elements = sectionRef.current?.querySelectorAll(".reveal-hidden");
-    elements?.forEach((el) => observer.observe(el));
-
-    return () => observer.disconnect();
-  }, []);
-
-  // Magnetic Button Effect on Middle Pro Card CTA (80px radius)
-  useEffect(() => {
-    const isMobile = window.innerWidth < 768 || window.matchMedia("(pointer: coarse)").matches;
-    if (isMobile) return;
-
-    const el = proCtaRef.current;
-    if (!el) return;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const bounds = el.getBoundingClientRect();
-      const elX = bounds.left + bounds.width / 2;
-      const elY = bounds.top + bounds.height / 2;
-      const dist = Math.hypot(e.clientX - elX, e.clientY - elY);
-
-      if (dist < 80) {
-        const deltaX = (e.clientX - elX) * 0.25;
-        const deltaY = (e.clientY - elY) * 0.25;
-        gsap.to(el, {
-          x: deltaX,
-          y: deltaY,
-          scale: 1.03,
-          duration: 0.3,
-          ease: "power2.out",
-        });
-      } else {
-        gsap.to(el, { x: 0, y: 0, scale: 1, duration: 0.4, ease: "power2.out" });
+        );
       }
-    };
+    }, sectionRef);
 
-    const handleMouseLeave = () => {
-      gsap.to(el, { x: 0, y: 0, scale: 1, duration: 0.4, ease: "power2.out" });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    el.addEventListener("mouseleave", handleMouseLeave);
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      el.removeEventListener("mouseleave", handleMouseLeave);
-    };
-  }, []);
+    return () => ctx.revert();
+  }, [lang]);
 
   // Numeric values for animating
   const prices = {
-    es: { starter: 125000, pro: 300000, enterprise: 35000 },
-    en: { starter: 250, pro: 600, enterprise: 70 },
+    starterColones: 300000,
+    starterDollars: 600,
+    proColones: 400000,
+    proDollars: 800,
+    enterpriseColones: 35000,
+    enterpriseDollars: 70,
   };
 
-  const currentPrices = prices[lang];
-
   // Animated numbers
-  const animatedStarterPrice = useCountUp(currentPrices.starter, 850, inView);
-  const animatedProPrice = useCountUp(currentPrices.pro, 850, inView);
-  const animatedEnterprisePrice = useCountUp(currentPrices.enterprise, 850, inView);
+  const animStarterColones = useCountUp(prices.starterColones, 850, inView);
+  const animStarterDollars = useCountUp(prices.starterDollars, 850, inView);
+  
+  const animProColones = useCountUp(prices.proColones, 850, inView);
+  const animProDollars = useCountUp(prices.proDollars, 850, inView);
+  
+  const animEnterpriseColones = useCountUp(prices.enterpriseColones, 850, inView);
+  const animEnterpriseDollars = useCountUp(prices.enterpriseDollars, 850, inView);
 
-  // Formatting helpers
-  const formatPrice = (val: number, isColones: boolean) => {
-    if (isColones) {
-      return `₡${val.toLocaleString("es-CR")}`;
+  // Formatting helper
+  const formatPrice = (colonesVal: number, dollarsVal: number) => {
+    if (lang === "es") {
+      return `₡${colonesVal.toLocaleString("es-CR")}`;
     }
-    return `$${val.toLocaleString("en-US")}`;
+    return `$${dollarsVal}`;
   };
 
   return (
     <section
       ref={sectionRef}
       id="precios"
-      className="relative bg-bg-base z-20 py-24 border-b border-white/[0.03]"
+      className="relative bg-bg z-10 py-[118px]"
     >
-      <div className="container mx-auto px-6 max-w-6xl">
+      <div className="max-w-[1180px] mx-auto px-6 md:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-20 reveal-hidden">
-          <span className="font-mono text-xs text-accent-teal tracking-widest uppercase block mb-3">
-            // {t.pricing.label}
+        <div className="pricing-reveal text-center max-w-[600px] mx-auto mb-20 opacity-0">
+          <span className="font-mono text-[12px] tracking-[0.14em] text-signal font-semibold uppercase block mb-4">
+            {t.pricing.label}
           </span>
-          <h2 className="font-syne font-extrabold text-[clamp(2rem,4vw,3.2rem)] leading-tight text-text-primary mb-4">
+          <h2 className="font-display font-bold text-[clamp(28px,3.6vw,42px)] text-ink tracking-tight leading-[1.12]">
             {t.pricing.headline}
           </h2>
-          <p className="font-sans text-sm sm:text-base text-text-muted">
+          <p className="text-[16.5px] text-ink-soft leading-relaxed mt-4">
             {t.pricing.subtext}
           </p>
         </div>
 
-        {/* Pricing Cards Stack */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch pb-12">
+        {/* Pricing Grid */}
+        <div className="pricing-grid grid grid-cols-1 md:grid-cols-3 gap-[22px] items-stretch pb-12">
           
           {/* Card 1: Starter */}
-          <div className="bg-surface-card border border-white/[0.02] rounded-3xl p-8 sm:p-10 flex flex-col justify-between hover:border-accent-teal/20 transition-all duration-300 reveal-hidden h-full">
+          <div className="pricing-card border border-line rounded-[24px] bg-white p-8 sm:p-10 flex flex-col justify-between hover:border-[#d3d8de] hover:shadow-[0_24px_44px_-28px_rgba(11,14,20,0.22)] hover:-translate-y-1 transition-all duration-[300ms] opacity-0">
             <div>
-              <span className="font-mono text-xs text-text-muted uppercase tracking-widest block mb-4">// PLAN STARTER</span>
-              <h3 className="font-syne font-bold text-2xl text-text-primary mb-2">
+              <span className="font-mono text-[11px] tracking-wider text-ink-soft uppercase block mb-4">
+                // PLAN STARTER
+              </span>
+              <h3 className="font-display font-semibold text-[22px] text-ink mb-1">
                 {t.pricing.starterTitle}
               </h3>
               
               {/* Animated Price Counter */}
-              <div className="font-mono text-3xl sm:text-4xl font-bold text-accent-teal my-6">
-                {formatPrice(animatedStarterPrice, lang === "es")}
+              <div className="font-mono text-[30px] sm:text-[34px] font-bold text-signal my-5">
+                {formatPrice(animStarterColones, animStarterDollars)}
               </div>
 
               {/* Feature list */}
-              <ul className="flex flex-col gap-4 border-t border-white/[0.05] pt-6 mt-6">
+              <ul className="flex flex-col gap-3.5 border-t border-line pt-6 mt-6">
                 {t.pricing.starterFeatures.map((feat, idx) => (
-                  <li key={idx} className="flex items-start gap-3 font-sans text-sm text-text-muted leading-relaxed">
-                    <span className="text-accent-teal mt-0.5">✦</span>
+                  <li key={idx} className="flex items-start gap-3 text-[14px] text-ink-soft leading-relaxed">
+                    <span className="text-signal mt-1 text-[11px]">✦</span>
                     {feat}
                   </li>
                 ))}
@@ -183,91 +171,84 @@ export default function PricingSection() {
               }
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center bg-white/5 hover:bg-accent-teal hover:text-[#07070A] text-text-primary font-sans font-bold text-sm w-full py-4 rounded-full mt-8 border border-white/5 hover:border-accent-teal transition-all duration-300"
+              className="inline-flex items-center justify-center bg-transparent text-ink border border-line hover:border-ink hover:bg-bg-alt font-sans font-semibold text-sm w-full py-3.5 rounded-full mt-8 cursor-pointer transition-all duration-300"
             >
               {t.pricing.starterCta}
             </a>
           </div>
 
-          {/* Card 2: Pro (Permanently Elevated, scale 1.03, Conic rotating border glow) */}
-          <div className="rotating-border-container rounded-[1.6rem] scale-100 md:scale-[1.03] shadow-[0_30px_70px_-20px_rgba(0,232,198,0.12)] reveal-hidden h-full flex flex-col">
-            
-            {/* Rotating Conic Gradient Glow Segment */}
-            <div className="rotating-border-glow" />
-
-            {/* Inner Surface Card */}
-            <div className="rotating-border-inner p-8 sm:p-10 flex flex-col justify-between h-full flex-1 rounded-[1.5rem]">
-              <div>
-                
-                {/* Gold badge */}
-                <div className="flex items-center justify-between mb-4">
-                  <span className="font-mono text-xs text-accent-teal uppercase tracking-widest">// PLAN PRO</span>
-                  <span className="font-mono text-[10px] text-accent-gold border border-accent-gold/25 px-2 py-0.5 rounded-full uppercase tracking-wider bg-accent-gold/5 font-semibold">
-                    Popular
-                  </span>
-                </div>
-
-                <h3 className="font-syne font-bold text-2xl text-text-primary mb-2">
-                  {t.pricing.proTitle}
-                </h3>
-                
-                {/* Animated Price Counter */}
-                <div className="font-mono text-3.5xl sm:text-4.5xl font-bold text-accent-teal my-6">
-                  {formatPrice(animatedProPrice, lang === "es")}
-                </div>
-
-                {/* Feature list */}
-                <ul className="flex flex-col gap-4 border-t border-white/[0.05] pt-6 mt-6">
-                  {t.pricing.proFeatures.map((feat, idx) => (
-                    <li key={idx} className="flex items-start gap-3 font-sans text-sm text-text-muted leading-relaxed">
-                      <span className="text-accent-teal mt-0.5">✦</span>
-                      {feat}
-                    </li>
-                  ))}
-                </ul>
+          {/* Card 2: Pro */}
+          <div className="pricing-card border-[2px] border-signal rounded-[24px] bg-white p-8 sm:p-10 flex flex-col justify-between shadow-[0_24px_44px_-28px_rgba(36,81,255,0.18)] hover:-translate-y-1 transition-all duration-[300ms] opacity-0 relative">
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <span className="font-mono text-[11px] tracking-wider text-signal font-semibold">
+                  // PLAN PRO
+                </span>
+                <span className="font-mono text-[9px] text-signal border border-signal/25 px-2.5 py-0.5 rounded-full uppercase tracking-wider bg-signal-dim font-bold">
+                  Popular
+                </span>
               </div>
 
-              {/* Magnetic Teal button */}
-              <a
-                ref={proCtaRef}
-                href={
-                  lang === "es"
-                    ? "https://wa.me/50685803868?text=Hola,%20me%20gustaría%20cotizar%20el%20plan%20Pro%20(Landing%20%2B%20Base%20de%20Datos)%20para%20desarrollar%20una%20plataforma%20a%20la%20medida."
-                    : "https://wa.me/50685803868?text=Hi,%20I%20would%20like%20to%20get%20a%20quote%20for%20the%20Pro%20(Landing%20%2B%20Database)%20plan%20to%20build%20a%20custom%20platform."
-                }
-                target="_blank"
-                rel="noopener noreferrer"
-                className="magnetic-cta inline-flex items-center justify-center bg-accent-teal hover:brightness-110 text-[#07070A] font-sans font-bold text-sm w-full py-4 rounded-full mt-8 transition-all duration-300 hover:shadow-[0_0_24px_rgba(0,232,198,0.45)] transform"
-              >
-                {t.pricing.proCta}
-              </a>
+              <h3 className="font-display font-semibold text-[22px] text-ink mb-1">
+                {t.pricing.proTitle}
+              </h3>
+              
+              {/* Animated Price Counter */}
+              <div className="font-mono text-[30px] sm:text-[34px] font-bold text-signal my-5">
+                {lang === "es" ? "A cotizar" : "Quote"}
+              </div>
+
+              {/* Feature list */}
+              <ul className="flex flex-col gap-3.5 border-t border-line pt-6 mt-6">
+                {t.pricing.proFeatures.map((feat, idx) => (
+                  <li key={idx} className="flex items-start gap-3 text-[14px] text-ink-soft leading-relaxed">
+                    <span className="text-signal mt-1 text-[11px]">✦</span>
+                    {feat}
+                  </li>
+                ))}
+              </ul>
             </div>
+
+            <a
+              href={
+                lang === "es"
+                  ? "https://wa.me/50685803868?text=Hola,%20me%20gustaría%20cotizar%20el%20plan%20Pro%20(Landing%20%2B%20Base%20de%20Datos)%20para%20desarrollar%20una%20plataforma%20a%20la%20medida."
+                  : "https://wa.me/50685803868?text=Hi,%20I%20would%20like%20to%20get%20a%20quote%20for%20the%20Pro%20(Landing%20%2B%20Database)%20plan%20to%20build%20a%20custom%20platform."
+              }
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center bg-signal text-white font-sans font-semibold text-sm w-full py-3.5 rounded-full mt-8 cursor-pointer transition-all duration-300 hover:shadow-[0_10px_24px_-8px_rgba(36,81,255,0.45)] hover:-translate-y-[1px]"
+            >
+              {t.pricing.proCta}
+            </a>
           </div>
 
           {/* Card 3: Enterprise */}
-          <div className="bg-surface-card border border-white/[0.02] rounded-3xl p-8 sm:p-10 flex flex-col justify-between hover:border-accent-teal/20 transition-all duration-300 reveal-hidden h-full">
+          <div className="pricing-card border border-line rounded-[24px] bg-white p-8 sm:p-10 flex flex-col justify-between hover:border-[#d3d8de] hover:shadow-[0_24px_44px_-28px_rgba(11,14,20,0.22)] hover:-translate-y-1 transition-all duration-[300ms] opacity-0">
             <div>
-              <span className="font-mono text-xs text-text-muted uppercase tracking-widest block mb-4">// PLAN ENTERPRISE</span>
-              <h3 className="font-syne font-bold text-2xl text-text-primary mb-2">
+              <span className="font-mono text-[11px] tracking-wider text-ink-soft uppercase block mb-4">
+                // PLAN ENTERPRISE
+              </span>
+              <h3 className="font-display font-semibold text-[22px] text-ink mb-1">
                 {t.pricing.enterpriseTitle}
               </h3>
               
               {/* Animated Price Counter */}
-              <div className="font-mono text-3xl sm:text-4xl font-bold text-accent-teal my-6 flex flex-wrap items-baseline gap-1">
-                <span className="text-sm font-sans font-medium text-text-muted mr-1">
+              <div className="font-mono text-[30px] sm:text-[34px] font-bold text-signal my-5 flex flex-wrap items-baseline gap-1">
+                <span className="text-[13px] font-sans font-normal text-ink-soft mr-1">
                   {lang === "es" ? "Desde" : "From"}
                 </span>
-                {formatPrice(animatedEnterprisePrice, lang === "es")}
-                <span className="text-xs font-sans font-medium text-text-muted">
+                {formatPrice(animEnterpriseColones, animEnterpriseDollars)}
+                <span className="text-[12px] font-sans font-normal text-ink-soft">
                   {t.pricing.enterprisePriceSuffix}
                 </span>
               </div>
 
               {/* Feature list */}
-              <ul className="flex flex-col gap-4 border-t border-white/[0.05] pt-6 mt-6">
+              <ul className="flex flex-col gap-3.5 border-t border-line pt-6 mt-6">
                 {t.pricing.enterpriseFeatures.map((feat, idx) => (
-                  <li key={idx} className="flex items-start gap-3 font-sans text-sm text-text-muted leading-relaxed">
-                    <span className="text-accent-teal mt-0.5">✦</span>
+                  <li key={idx} className="flex items-start gap-3 text-[14px] text-ink-soft leading-relaxed">
+                    <span className="text-signal mt-1 text-[11px]">✦</span>
                     {feat}
                   </li>
                 ))}
@@ -282,7 +263,7 @@ export default function PricingSection() {
               }
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center bg-white/5 hover:bg-accent-teal hover:text-[#07070A] text-text-primary font-sans font-bold text-sm w-full py-4 rounded-full mt-8 border border-white/5 hover:border-accent-teal transition-all duration-300"
+              className="inline-flex items-center justify-center bg-transparent text-ink border border-line hover:border-ink hover:bg-bg-alt font-sans font-semibold text-sm w-full py-3.5 rounded-full mt-8 cursor-pointer transition-all duration-300"
             >
               {t.pricing.enterpriseCta}
             </a>
