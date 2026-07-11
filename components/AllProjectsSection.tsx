@@ -80,7 +80,7 @@ export default function AllProjectsSection() {
       tag: t.projects.items.t1Tag,
       title: t.projects.items.t1Title,
       desc: t.projects.items.t1Desc,
-      image: "/Libreria_Crayola.webp",
+      image: "/Libreria_Crayola.jpg",
       link: "https://www.libreriacrayolacr.com/",
     },
     {
