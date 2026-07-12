@@ -59,13 +59,13 @@ export default function HeroSection() {
 
             <h1 className="font-display font-bold text-[clamp(36px,4.6vw,54px)] leading-[1.08] tracking-[-0.02em] text-ink">
               <span className="block overflow-hidden">
-                <span className="line-inner block whitespace-nowrap">{t.hero.title1}</span>
+                <span className="line-inner block sm:whitespace-nowrap">{t.hero.title1}</span>
               </span>
               <span className="block overflow-hidden">
-                <span className="line-inner block whitespace-nowrap">{t.hero.title2}</span>
+                <span className="line-inner block sm:whitespace-nowrap">{t.hero.title2}</span>
               </span>
               <span className="block overflow-hidden">
-                <span className="line-inner block whitespace-nowrap">
+                <span className="line-inner block sm:whitespace-nowrap">
                   {lang === "es" ? "sistema " : "system "}
                   <span className="text-signal">{t.hero.titleAccent}</span>
                 </span>
