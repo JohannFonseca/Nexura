@@ -19,6 +19,7 @@ export function ProjectTile({
   link = "https://wa.me/50685803868",
   isStaggered = false,
   className = "",
+  objectPosition = "object-top",
 }: {
   tag: string;
   title: string;
@@ -27,6 +28,7 @@ export function ProjectTile({
   link?: string;
   isStaggered?: boolean;
   className?: string;
+  objectPosition?: string;
 }) {
   const staggerClasses = isStaggered ? "lg:translate-y-12" : "";
 
@@ -44,7 +46,7 @@ export function ProjectTile({
           alt={title}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.04]"
+          className={`object-cover ${objectPosition} transition-transform duration-700 group-hover:scale-[1.04]`}
         />
       </div>
 
@@ -122,11 +124,20 @@ export default function PortfolioSection() {
 
   const projects = useMemo(() => [
     {
+      tag: t.projects.items.t1Tag,
+      title: t.projects.items.t1Title,
+      desc: t.projects.items.t1Desc,
+      image: "/Libreria_Crayola.jpg",
+      link: "https://www.libreriacrayolacr.com/",
+      objectPosition: "object-center",
+    },
+    {
       tag: t.projects.items.t2Tag,
       title: t.projects.items.t2Title,
       desc: t.projects.items.t2Desc,
       image: "/CRM_Lite.webp",
       link: "https://nexuracrm-lite.vercel.app/",
+      objectPosition: "object-top",
     },
     {
       tag: t.projects.items.t3Tag,
@@ -136,13 +147,7 @@ export default function PortfolioSection() {
       link: lang === "es"
         ? "https://wa.me/50685803868?text=Hola%20Nexura,%20me%20interesa%20cotizar%20un%20Punto%20de%20Venta%20para%20Restaurante."
         : "https://wa.me/50685803868?text=Hello%20Nexura,%20I%20am%20interested%20in%20quoting%20a%20Restaurant%20POS%20System.",
-    },
-    {
-      tag: t.projects.items.t4Tag,
-      title: t.projects.items.t4Title,
-      desc: t.projects.items.t4Desc,
-      image: "/Next-Interaction.jpg",
-      link: "https://nextinteraction.com/",
+      objectPosition: "object-top",
     },
   ], [t, lang]);
 
@@ -174,6 +179,7 @@ export default function PortfolioSection() {
                 desc={project.desc}
                 image={project.image}
                 link={project.link}
+                objectPosition={project.objectPosition}
                 isStaggered={false}
                 className="portfolio-card opacity-0"
               />

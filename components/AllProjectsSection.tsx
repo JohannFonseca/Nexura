@@ -54,11 +54,20 @@ export default function AllProjectsSection() {
 
   const projects = useMemo(() => [
     {
+      tag: t.projects.items.t1Tag,
+      title: t.projects.items.t1Title,
+      desc: t.projects.items.t1Desc,
+      image: "/Libreria_Crayola.jpg",
+      link: "https://www.libreriacrayolacr.com/",
+      objectPosition: "object-center",
+    },
+    {
       tag: t.projects.items.t2Tag,
       title: t.projects.items.t2Title,
       desc: t.projects.items.t2Desc,
       image: "/CRM_Lite.webp",
       link: "https://nexuracrm-lite.vercel.app/",
+      objectPosition: "object-top",
     },
     {
       tag: t.projects.items.t3Tag,
@@ -68,6 +77,7 @@ export default function AllProjectsSection() {
       link: lang === "es"
         ? "https://wa.me/50685803868?text=Hola%20Nexura,%20me%20interesa%20cotizar%20un%20Punto%20de%20Venta%20para%20Restaurante."
         : "https://wa.me/50685803868?text=Hello%20Nexura,%20I%20am%20interested%20in%20quoting%20a%20Restaurant%20POS%20System.",
+      objectPosition: "object-top",
     },
     {
       tag: t.projects.items.t4Tag,
@@ -75,13 +85,7 @@ export default function AllProjectsSection() {
       desc: t.projects.items.t4Desc,
       image: "/Next-Interaction.jpg",
       link: "https://nextinteraction.com/",
-    },
-    {
-      tag: t.projects.items.t1Tag,
-      title: t.projects.items.t1Title,
-      desc: t.projects.items.t1Desc,
-      image: "/Libreria_Crayola.jpg",
-      link: "https://www.libreriacrayolacr.com/",
+      objectPosition: "object-top",
     },
     {
       tag: t.projects.items.t5Tag,
@@ -89,6 +93,7 @@ export default function AllProjectsSection() {
       desc: t.projects.items.t5Desc,
       image: "/Pura-Vida_Quiz.webp",
       link: "https://pura-vida-quiz.vercel.app/",
+      objectPosition: "object-top",
     },
     {
       tag: t.projects.items.t6Tag,
@@ -96,6 +101,7 @@ export default function AllProjectsSection() {
       desc: t.projects.items.t6Desc,
       image: "/CF_Trainer.webp",
       link: "https://cf-personal-trainer.vercel.app/",
+      objectPosition: "object-top",
     },
   ], [t, lang]);
 
@@ -126,6 +132,7 @@ export default function AllProjectsSection() {
               desc={project.desc}
               image={project.image}
               link={project.link}
+              objectPosition={project.objectPosition}
               isStaggered={false}
               className="all-card opacity-0"
             />
