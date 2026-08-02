@@ -132,11 +132,11 @@ export default function PortfolioSection() {
       objectPosition: "object-center",
     },
     {
-      tag: t.projects.items.t2Tag,
-      title: t.projects.items.t2Title,
-      desc: t.projects.items.t2Desc,
-      image: "/CRM_Lite.webp",
-      link: "https://nextsunrisecrm-lite.vercel.app/",
+      tag: t.projects.items.t4Tag,
+      title: t.projects.items.t4Title,
+      desc: t.projects.items.t4Desc,
+      image: "/PaginaNextInteraction.jpg",
+      link: "https://nextinteraction.com/",
       objectPosition: "object-top",
     },
     {

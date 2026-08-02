@@ -5,6 +5,7 @@ import ServicesMarquee from "@/components/ServicesMarquee";
 import ServicesSection from "@/components/ServicesSection";
 import ProjectsSection from "@/components/ProjectsSection";
 import PortfolioSection from "@/components/PortfolioSection";
+import DemosSection from "@/components/DemosSection";
 import PricingSection from "@/components/PricingSection";
 import AboutSection from "@/components/AboutSection";
 import ContactSection from "@/components/ContactSection";
@@ -47,6 +48,9 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
 
         {/* Portafolio (Selected Works bento grid) */}
         <PortfolioSection />
+
+        {/* Demos Interactivas (CRM, SaaS, POS, IA) */}
+        <DemosSection />
 
         {/* Servicios */}
         <ServicesSection />

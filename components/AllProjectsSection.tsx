@@ -62,14 +62,6 @@ export default function AllProjectsSection() {
       objectPosition: "object-center",
     },
     {
-      tag: t.projects.items.t2Tag,
-      title: t.projects.items.t2Title,
-      desc: t.projects.items.t2Desc,
-      image: "/CRM_Lite.webp",
-      link: "https://nextsunrisecrm-lite.vercel.app/",
-      objectPosition: "object-top",
-    },
-    {
       tag: t.projects.items.t3Tag,
       title: t.projects.items.t3Title,
       desc: t.projects.items.t3Desc,
@@ -83,7 +75,7 @@ export default function AllProjectsSection() {
       tag: t.projects.items.t4Tag,
       title: t.projects.items.t4Title,
       desc: t.projects.items.t4Desc,
-      image: "/Next-Interaction.jpg",
+      image: "/PaginaNextInteraction.jpg",
       link: "https://nextinteraction.com/",
       objectPosition: "object-top",
     },
@@ -93,14 +85,6 @@ export default function AllProjectsSection() {
       desc: t.projects.items.t5Desc,
       image: "/Pura-Vida_Quiz.webp",
       link: "https://pura-vida-quiz.vercel.app/",
-      objectPosition: "object-top",
-    },
-    {
-      tag: t.projects.items.t6Tag,
-      title: t.projects.items.t6Title,
-      desc: t.projects.items.t6Desc,
-      image: "/CF_Trainer.webp",
-      link: "https://cf-personal-trainer.vercel.app/",
       objectPosition: "object-top",
     },
   ], [t, lang]);
@@ -115,7 +99,7 @@ export default function AllProjectsSection() {
             {t.projects.label}
           </span>
           <h1 className="font-display font-bold text-[clamp(32px,4vw,48px)] text-ink tracking-tight leading-[1.1]">
-            {lang === "es" ? "Todos los proyectos" : "All Projects"}
+            {lang === "es" ? "Proyectos Destacados" : "Featured Projects"}
           </h1>
           <p className="text-[16.5px] text-ink-soft leading-relaxed mt-4">
             {t.projects.subtext}

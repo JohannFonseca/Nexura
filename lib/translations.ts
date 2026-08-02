@@ -103,6 +103,25 @@ export interface TranslationSet {
     title: string; // new
     subtitle: string; // new
   };
+  demos: {
+    label: string;
+    headline: string;
+    subtext: string;
+    badgeSoon: string;
+    badgeLive: string;
+    crmTitle: string;
+    crmDesc: string;
+    crmCta: string;
+    saasTitle: string;
+    saasDesc: string;
+    saasCta: string;
+    posTitle: string;
+    posDesc: string;
+    posCta: string;
+    aiTitle: string;
+    aiDesc: string;
+    aiCta: string;
+  };
   differentiators: {
     label: string;
     headline: string;
@@ -256,7 +275,7 @@ export const translations = {
       viewCta: "→ Ver",
       showMore: "Ver más",
       showLess: "Ver menos",
-      viewAll: "Ver todos los proyectos",
+      viewAll: "Ver más proyectos",
       items: {
         t1Tag: "SAAS",
         t1Title: "Librería Crayola",
@@ -300,6 +319,25 @@ export const translations = {
       },
       eyebrow: "CASOS DE ÉXITO",
       title: "Sistemas reales, corriendo con negocios reales.",
+    },
+    demos: {
+      label: "DEMOS INTERACTIVAS",
+      headline: "Próximamente: Prueba nuestras soluciones en vivo.",
+      subtext: "Estamos creando entornos de prueba interactivos para que puedas experimentar la potencia de nuestros CRM, plataformas SaaS y sistemas POS directamente en tu navegador.",
+      badgeSoon: "En desarrollo",
+      badgeLive: "Prueba activa",
+      crmTitle: "Orbit (CRM)",
+      crmDesc: "Gestión de clientes, embudos de venta visuales, seguimiento de leads y automatizaciones con WhatsApp.",
+      crmCta: "Solicitar acceso anticipado",
+      saasTitle: "Horizon (E-commerce)",
+      saasDesc: "Gestión multitienda, catálogo interactivo, control de inventario en tiempo real y pasarela de cobro.",
+      saasCta: "Solicitar acceso anticipado",
+      posTitle: "Ray (POS)",
+      posDesc: "Punto de venta táctil ultrarrápido, comandas en pantalla para cocina e integración SINPE Móvil.",
+      posCta: "Solicitar acceso anticipado",
+      aiTitle: "Veló (Voice AI)",
+      aiDesc: "Asistente telefónico inteligente entrenado para tomar reservas y responder consultas 24/7.",
+      aiCta: "Solicitar acceso anticipado",
     },
     differentiators: {
       label: "Filosofía",
@@ -476,7 +514,7 @@ export const translations = {
       viewCta: "→ View",
       showMore: "Show more",
       showLess: "Show less",
-      viewAll: "View all projects",
+      viewAll: "View more projects",
       items: {
         t1Tag: "SAAS",
         t1Title: "Librería Crayola",
@@ -520,6 +558,25 @@ export const translations = {
       },
       eyebrow: "SUCCESS STORIES",
       title: "Real systems, running with real businesses.",
+    },
+    demos: {
+      label: "INTERACTIVE DEMOS",
+      headline: "Coming Soon: Test our systems live in your browser.",
+      subtext: "We are developing interactive sandboxes so you can experience our CRM, SaaS, and POS platforms first-hand before launch.",
+      badgeSoon: "In development",
+      badgeLive: "Live demo",
+      crmTitle: "Orbit (CRM)",
+      crmDesc: "Customer management, visual sales pipelines, lead tracking, and automated WhatsApp actions.",
+      crmCta: "Request early access",
+      saasTitle: "Horizon (E-commerce)",
+      saasDesc: "Multi-store management, interactive catalog, real-time inventory control, and payment gateway.",
+      saasCta: "Request early access",
+      posTitle: "Ray (POS)",
+      posDesc: "Ultra-fast touch point of sale, kitchen display tickets, and local payment integration.",
+      posCta: "Request early access",
+      aiTitle: "Veló (Voice AI)",
+      aiDesc: "Intelligent phone assistant trained to accept reservations and handle inquiries live 24/7.",
+      aiCta: "Request early access",
     },
     differentiators: {
       label: "Philosophy",

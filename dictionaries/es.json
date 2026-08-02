@@ -24,19 +24,9 @@
         "tags": ["Sitio Web", "Juego Interactivo"]
       },
       {
-        "id": 2,
-        "title": "CRM Lite",
-        "tags": ["SaaS", "Gestión de Clientes", "Automatización"]
-      },
-      {
         "id": 3,
         "title": "Librería Crayola",
         "tags": ["E-commerce", "Catálogo Digital"]
-      },
-      {
-        "id": 4,
-        "title": "CF Trainer",
-        "tags": ["Landing Page", "Fitness", "Marca Personal"]
       },
       {
         "id": 5,
