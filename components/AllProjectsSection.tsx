@@ -66,7 +66,7 @@ export default function AllProjectsSection() {
       title: t.projects.items.t2Title,
       desc: t.projects.items.t2Desc,
       image: "/CRM_Lite.webp",
-      link: "https://nexuracrm-lite.vercel.app/",
+      link: "https://nextsunrisecrm-lite.vercel.app/",
       objectPosition: "object-top",
     },
     {
@@ -75,8 +75,8 @@ export default function AllProjectsSection() {
       desc: t.projects.items.t3Desc,
       image: "/PuntoDeVentaRestaurante.png",
       link: lang === "es"
-        ? "https://wa.me/50685803868?text=Hola%20Nexura,%20me%20interesa%20cotizar%20un%20Punto%20de%20Venta%20para%20Restaurante."
-        : "https://wa.me/50685803868?text=Hello%20Nexura,%20I%20am%20interested%20in%20quoting%20a%20Restaurant%20POS%20System.",
+        ? "https://wa.me/50685803868?text=Hola%20Next%20Sunrise,%20me%20interesa%20cotizar%20un%20Punto%20de%20Venta%20para%20Restaurante."
+        : "https://wa.me/50685803868?text=Hello%20Next%20Sunrise,%20I%20am%20interested%20in%20quoting%20a%20Restaurant%20POS%20System.",
       objectPosition: "object-top",
     },
     {
@@ -142,8 +142,8 @@ export default function AllProjectsSection() {
           {/* Special text-only lead card for ¿Tu negocio aquí? */}
           <a
             href={lang === "es"
-              ? "https://wa.me/50685803868?text=Hola%20Nexura,%20me%20gustar%C3%ADa%20cotizar%20un%20proyecto%20de%20software%20a%20medida%20para%20mi%20negocio."
-              : "https://wa.me/50685803868?text=Hello%20Nexura,%20I%20would%20like%20to%20quote%20a%20custom%20software%20project%20for%20my%20business."}
+              ? "https://wa.me/50685803868?text=Hola%20Next%20Sunrise,%20me%20gustar%C3%ADa%20cotizar%20un%20proyecto%20de%20software%20a%20medida%20para%20mi%20negocio."
+              : "https://wa.me/50685803868?text=Hello%20Next%20Sunrise,%20I%20would%20like%20to%20quote%20a%20custom%20software%20project%20for%20my%20business."}
             target="_blank"
             rel="noopener noreferrer"
             className="group block bg-white rounded-[24px] border border-line overflow-hidden transition-all duration-300 ease-out select-none hover:-translate-y-2 hover:shadow-[0_24px_44px_-28px_rgba(11,14,20,0.22)] hover:border-[#d3d8de] all-card opacity-0"

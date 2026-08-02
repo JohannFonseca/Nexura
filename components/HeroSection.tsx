@@ -32,8 +32,8 @@ export default function HeroSection() {
   const waNumber = "50685803868";
   const waMsg = encodeURIComponent(
     lang === "es"
-      ? "Hola Nexura, quiero contarles sobre un sistema que necesito."
-      : "Hello Nexura, I want to talk about a custom system I need."
+      ? "Hola Next Sunrise, quiero contarles sobre un sistema que necesito."
+      : "Hello Next Sunrise, I want to talk about a custom system I need."
   );
   const waUrl = `https://wa.me/${waNumber}?text=${waMsg}`;
 
@@ -148,12 +148,12 @@ export default function HeroSection() {
               <span className="font-mono text-[10.5px] tracking-wider text-ink-soft uppercase">{lang === "es" ? "TU NEGOCIO" : "YOUR BUSINESS"}</span>
             </div>
 
-            {/* Node: Hub (NEXURA) */}
+            {/* Node: Hub (NEXT SUNRISE) */}
             <div className="absolute left-[50%] top-[29.2%] -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-2.5 text-center">
               <div className="w-[64px] h-[64px] rounded-[16px] bg-ink border border-ink flex items-center justify-center shadow-[0_20px_40px_-16px_rgba(36,81,255,0.45)]">
                 <span className="font-display font-bold text-white text-[20px]">N</span>
               </div>
-              <span className="font-mono text-[10.5px] tracking-wider text-ink font-semibold uppercase">NEXURA</span>
+              <span className="font-mono text-[10.5px] tracking-wider text-ink font-semibold uppercase">NEXT SUNRISE</span>
             </div>
 
             {/* Node: Clientes */}

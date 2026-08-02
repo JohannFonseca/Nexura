@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://nexuracr.dev";
+  const baseUrl = "https://nextsunrise.dev";
   const locales = ["es", "en"];
   const lastModified = new Date();
 

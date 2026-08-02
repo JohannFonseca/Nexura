@@ -276,7 +276,7 @@ export const translations = {
         t6Tag: "WEB",
         t6Title: "CF Trainer",
         t6Desc: "Landing page de marca personal y plataforma de entrenamiento para coach de fitness.",
-        t7Tag: "NEXURA",
+        t7Tag: "NEXT SUNRISE",
         t7Title: "¿Tu negocio aquí?",
         t7Desc: "Diseñamos y desarrollamos el software o sitio web a la medida que tu empresa necesita para crecer.",
         tag1: "Taller mecánico · Sistema web + POS",
@@ -303,7 +303,7 @@ export const translations = {
     },
     differentiators: {
       label: "Filosofía",
-      headline: "Por qué Nexuracr.dev",
+      headline: "Por qué Nextsunrise.dev",
       subtext: "Nos alejamos del desarrollo genérico para ofrecer resultados excepcionales con ingeniería meticulosa.",
       items: {
         i1Label: "Entrega rápida",
@@ -350,7 +350,7 @@ export const translations = {
         "Módulos a la medida",
         "Reportes y dashboards",
         "Soporte y mejoras continuas",
-        "*Mantenimiento aprox: ₡35,000/mes ($70/mo)"
+        "*Precio base aprox., varía según requerimientos."
       ],
       enterpriseCta: "Cotizar proyecto",
     },
@@ -360,8 +360,8 @@ export const translations = {
       cta: "Escribir por WhatsApp →",
     },
     footer: {
-      marquee: "SaaS · CRM · Web Development · Costa Rica · Fast Delivery · Custom Platforms · Nexuracr.dev · ",
-      rights: "© 2025 Nexuracr.dev · Todos los derechos reservados",
+      marquee: "SaaS · CRM · Web Development · Costa Rica · Fast Delivery · Custom Platforms · Nextsunrise.dev · ",
+      rights: "© 2025 Nextsunrise.dev · Todos los derechos reservados",
     },
     aiDemo: {
       label: "Tecnología de Voz Avanzada",
@@ -375,13 +375,13 @@ export const translations = {
         "«Disponibilidad de Mesas»",
         "«Pedir Postres»"
       ],
-      phoneIdleText: "Bistró Nexura — Listo para recibir tu llamada. Presiona el botón verde para hablar con nuestro agente de reservas de IA.",
-      phoneCallingText: "Llamada Activa con Asistente Nexura",
+      phoneIdleText: "Bistró Next Sunrise — Listo para recibir tu llamada. Presiona el botón verde para hablar con nuestro agente de reservas de IA.",
+      phoneCallingText: "Llamada Activa con Asistente Next Sunrise",
       phoneBtnCall: "Llamar Asistente de Voz",
       phoneBtnHangup: "Colgar Llamada"
     },
     monitor: {
-      title: "NEXURA / STATUS",
+      title: "NEXT SUNRISE / STATUS",
       status: "Todos los sistemas operativos",
       checked: "verificado hace",
       saas: "SAAS",
@@ -396,7 +396,7 @@ export const translations = {
     about: {
       eyebrow: "NOSOTROS",
       title: "Un estudio, no una fábrica de plantillas.",
-      p1Start: "Nexura construye software para negocios costarricenses que están cansados de forzar su operación a caber en herramientas genéricas. ",
+      p1Start: "Next Sunrise construye software para negocios costarricenses que están cansados de forzar su operación a caber en herramientas genéricas. ",
       p1Bold: "Cada sistema se diseña para cómo trabaja tu equipo",
       p1End: ", no al revés.",
       p2: "Trabajamos directo contigo, de la idea al sistema en producción, con el mismo nivel de detalle que le pondríamos a nuestros propios productos.",
@@ -496,7 +496,7 @@ export const translations = {
         t6Tag: "WEB",
         t6Title: "CF Trainer",
         t6Desc: "Premium personal branding landing page and training platform for fitness coaching.",
-        t7Tag: "NEXURA",
+        t7Tag: "NEXT SUNRISE",
         t7Title: "Your business here?",
         t7Desc: "We design and build the custom software or website your business needs to grow.",
         tag1: "Mechanic Shop · Web System + POS",
@@ -523,7 +523,7 @@ export const translations = {
     },
     differentiators: {
       label: "Philosophy",
-      headline: "Why Nexuracr.dev",
+      headline: "Why Nextsunrise.dev",
       subtext: "We avoid generic shortcuts, choosing meticulous engineering and absolute dedication to results.",
       items: {
         i1Label: "Fast delivery",
@@ -570,7 +570,7 @@ export const translations = {
         "Custom modules",
         "Reports and dashboards",
         "Ongoing support and improvements",
-        "*Maintenance approx: $70/mo (₡35,000/mo)"
+        "*Approximate base price, varies by requirements."
       ],
       enterpriseCta: "Request quote",
     },
@@ -580,8 +580,8 @@ export const translations = {
       cta: "Chat on WhatsApp →",
     },
     footer: {
-      marquee: "SaaS · CRM · Web Development · Costa Rica · Fast Delivery · Custom Platforms · Nexuracr.dev · ",
-      rights: "© 2025 Nexuracr.dev · All rights reserved",
+      marquee: "SaaS · CRM · Web Development · Costa Rica · Fast Delivery · Custom Platforms · Nextsunrise.dev · ",
+      rights: "© 2025 Nextsunrise.dev · All rights reserved",
     },
     aiDemo: {
       label: "Advanced Voice Technology",
@@ -595,13 +595,13 @@ export const translations = {
         "\"Table Availability\"",
         "\"Order Desserts\""
       ],
-      phoneIdleText: "Nexura Bistro — Ready to receive your call. Press the green button to speak with our AI reservation agent.",
-      phoneCallingText: "Active Call with Nexura Assistant",
+      phoneIdleText: "Next Sunrise Bistro — Ready to receive your call. Press the green button to speak with our AI reservation agent.",
+      phoneCallingText: "Active Call with Next Sunrise Assistant",
       phoneBtnCall: "Call Voice Assistant",
       phoneBtnHangup: "Hang Up Call"
     },
     monitor: {
-      title: "NEXURA / STATUS",
+      title: "NEXT SUNRISE / STATUS",
       status: "All systems operational",
       checked: "verified",
       saas: "SAAS",
@@ -616,7 +616,7 @@ export const translations = {
     about: {
       eyebrow: "ABOUT US",
       title: "A studio, not a template factory.",
-      p1Start: "Nexura builds software for Costa Rican businesses tired of forcing their operations into generic tools. ",
+      p1Start: "Next Sunrise builds software for Costa Rican businesses tired of forcing their operations into generic tools. ",
       p1Bold: "Every system is designed for how your team works",
       p1End: ", not the other way around.",
       p2: "We work directly with you, from the idea to the production system, with the same level of detail we would put into our own products.",

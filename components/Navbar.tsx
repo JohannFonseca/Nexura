@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useLanguage } from "@/lib/LanguageContext";
 import { Menu, X } from "lucide-react";
 
@@ -29,8 +30,8 @@ export default function Navbar() {
   const waNumber = "50685803868";
   const waMsg = encodeURIComponent(
     lang === "es"
-      ? "Hola Nexura, quiero contarles sobre un sistema que necesito."
-      : "Hello Nexura, I want to talk about a custom system I need."
+      ? "Hola Next Sunrise, quiero contarles sobre un sistema que necesito."
+      : "Hello Next Sunrise, I want to talk about a custom system I need."
   );
   const waUrl = `https://wa.me/${waNumber}?text=${waMsg}`;
 
@@ -48,9 +49,14 @@ export default function Navbar() {
           <div className="flex-1 flex justify-start">
             <Link href={`/${lang}`} className="flex items-center gap-2 group outline-none">
               <span className="w-2 h-2 rounded-full bg-status shadow-[0_0_0_4px_var(--color-status-dim)] animate-[pulse_1.8s_ease-in-out_infinite]" />
-              <span className="font-display font-bold text-xl tracking-tight text-ink group-hover:text-signal transition-colors duration-300 uppercase">
-                Nexura
-              </span>
+              <Image 
+                src="/logo/logo.svg" 
+                alt="Next Sunrise Logo" 
+                width={150} 
+                height={40} 
+                className="h-9 w-auto object-contain"
+                priority
+              />
             </Link>
           </div>
 

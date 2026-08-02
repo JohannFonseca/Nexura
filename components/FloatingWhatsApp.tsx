@@ -8,8 +8,8 @@ export default function FloatingWhatsApp() {
   const waNumber = "50685803868";
   const waMsg = encodeURIComponent(
     lang === "es"
-      ? "Hola Nexura, quiero contarles sobre un sistema que necesito."
-      : "Hello Nexura, I want to talk about a custom system I need."
+      ? "Hola Next Sunrise, quiero contarles sobre un sistema que necesito."
+      : "Hello Next Sunrise, I want to talk about a custom system I need."
   );
   const waUrl = `https://wa.me/${waNumber}?text=${waMsg}`;
 

@@ -38,28 +38,28 @@ export default function IntroLoader() {
           viewBox="0 0 760 180"
           className="w-[85vw] max-w-[560px] h-auto select-none overflow-visible"
         >
-          {/* nexura - Blue Stroke */}
+          {/* NEXT - Blue Stroke */}
           <text
-            x="50"
+            x="80"
             y="120"
-            className="svg-stroke-animate font-bold text-[84px] tracking-normal uppercase"
+            className="svg-stroke-animate font-bold text-[80px] tracking-normal uppercase"
             fill="none"
             stroke="var(--color-signal)"
             strokeWidth="2.5"
             style={{ fontFamily: "var(--font-display)" }}
           >
-            nexura
+            next
           </text>
           
-          {/* dev - Ink Solid */}
+          {/* SUNRISE - Ink Solid */}
           <text
-            x="530"
+            x="330"
             y="120"
-            className="fade-gold-animate font-bold text-[84px] tracking-normal uppercase"
+            className="fade-gold-animate font-bold text-[80px] tracking-normal uppercase"
             fill="var(--color-ink)"
             style={{ fontFamily: "var(--font-display)" }}
           >
-            dev
+            sunrise
           </text>
         </svg>
       </div>

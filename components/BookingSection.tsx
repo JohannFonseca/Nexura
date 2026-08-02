@@ -37,7 +37,7 @@ export default function BookingSection({ dict }: { dict: any }) {
     e.preventDefault();
     
     // Prepare WhatsApp message
-    const message = `Hola Nexura! Me gustaría agendar una cita.%0A%0A*Detalles:*%0A- Nombre: ${formState.name}%0A- Email: ${formState.email}%0A- Fecha: ${formState.date}%0A- Hora: ${formState.time}%0A%0A_Enviado desde el sitio web._`;
+    const message = `Hola Next Sunrise! Me gustaría agendar una cita.%0A%0A*Detalles:*%0A- Nombre: ${formState.name}%0A- Email: ${formState.email}%0A- Fecha: ${formState.date}%0A- Hora: ${formState.time}%0A%0A_Enviado desde el sitio web._`;
     
     // WhatsApp Number
     const whatsappUrl = `https://wa.me/50685803868?text=${message}`;

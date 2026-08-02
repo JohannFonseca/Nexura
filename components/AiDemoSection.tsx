@@ -282,7 +282,7 @@ export default function AiDemoSection() {
               </h3>
               
               <p className="font-sans text-sm text-text-muted leading-relaxed mb-6">
-                Hemos desarrollado una IA avanzada e integrada de forma nativa para el restaurante simulado <strong>Bistró Nexura</strong>. Puedes pedirle una mesa, preguntar por el menú de hoy, consultar alergias alimentarias o intentar cancelar tu reserva existente.
+                Hemos desarrollado una IA avanzada e integrada de forma nativa para el restaurante simulado <strong>Bistró Next Sunrise</strong>. Puedes pedirle una mesa, preguntar por el menú de hoy, consultar alergias alimentarias o intentar cancelar tu reserva existente.
               </p>
 
               {/* Suggestions */}
@@ -368,7 +368,7 @@ export default function AiDemoSection() {
                         {callState === "connecting" ? "Conectando..." : "Llamada Activa"}
                       </span>
                       <h4 className="font-syne font-extrabold text-base text-white tracking-wide">
-                        Bistró Nexura
+                        Bistró Next Sunrise
                       </h4>
                       <span className="font-mono text-[9px] text-text-muted block">
                         {formatTime(callDuration)}
@@ -446,7 +446,7 @@ export default function AiDemoSection() {
                       
                       <div className="flex flex-col gap-0.5">
                         <h4 className="font-syne font-extrabold text-sm text-white tracking-wide">
-                          Bistró Nexura
+                          Bistró Next Sunrise
                         </h4>
                         <span className="font-mono text-[8px] text-accent-teal tracking-widest uppercase">
                           AI Reservation Agent

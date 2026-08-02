@@ -61,7 +61,7 @@
     "label": "Sobre Nosotros",
     "titleStart": "Más que una agencia digital, somos tu",
     "titleHighlight": "socio tecnológico",
-    "p1": "En Nexura entendemos que las empresas locales necesitan herramientas modernas para competir y destacar. Nacimos con la misión de democratizar la tecnología y llevar soluciones efectivas a negocios en crecimiento.",
+    "p1": "En Next Sunrise entendemos que las empresas locales necesitan herramientas modernas para competir y destacar. Nacimos con la misión de democratizar la tecnología y llevar soluciones efectivas a negocios en crecimiento.",
     "p2": "No solo creamos páginas web o sistemas; diseñamos estrategias digitales. Ayudamos a automatizar procesos, mejorar la comunicación con tus clientes y construir una presencia profesional sólida. Si quieres escalar, nosotros ponemos la tecnología."
   },
   "contact": {
@@ -71,7 +71,7 @@
     "whatsappMessage": "Hola, quiero una solución digital para mi negocio"
   },
   "benefits": {
-    "title": "Por qué elegir Nexura",
+    "title": "Por qué elegir Next Sunrise",
     "subtitle": "Combinamos inteligencia artificial avanzada con desarrollo humano para darte una ventaja injusta sobre tu competencia.",
     "items": [
       {
@@ -150,6 +150,6 @@
     "success": "¡Cita agendada! Nos pondremos en contacto contigo pronto."
   },
   "footer": {
-    "rights": "Nexura Digital Agency. Todos los derechos reservados."
+    "rights": "Next Sunrise Digital Agency. Todos los derechos reservados."
   }
 }

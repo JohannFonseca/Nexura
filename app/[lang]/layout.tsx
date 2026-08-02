@@ -25,31 +25,31 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://nexuracr.dev"),
-  title: "Nexuracr.dev | Premium Custom Software & SaaS Studio",
+  metadataBase: new URL("https://nextsunrise.dev"),
+  title: "Next Sunrise | Premium Custom Software & SaaS Studio",
   description:
     "Estudio costarricense de software especializado en plataformas SaaS, sistemas CRM y desarrollo web a la medida. Entrega rápida, resultados serios.",
   keywords: [
     "Desarrollo de Software Costa Rica",
     "SaaS desarrollo",
     "CRM a medida",
-    "Nexuracr.dev",
+    "Next Sunrise",
     "Estudio de software",
     "Desarrollo web premium",
   ],
-  authors: [{ name: "Nexuracr.dev" }],
+  authors: [{ name: "Next Sunrise" }],
   openGraph: {
-    title: "Nexuracr.dev | Premium Custom Software & SaaS Studio",
+    title: "Next Sunrise | Premium Custom Software & SaaS Studio",
     description:
       "Construimos el software que escala tu negocio. SaaS, CRM y plataformas web premium. Entrega rápida, resultados serios.",
-    url: "https://nexuracr.dev",
-    siteName: "Nexuracr.dev",
+    url: "https://nextsunrise.dev",
+    siteName: "Next Sunrise",
     images: [
       {
         url: "/opengraph-image.png",
         width: 1200,
         height: 630,
-        alt: "Nexuracr.dev Logo",
+        alt: "Next Sunrise Logo",
       },
     ],
     locale: "es",
