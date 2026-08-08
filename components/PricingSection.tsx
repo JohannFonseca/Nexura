@@ -177,12 +177,12 @@ export default function PricingSection() {
             </a>
           </div>
 
-          {/* Card 2: Pro */}
+          {/* Card 2: Sitio Web Profesional */}
           <div className="pricing-card border-[2px] border-signal rounded-[24px] bg-white p-8 sm:p-10 flex flex-col justify-between shadow-[0_24px_44px_-28px_rgba(36,81,255,0.18)] hover:-translate-y-1 transition-all duration-[300ms] opacity-0 relative">
             <div>
               <div className="flex items-center justify-between mb-4">
                 <span className="font-mono text-[11px] tracking-wider text-signal font-semibold">
-                  // PLAN PRO
+                  {lang === "es" ? "// SITIO WEB PROFESIONAL" : "// PROFESSIONAL WEBSITE"}
                 </span>
                 <span className="font-mono text-[9px] text-signal border border-signal/25 px-2.5 py-0.5 rounded-full uppercase tracking-wider bg-signal-dim font-bold">
                   Popular
@@ -212,8 +212,8 @@ export default function PricingSection() {
             <a
               href={
                 lang === "es"
-                  ? "https://wa.me/50685803868?text=Hola,%20me%20gustaría%20cotizar%20el%20plan%20Pro%20(Landing%20%2B%20Base%20de%20Datos)%20para%20desarrollar%20una%20plataforma%20a%20la%20medida."
-                  : "https://wa.me/50685803868?text=Hi,%20I%20would%20like%20to%20get%20a%20quote%20for%20the%20Pro%20(Landing%20%2B%20Database)%20plan%20to%20build%20a%20custom%20platform."
+                  ? "https://wa.me/50685803868?text=Hola,%20me%20gustaría%20cotizar%20un%20Sitio%20Web%20Profesional%20(Página%20Web%20Completa)%20para%20mi%20negocio."
+                  : "https://wa.me/50685803868?text=Hi,%20I%20would%20like%20to%20get%20a%20quote%20for%20a%20Professional%20Website%20for%20my%20business."
               }
               target="_blank"
               rel="noopener noreferrer"
@@ -223,11 +223,11 @@ export default function PricingSection() {
             </a>
           </div>
 
-          {/* Card 3: Enterprise */}
+          {/* Card 3: Enterprise / Sistemas para Locales */}
           <div className="pricing-card border border-line rounded-[24px] bg-white p-8 sm:p-10 flex flex-col justify-between hover:border-[#d3d8de] hover:shadow-[0_24px_44px_-28px_rgba(11,14,20,0.22)] hover:-translate-y-1 transition-all duration-[300ms] opacity-0">
             <div>
               <span className="font-mono text-[11px] tracking-wider text-ink-soft uppercase block mb-4">
-                // PLAN ENTERPRISE
+                {lang === "es" ? "// SISTEMAS PARA LOCALES" : "// LOCAL BUSINESS SYSTEMS"}
               </span>
               <h3 className="font-display font-semibold text-[22px] text-ink mb-1">
                 {t.pricing.enterpriseTitle}
@@ -258,8 +258,8 @@ export default function PricingSection() {
             <a
               href={
                 lang === "es"
-                  ? "https://wa.me/50685803868?text=Hola,%20quiero%20una%20cotización%20personalizada%20para%20el%20plan%20Enterprise%20(CRM%20/%20Sistema%20a%20la%20Medida)%20para%20mi%20empresa."
-                  : "https://wa.me/50685803868?text=Hi,%20I%20want%20a%20custom%20quote%20for%20the%20Enterprise%20(Custom%20CRM%20/%20Custom%20System)%20plan%20for%20my%20company."
+                  ? "https://wa.me/50685803868?text=Hola,%20quiero%20una%20cotización%20para%20un%20Sistema%20para%20Locales%20(POS%20/%20CRM%20/%20E-Commerce%20/%20Sistema%20a%20la%20Medida)%20para%20mi%20negocio."
+                  : "https://wa.me/50685803868?text=Hi,%20I%20want%20a%20quote%20for%20a%20Local%20Business%20System%20(POS%20/%20CRM%20/%20E-Commerce%20/%20Custom%20Platform)%20for%20my%20business."
               }
               target="_blank"
               rel="noopener noreferrer"

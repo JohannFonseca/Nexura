@@ -124,6 +124,14 @@ export default function PortfolioSection() {
 
   const projects = useMemo(() => [
     {
+      tag: t.projects.items.t2Tag,
+      title: t.projects.items.t2Title,
+      desc: t.projects.items.t2Desc,
+      image: "/CapturaOrbitt.png",
+      link: "https://orbitt.nextsunrise.dev/",
+      objectPosition: "object-top",
+    },
+    {
       tag: t.projects.items.t1Tag,
       title: t.projects.items.t1Title,
       desc: t.projects.items.t1Desc,
@@ -137,16 +145,6 @@ export default function PortfolioSection() {
       desc: t.projects.items.t4Desc,
       image: "/PaginaNextInteraction.jpg",
       link: "https://nextinteraction.com/",
-      objectPosition: "object-top",
-    },
-    {
-      tag: t.projects.items.t3Tag,
-      title: t.projects.items.t3Title,
-      desc: t.projects.items.t3Desc,
-      image: "/PuntoDeVentaRestaurante.png",
-      link: lang === "es"
-        ? "https://wa.me/50685803868?text=Hola%20Next%20Sunrise,%20me%20interesa%20cotizar%20un%20Punto%20de%20Venta%20para%20Restaurante."
-        : "https://wa.me/50685803868?text=Hello%20Next%20Sunrise,%20I%20am%20interested%20in%20quoting%20a%20Restaurant%20POS%20System.",
       objectPosition: "object-top",
     },
   ], [t, lang]);

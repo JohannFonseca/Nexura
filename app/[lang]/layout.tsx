@@ -69,6 +69,7 @@ export default async function RootLayout({
     <html
       lang={lang}
       className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} antialiased scroll-smooth`}
+      data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
       <body

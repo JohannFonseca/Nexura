@@ -156,6 +156,14 @@ export default function DemosSection() {
         <div className="demos-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {demoItems.map((demo) => {
             const Icon = demo.icon;
+            const isCrm = demo.id === "crm";
+            const href = isCrm ? "https://orbitt.nextsunrise.dev/" : getWaUrl(demo.title);
+            const statusBadge = isCrm ? t.demos.badgeLive : demo.status;
+            const badgeStyle = isCrm
+              ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+              : "bg-amber-50 text-amber-700 border-amber-200";
+            const dotStyle = isCrm ? "bg-emerald-500" : "bg-amber-500";
+
             return (
               <div
                 key={demo.id}
@@ -168,9 +176,9 @@ export default function DemosSection() {
                       {demo.tag}
                     </span>
 
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full font-mono text-[11px] font-medium border bg-amber-50 text-amber-700 border-amber-200">
-                      <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
-                      {demo.status}
+                    <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full font-mono text-[11px] font-medium border ${badgeStyle}`}>
+                      <span className={`w-1.5 h-1.5 rounded-full ${dotStyle} animate-pulse`} />
+                      {statusBadge}
                     </span>
                   </div>
 
@@ -208,12 +216,16 @@ export default function DemosSection() {
                 {/* CTA Action */}
                 <div>
                   <a
-                    href={getWaUrl(demo.title)}
+                    href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl font-sans text-xs font-semibold bg-bg-alt hover:bg-ink hover:text-white border border-line text-ink transition-all duration-300 cursor-pointer"
+                    className={`w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl font-sans text-xs font-semibold border transition-all duration-300 cursor-pointer ${
+                      isCrm
+                        ? "bg-signal text-white hover:bg-signal/90 border-transparent shadow-sm hover:shadow-md"
+                        : "bg-bg-alt hover:bg-ink hover:text-white border-line text-ink"
+                    }`}
                   >
-                    <span>{demo.ctaText}</span>
+                    <span>{isCrm ? (lang === "es" ? "Probar Demo en Vivo" : "Try Live Demo") : demo.ctaText}</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </a>
                 </div>

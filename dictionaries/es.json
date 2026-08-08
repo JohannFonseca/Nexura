@@ -99,33 +99,30 @@
       ]
     },
     "plan2": {
-      "name": "Plan Web Profesional",
+      "name": "Sitio Web Profesional",
       "price": "₡250,000",
       "period": "pago único",
       "features": [
-        "Todo lo del Plan Web Básica",
-        "Catálogo de productos completo",
-        "Panel de administración propio",
-        "Base de datos incluida",
-        "Login seguro de administrador",
-        "Subida y gestión de imágenes",
-        "Dominio incluido por 1 año",
-        "Entrega en 7–10 días hábiles"
+        "Sitio web multi-sección completo y personalizado",
+        "Panel de administración para gestión de contenidos",
+        "Catálogo digital de productos o servicios",
+        "Base de datos integrada para formularios y clientes",
+        "Optimización SEO avanzada y dominio incluido por 1 año",
+        "Entrega en 5 a 8 días hábiles"
       ]
     },
     "plan3": {
-      "name": "Plan CRM / Sistema a la Medida",
+      "name": "Sistemas para Locales & Negocios",
       "price": "A cotizar",
       "period": "Mantenimiento: ₡35,000/mes",
       "features": [
-        "Gestión de clientes y base de datos",
+        "Punto de Venta (POS), CRM, E-Commerce o Sistema a la Medida",
+        "Control de inventario, ventas, pedidos y clientes",
         "Reportes y estadísticas en tiempo real",
         "Multi-usuario con roles y permisos",
-        "Automatización de procesos internos",
-        "Integración con WhatsApp",
-        "App móvil (opcional)",
-        "Soporte y actualizaciones incluidas",
-        "Garantía de funcionamiento 24/7"
+        "Automatización con WhatsApp e Inteligencia Artificial",
+        "Integraciones con SINPE Móvil y pasarelas de pago",
+        "Soporte y actualizaciones continuas 24/7"
       ]
     }
   },

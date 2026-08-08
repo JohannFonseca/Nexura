@@ -54,6 +54,14 @@ export default function AllProjectsSection() {
 
   const projects = useMemo(() => [
     {
+      tag: t.projects.items.t2Tag,
+      title: t.projects.items.t2Title,
+      desc: t.projects.items.t2Desc,
+      image: "/CapturaOrbitt.png",
+      link: "https://orbitt.nextsunrise.dev/",
+      objectPosition: "object-top",
+    },
+    {
       tag: t.projects.items.t1Tag,
       title: t.projects.items.t1Title,
       desc: t.projects.items.t1Desc,
