@@ -127,7 +127,7 @@ export default function PortfolioSection() {
       tag: t.projects.items.t2Tag,
       title: t.projects.items.t2Title,
       desc: t.projects.items.t2Desc,
-      image: "/CapturaOrbitt.png",
+      image: "/CapturaOrbitt.jpg",
       link: "https://orbitt.nextsunrise.dev/",
       objectPosition: "object-top",
     },
