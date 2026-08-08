@@ -45,6 +45,7 @@ export function ProjectTile({
           src={image}
           alt={title}
           fill
+          unoptimized
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className={`object-cover ${objectPosition} transition-transform duration-700 group-hover:scale-[1.04]`}
         />
