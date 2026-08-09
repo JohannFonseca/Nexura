@@ -62,6 +62,15 @@ export default function AllProjectsSection() {
       objectPosition: "object-top",
     },
     {
+      tag: t.projects.items.t8Tag,
+      title: t.projects.items.t8Title,
+      desc: t.projects.items.t8Desc,
+      image: "/InicioFresaMusic.jpg",
+      link: "https://slategrey-crow-130544.hostingersite.com/",
+      objectPosition: "object-top",
+      isFeatured: true,
+    },
+    {
       tag: t.projects.items.t1Tag,
       title: t.projects.items.t1Title,
       desc: t.projects.items.t1Desc,
@@ -102,7 +111,7 @@ export default function AllProjectsSection() {
       <div className="max-w-[1180px] mx-auto px-6 md:px-8">
         
         {/* Section Head */}
-        <div className="all-reveal max-w-[600px] mb-16 opacity-0">
+        <div className="all-reveal max-w-[600px] mb-16">
           <span className="font-mono text-[12px] tracking-[0.14em] text-signal font-semibold uppercase block mb-4">
             {t.projects.label}
           </span>
@@ -126,7 +135,8 @@ export default function AllProjectsSection() {
               link={project.link}
               objectPosition={project.objectPosition}
               isStaggered={false}
-              className="all-card opacity-0"
+              isFeatured={project.isFeatured}
+              className="all-card"
             />
           ))}
 

@@ -20,6 +20,7 @@ export function ProjectTile({
   isStaggered = false,
   className = "",
   objectPosition = "object-top",
+  isFeatured = false,
 }: {
   tag: string;
   title: string;
@@ -29,18 +30,33 @@ export function ProjectTile({
   isStaggered?: boolean;
   className?: string;
   objectPosition?: string;
+  isFeatured?: boolean;
 }) {
   const staggerClasses = isStaggered ? "lg:translate-y-12" : "";
+  const featuredClasses = isFeatured
+    ? "border-rose-400/60 shadow-[0_20px_48px_-18px_rgba(244,63,94,0.38)] hover:shadow-[0_28px_56px_-16px_rgba(244,63,94,0.52)] hover:border-rose-500 ring-2 ring-rose-400/25 lg:scale-[1.035] lg:-translate-y-2.5 z-10"
+    : "border-line hover:border-[#d3d8de] hover:shadow-[0_24px_44px_-28px_rgba(11,14,20,0.22)]";
 
   return (
     <a
       href={link}
       target="_blank"
       rel="noopener noreferrer"
-      className={`group block bg-white rounded-[24px] border border-line overflow-hidden transition-all duration-300 ease-out select-none hover:-translate-y-2 hover:shadow-[0_24px_44px_-28px_rgba(11,14,20,0.22)] hover:border-[#d3d8de] ${staggerClasses} ${className}`}
+      className={`group flex flex-col bg-white rounded-[24px] border overflow-hidden transition-all duration-300 ease-out select-none hover:-translate-y-2 ${featuredClasses} ${staggerClasses} ${className}`}
     >
+      {/* Top Accent line for featured card */}
+      {isFeatured && (
+        <div className="h-1.5 w-full bg-gradient-to-r from-rose-500 via-red-500 to-pink-500 animate-pulse" />
+      )}
+
       {/* Top Image area */}
       <div className="relative aspect-[16/10] bg-bg-alt overflow-hidden border-b border-line">
+        {isFeatured && (
+          <div className="absolute top-3.5 right-3.5 z-10 font-mono text-[10.5px] tracking-wider text-white font-bold bg-gradient-to-r from-rose-600 to-red-600 px-3 py-1 rounded-full uppercase shadow-lg shadow-rose-600/40 flex items-center gap-1.5 border border-white/30 backdrop-blur-sm">
+            <span>★</span>
+            <span>Trabajo Destacado</span>
+          </div>
+        )}
         <Image
           src={image}
           alt={title}
@@ -52,25 +68,40 @@ export function ProjectTile({
       </div>
 
       {/* Bottom details */}
-      <div className="p-8 relative">
+      <div className="p-7 flex flex-col justify-between flex-grow relative">
         <div className="flex flex-col gap-3">
-          <div>
-            <span className="font-mono text-[11px] tracking-wider text-signal font-semibold border border-signal/20 px-3 py-1 rounded-full uppercase bg-signal-dim">
+          <div className="flex items-center justify-between">
+            <span
+              className={`font-mono text-[11px] tracking-wider font-semibold border px-3 py-1 rounded-full uppercase ${
+                isFeatured
+                  ? "text-rose-600 border-rose-500/30 bg-rose-50 font-bold"
+                  : "text-signal border-signal/20 bg-signal-dim"
+              }`}
+            >
               {tag}
             </span>
           </div>
 
-          <h3 className="font-display font-semibold text-2xl text-ink group-hover:text-signal transition-colors duration-300">
+          <h3
+            className={`font-display font-semibold text-2xl text-ink transition-colors duration-300 ${
+              isFeatured ? "group-hover:text-rose-600" : "group-hover:text-signal"
+            }`}
+          >
             {title}
           </h3>
 
-          <p className="text-[14.5px] text-ink-soft leading-relaxed max-w-sm">
+          <p className="text-[14.5px] text-ink-soft leading-relaxed">
             {desc}
           </p>
         </div>
 
-        <div className="absolute bottom-8 right-8 font-mono text-sm text-signal flex items-center gap-1.5 transition-all duration-300 translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100">
-          <span>{tag === "SAAS" || tag === "CRM" || tag === "WEB" ? "→ Link" : "→ View"}</span>
+        {/* Clean footer link with zero text overlap */}
+        <div
+          className={`mt-6 pt-2 font-mono text-sm font-semibold flex items-center justify-end gap-1.5 transition-all duration-300 translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 ${
+            isFeatured ? "text-rose-600" : "text-signal"
+          }`}
+        >
+          <span>{tag.includes("SAAS") || tag.includes("CRM") || tag.includes("WEB") ? "→ Visitar sitio" : "→ Ver más"}</span>
         </div>
       </div>
     </a>
@@ -133,20 +164,21 @@ export default function PortfolioSection() {
       objectPosition: "object-top",
     },
     {
+      tag: t.projects.items.t8Tag,
+      title: t.projects.items.t8Title,
+      desc: t.projects.items.t8Desc,
+      image: "/InicioFresaMusic.jpg",
+      link: "https://slategrey-crow-130544.hostingersite.com/",
+      objectPosition: "object-top",
+      isFeatured: true,
+    },
+    {
       tag: t.projects.items.t1Tag,
       title: t.projects.items.t1Title,
       desc: t.projects.items.t1Desc,
       image: "/Libreria_Crayola.jpg",
       link: "https://www.libreriacrayolacr.com/",
       objectPosition: "object-center",
-    },
-    {
-      tag: t.projects.items.t4Tag,
-      title: t.projects.items.t4Title,
-      desc: t.projects.items.t4Desc,
-      image: "/PaginaNextInteraction.jpg",
-      link: "https://nextinteraction.com/",
-      objectPosition: "object-top",
     },
   ], [t, lang]);
 
@@ -155,7 +187,7 @@ export default function PortfolioSection() {
       <div className="max-w-[1180px] mx-auto px-6 md:px-8">
         
         {/* Section Head */}
-        <div className="portfolio-reveal max-w-[600px] mb-16 opacity-0">
+        <div className="portfolio-reveal max-w-[600px] mb-16">
           <span className="font-mono text-[12px] tracking-[0.14em] text-signal font-semibold uppercase block mb-4">
             {t.projects.label}
           </span>
@@ -180,7 +212,8 @@ export default function PortfolioSection() {
                 link={project.link}
                 objectPosition={project.objectPosition}
                 isStaggered={false}
-                className="portfolio-card opacity-0"
+                isFeatured={project.isFeatured}
+                className="portfolio-card"
               />
             );
           })}

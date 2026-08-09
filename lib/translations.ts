@@ -80,6 +80,9 @@ export interface TranslationSet {
       t7Tag: string;
       t7Title: string;
       t7Desc: string;
+      t8Tag: string;
+      t8Title: string;
+      t8Desc: string;
       tag1: string; // new
       desc1: string; // new
       metric1Num1: string; // new
@@ -298,6 +301,9 @@ export const translations = {
         t7Tag: "NEXT SUNRISE",
         t7Title: "¿Tu negocio aquí?",
         t7Desc: "Diseñamos y desarrollamos el software o sitio web a la medida que tu empresa necesita para crecer.",
+        t8Tag: "DESTACADO · WEB",
+        t8Title: "Fresa Music",
+        t8Desc: "Plataforma web oficial y experiencia digital para sello discográfico y producción musical.",
         tag1: "Taller mecánico · Sistema web + POS",
         desc1: "Pasaron de agendar citas por WhatsApp a mano a un sistema que controla órdenes, repuestos y cobro en un solo lugar.",
         metric1Num1: "38",
@@ -539,6 +545,9 @@ export const translations = {
         t7Tag: "NEXT SUNRISE",
         t7Title: "Your business here?",
         t7Desc: "We design and build the custom software or website your business needs to grow.",
+        t8Tag: "FEATURED · WEB",
+        t8Title: "Fresa Music",
+        t8Desc: "Official web platform and interactive digital experience for music label and production.",
         tag1: "Mechanic Shop · Web System + POS",
         desc1: "Went from scheduling WhatsApp appointments by hand to a system that controls orders, spare parts, and checkout in one place.",
         metric1Num1: "38",
