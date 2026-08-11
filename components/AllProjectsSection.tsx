@@ -66,7 +66,7 @@ export default function AllProjectsSection() {
       title: t.projects.items.t8Title,
       desc: t.projects.items.t8Desc,
       image: "/InicioFresaMusic.jpg",
-      link: "https://slategrey-crow-130544.hostingersite.com/",
+      link: "https://fresamusic.com/",
       objectPosition: "object-top",
       isFeatured: true,
     },
