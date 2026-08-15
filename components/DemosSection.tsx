@@ -209,7 +209,7 @@ export default function DemosSection() {
                   </div>
 
                   {/* Description */}
-                  <div className="min-h-[64px] mb-6 flex items-start">
+                  <div className="min-h-[72px] mb-6 flex items-start">
                     <p className="text-[13.5px] text-ink-soft leading-relaxed">
                       {demo.desc}
                     </p>
@@ -237,14 +237,14 @@ export default function DemosSection() {
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl font-sans text-xs font-semibold border transition-all duration-300 cursor-pointer ${
+                    className={`w-full inline-flex items-center justify-center gap-2 h-[42px] px-4 rounded-xl font-sans text-xs font-semibold border transition-all duration-300 cursor-pointer whitespace-nowrap ${
                       isCrm
                         ? "bg-signal text-white hover:bg-signal/90 border-transparent shadow-sm hover:shadow-md"
                         : "bg-bg-alt hover:bg-ink hover:text-white border-line text-ink"
                     }`}
                   >
                     <span>{isCrm ? (lang === "es" ? "Probar Demo en Vivo" : "Try Live Demo") : demo.ctaText}</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
+                    <ArrowRight className="w-3.5 h-3.5 shrink-0" />
                   </a>
                 </div>
               </div>
