@@ -76,42 +76,54 @@ export default function DemosSection() {
       icon: Layers,
       accentColor: "from-blue-500/10 to-indigo-500/5",
       borderColor: "hover:border-blue-300",
-      previewLines: [
+      previewLines: lang === "es" ? [
         { label: "Leads Activos", val: "48", color: "bg-blue-500" },
         { label: "Embudo de Ventas", val: "₡4.2M", color: "bg-emerald-500" },
         { label: "WhatsApp Bot", val: "Activo", color: "bg-amber-500" },
+      ] : [
+        { label: "Active Leads", val: "48", color: "bg-blue-500" },
+        { label: "Sales Pipeline", val: "$8.5k", color: "bg-emerald-500" },
+        { label: "WhatsApp Bot", val: "Active", color: "bg-amber-500" },
       ]
     },
     {
-      id: "saas",
-      tag: "MOD.SAAS",
-      title: t.demos.saasTitle,
-      desc: t.demos.saasDesc,
+      id: "onplate",
+      tag: "MOD.AR_MENU",
+      title: t.demos.onplateTitle,
+      desc: t.demos.onplateDesc,
       status: t.demos.badgeSoon,
-      ctaText: t.demos.saasCta,
+      ctaText: t.demos.onplateCta,
       icon: Sparkles,
       accentColor: "from-purple-500/10 to-pink-500/5",
       borderColor: "hover:border-purple-300",
-      previewLines: [
-        { label: "Catálogo Digital", val: "+350 SKU", color: "bg-purple-500" },
-        { label: "Órdenes / Mes", val: "1,240", color: "bg-indigo-500" },
-        { label: "Pasarela de Cobro", val: "Conectada", color: "bg-emerald-500" },
+      previewLines: lang === "es" ? [
+        { label: "Platillos en 3D", val: "En tu mesa", color: "bg-purple-500" },
+        { label: "Realidad Aumentada", val: "360° Interactivo", color: "bg-pink-500" },
+        { label: "Escanea y Elige", val: "Con Confianza", color: "bg-emerald-500" },
+      ] : [
+        { label: "3D Dishes", val: "On your table", color: "bg-purple-500" },
+        { label: "Augmented Reality", val: "360° Interactive", color: "bg-pink-500" },
+        { label: "Scan & Order", val: "With Confidence", color: "bg-emerald-500" },
       ]
     },
     {
-      id: "pos",
-      tag: "MOD.POS",
-      title: t.demos.posTitle,
-      desc: t.demos.posDesc,
+      id: "kora",
+      tag: "MOD.ERP",
+      title: t.demos.koraTitle,
+      desc: t.demos.koraDesc,
       status: t.demos.badgeSoon,
-      ctaText: t.demos.posCta,
+      ctaText: t.demos.koraCta,
       icon: ShieldCheck,
       accentColor: "from-amber-500/10 to-orange-500/5",
       borderColor: "hover:border-amber-300",
-      previewLines: [
-        { label: "Comandas Cocina", val: "En tiempo real", color: "bg-orange-500" },
-        { label: "Cobro SINPE", val: "Instantáneo", color: "bg-emerald-500" },
-        { label: "Cierre de Caja", val: "Automatizado", color: "bg-blue-500" },
+      previewLines: lang === "es" ? [
+        { label: "Gestión ERP", val: "100% Integrado", color: "bg-orange-500" },
+        { label: "Control Operativo", val: "Inventario + Ventas", color: "bg-emerald-500" },
+        { label: "Solicitar Demo", val: "Vía WhatsApp", color: "bg-blue-500" },
+      ] : [
+        { label: "ERP Management", val: "100% Integrated", color: "bg-orange-500" },
+        { label: "Operations Control", val: "Inventory + Sales", color: "bg-emerald-500" },
+        { label: "Request Demo", val: "Via WhatsApp", color: "bg-blue-500" },
       ]
     },
     {
@@ -124,10 +136,14 @@ export default function DemosSection() {
       icon: PhoneCall,
       accentColor: "from-emerald-500/10 to-teal-500/5",
       borderColor: "hover:border-emerald-300",
-      previewLines: [
-        { label: "Agente Telefónico", val: "En desarrollo", color: "bg-emerald-500" },
+      previewLines: lang === "es" ? [
+        { label: "Agente Telefónico", val: "Voz IA 24/7", color: "bg-emerald-500" },
         { label: "Reservas Mesa", val: "100% Automático", color: "bg-blue-500" },
-        { label: "Disponibilidad", val: "24 / 7", color: "bg-purple-500" },
+        { label: "Solicitar Demo", val: "Vía WhatsApp", color: "bg-purple-500" },
+      ] : [
+        { label: "Phone Agent", val: "Voice AI 24/7", color: "bg-emerald-500" },
+        { label: "Table Bookings", val: "100% Automatic", color: "bg-blue-500" },
+        { label: "Request Demo", val: "Via WhatsApp", color: "bg-purple-500" },
       ]
     },
   ];

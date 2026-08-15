@@ -115,12 +115,12 @@ export interface TranslationSet {
     crmTitle: string;
     crmDesc: string;
     crmCta: string;
-    saasTitle: string;
-    saasDesc: string;
-    saasCta: string;
-    posTitle: string;
-    posDesc: string;
-    posCta: string;
+    onplateTitle: string;
+    onplateDesc: string;
+    onplateCta: string;
+    koraTitle: string;
+    koraDesc: string;
+    koraCta: string;
     aiTitle: string;
     aiDesc: string;
     aiCta: string;
@@ -329,21 +329,21 @@ export const translations = {
     demos: {
       label: "DEMOS INTERACTIVAS",
       headline: "Próximamente: Prueba nuestras soluciones en vivo.",
-      subtext: "Estamos creando entornos de prueba interactivos para que puedas experimentar la potencia de nuestros CRM, plataformas SaaS y sistemas POS directamente en tu navegador.",
+      subtext: "Estamos creando entornos de prueba interactivos para que puedas experimentar la potencia de nuestros CRM, plataformas de Realidad Aumentada y sistemas ERP directamente en tu navegador.",
       badgeSoon: "En desarrollo",
       badgeLive: "Demo En Vivo",
       crmTitle: "Orbitt (CRM)",
       crmDesc: "Gestión de clientes, embudos de venta visuales, seguimiento de leads y automatizaciones con WhatsApp.",
       crmCta: "Probar Demo en Vivo",
-      saasTitle: "Horizon (E-commerce)",
-      saasDesc: "Gestión multitienda, catálogo interactivo, control de inventario en tiempo real y pasarela de cobro.",
-      saasCta: "Solicitar acceso anticipado",
-      posTitle: "Ray (POS)",
-      posDesc: "Punto de venta táctil ultrarrápido, comandas en pantalla para cocina e integración SINPE Móvil.",
-      posCta: "Solicitar acceso anticipado",
+      onplateTitle: "OnPlate (Realidad Aumentada)",
+      onplateDesc: "Plataforma de realidad aumentada para restaurantes. Visualiza platillos del menú en 3D sobre tu mesa antes de pedir, apreciando su presentación, tamaño y apariencia.",
+      onplateCta: "Solicitar Demo por WhatsApp",
+      koraTitle: "Kora (ERP Completo)",
+      koraDesc: "Sistema ERP integral para gestionar finanzas, inventarios, facturación y todas las operaciones clave de tu empresa.",
+      koraCta: "Solicitar Demo por WhatsApp",
       aiTitle: "Veló (Voice AI)",
       aiDesc: "Asistente telefónico inteligente entrenado para tomar reservas y responder consultas 24/7.",
-      aiCta: "Solicitar acceso anticipado",
+      aiCta: "Solicitar Demo por WhatsApp",
     },
     differentiators: {
       label: "Filosofía",
@@ -573,21 +573,21 @@ export const translations = {
     demos: {
       label: "INTERACTIVE DEMOS",
       headline: "Coming Soon: Test our systems live in your browser.",
-      subtext: "We are developing interactive sandboxes so you can experience our CRM, SaaS, and POS platforms first-hand before launch.",
+      subtext: "We are developing interactive sandboxes so you can experience our CRM, Augmented Reality platforms, and ERP systems first-hand before launch.",
       badgeSoon: "In development",
       badgeLive: "Live Demo",
       crmTitle: "Orbitt (CRM)",
       crmDesc: "Customer management, visual sales pipelines, lead tracking, and automated WhatsApp actions.",
       crmCta: "Try Live Demo",
-      saasTitle: "Horizon (E-commerce)",
-      saasDesc: "Multi-store management, interactive catalog, real-time inventory control, and payment gateway.",
-      saasCta: "Request early access",
-      posTitle: "Ray (POS)",
-      posDesc: "Ultra-fast touch point of sale, kitchen display tickets, and local payment integration.",
-      posCta: "Request early access",
+      onplateTitle: "OnPlate (Augmented Reality)",
+      onplateDesc: "Augmented reality platform for restaurants. Preview 3D menu dishes right on your table before ordering, assessing size, presentation, and appearance.",
+      onplateCta: "Request Demo via WhatsApp",
+      koraTitle: "Kora (Full ERP)",
+      koraDesc: "Comprehensive all-in-one ERP system to manage inventory, finances, invoicing, and core operations for your business.",
+      koraCta: "Request Demo via WhatsApp",
       aiTitle: "Veló (Voice AI)",
       aiDesc: "Intelligent phone assistant trained to accept reservations and handle inquiries live 24/7.",
-      aiCta: "Request early access",
+      aiCta: "Request Demo via WhatsApp",
     },
     differentiators: {
       label: "Philosophy",
