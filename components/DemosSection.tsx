@@ -185,9 +185,9 @@ export default function DemosSection() {
                 key={demo.id}
                 className={`demo-card opacity-0 group bg-white rounded-[24px] border border-line overflow-hidden p-6 flex flex-col justify-between transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-[0_20px_40px_-20px_rgba(11,14,20,0.15)] ${demo.borderColor}`}
               >
-                <div>
+                <div className="flex flex-col h-full">
                   {/* Card Top Row: Tag & Status Badge */}
-                  <div className="flex items-center justify-between gap-2 mb-4">
+                  <div className="flex items-center justify-between gap-2 mb-4 h-7">
                     <span className="font-mono text-[10px] tracking-wider text-ink-soft font-semibold uppercase bg-bg-alt border border-line px-2.5 py-1 rounded-full">
                       {demo.tag}
                     </span>
@@ -199,30 +199,32 @@ export default function DemosSection() {
                   </div>
 
                   {/* Icon & Title */}
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 rounded-xl bg-bg-alt border border-line flex items-center justify-center text-ink group-hover:scale-105 group-hover:border-signal/40 transition-all duration-300">
+                  <div className="flex items-center gap-3 mb-3 min-h-[40px]">
+                    <div className="w-10 h-10 rounded-xl bg-bg-alt border border-line flex items-center justify-center text-ink group-hover:scale-105 group-hover:border-signal/40 transition-all duration-300 shrink-0">
                       <Icon className="w-5 h-5 text-signal" />
                     </div>
-                    <h3 className="font-display font-semibold text-lg text-ink group-hover:text-signal transition-colors duration-300">
+                    <h3 className="font-display font-bold text-xl text-ink group-hover:text-signal transition-colors duration-300">
                       {demo.title}
                     </h3>
                   </div>
 
                   {/* Description */}
-                  <p className="text-[13.5px] text-ink-soft leading-relaxed mb-6">
-                    {demo.desc}
-                  </p>
+                  <div className="min-h-[64px] mb-6 flex items-start">
+                    <p className="text-[13.5px] text-ink-soft leading-relaxed">
+                      {demo.desc}
+                    </p>
+                  </div>
 
                   {/* Mini Interactive Sandbox Visual Preview */}
-                  <div className={`p-4 rounded-xl border border-line bg-gradient-to-br ${demo.accentColor} mb-6`}>
+                  <div className={`p-4 rounded-xl border border-line bg-gradient-to-br ${demo.accentColor} mb-6 mt-auto`}>
                     <div className="space-y-2.5">
                       {demo.previewLines.map((line, idx) => (
                         <div key={idx} className="flex items-center justify-between text-[11.5px] font-mono bg-white/80 backdrop-blur-xs p-2 rounded-lg border border-line/60">
-                          <div className="flex items-center gap-2">
-                            <span className={`w-2 h-2 rounded-full ${line.color}`} />
-                            <span className="text-ink-soft">{line.label}</span>
+                          <div className="flex items-center gap-2 overflow-hidden">
+                            <span className={`w-2 h-2 rounded-full shrink-0 ${line.color}`} />
+                            <span className="text-ink-soft truncate">{line.label}</span>
                           </div>
-                          <span className="font-semibold text-ink">{line.val}</span>
+                          <span className="font-semibold text-ink shrink-0 ml-2">{line.val}</span>
                         </div>
                       ))}
                     </div>
@@ -230,7 +232,7 @@ export default function DemosSection() {
                 </div>
 
                 {/* CTA Action */}
-                <div>
+                <div className="mt-auto pt-2">
                   <a
                     href={href}
                     target="_blank"
