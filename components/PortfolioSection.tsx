@@ -21,6 +21,7 @@ export function ProjectTile({
   className = "",
   objectPosition = "object-top",
   isFeatured = false,
+  featuredBadge = "Trabajo Destacado",
 }: {
   tag: string;
   title: string;
@@ -31,6 +32,7 @@ export function ProjectTile({
   className?: string;
   objectPosition?: string;
   isFeatured?: boolean;
+  featuredBadge?: string;
 }) {
   const staggerClasses = isStaggered ? "lg:translate-y-12" : "";
   const featuredClasses = isFeatured
@@ -54,7 +56,7 @@ export function ProjectTile({
         {isFeatured && (
           <div className="absolute top-3.5 right-3.5 z-10 font-mono text-[10.5px] tracking-wider text-white font-bold bg-gradient-to-r from-rose-600 to-red-600 px-3 py-1 rounded-full uppercase shadow-lg shadow-rose-600/40 flex items-center gap-1.5 border border-white/30 backdrop-blur-sm">
             <span>★</span>
-            <span>Trabajo Destacado</span>
+            <span>{featuredBadge}</span>
           </div>
         )}
         <Image
@@ -213,6 +215,7 @@ export default function PortfolioSection() {
                 objectPosition={project.objectPosition}
                 isStaggered={false}
                 isFeatured={project.isFeatured}
+                featuredBadge={lang === "es" ? "Trabajo Destacado" : "Featured Work"}
                 className="portfolio-card"
               />
             );

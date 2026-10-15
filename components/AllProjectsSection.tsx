@@ -136,6 +136,7 @@ export default function AllProjectsSection() {
               objectPosition={project.objectPosition}
               isStaggered={false}
               isFeatured={project.isFeatured}
+              featuredBadge={lang === "es" ? "Trabajo Destacado" : "Featured Work"}
               className="all-card"
             />
           ))}
